@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/AccountManagement/" />
+  <Folder Name="/AccountManagement/AM.Application/">
+    <Project Path="AccountManagment.Application.Contracts/AccountManagment.Application.Contracts.csproj" />
+    <Project Path="AccountManagment.Application/AccountManagment.Application.csproj" />
+  </Folder>
+  <Folder Name="/AccountManagement/AM.Domain/">
+    <Project Path="AccountManagment/AccountManagment.Domain.csproj" />
+  </Folder>
+  <Folder Name="/AccountManagement/AM.Infrastructure/">
+    <Project Path="AccountManagment.Infrastructure.Configuration/AccountManagment.Infrastructure.Configuration.csproj" />
+    <Project Path="AccountManagment.Infrastructure/AccountManagment.Infrastructure.EFCore.csproj" />
+  </Folder>
+  <Folder Name="/Services/">
+    <Project Path="Services/Services.csproj" />
+  </Folder>
+  <Project Path="AsrJadid/AsrJadid.csproj" />
+</Solution>
