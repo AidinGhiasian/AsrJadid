@@ -15,11 +15,12 @@ namespace AccountManagment.Application.Contracts.AccountModels
         public OperationResult Restore(long Id);
         public List<AccountViewModel> GetList(bool status);
         public AccountViewModel? GetById(long id);
-        public AccountSearchModel Search(string search);
+        public List<AccountSearchModel> Search(string search);
         public EditViewModel GetDetails(long Id);
         public AccountViewModel GetInfo(long Id);
         public OperationResult login(LoginViewModel command);
         public OperationResult logout();
+        public OperationResult ChangeRole(long id,long roleId);
 
     }
 }

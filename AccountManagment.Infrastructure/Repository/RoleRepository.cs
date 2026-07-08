@@ -15,9 +15,5 @@ namespace AccountManagment.Infrastructure.EFCore.Repository
             return _dbContext.Roles.FirstOrDefault(x => x.Id == id);
         }
 
-        public List<Roles> GetRoles()
-        {
-            return _dbContext.Roles.ToList();
-        }
     }
 }

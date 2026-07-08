@@ -13,6 +13,7 @@ namespace AccountManagment.Domain.Domain.Account.Agg
         public Accounts GetById(long id);
         public OperationResult Delete(long id);
         public OperationResult Restore(long id);
+        public OperationResult ChangeRole(long id,long roleId);
         public List<Accounts> Search(string account);
         public Accounts GetByPhone(string phoneNumber);
     }

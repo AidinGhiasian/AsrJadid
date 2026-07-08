@@ -2,6 +2,8 @@
 using AccountManagment.Domain.Domain.Account.Agg;
 using Services.Application;
 using Services.Application.HashPassword;
+using Services.Models;
+using System.Reflection.Metadata.Ecma335;
 
 namespace AccountManagment.Application
 {
@@ -10,11 +12,13 @@ namespace AccountManagment.Application
         private readonly IAccountRepository _accountRepository;
         private readonly IPasswordHasher _passwordHasher;
         private readonly IFileUploader _fileUploader;
-        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IFileUploader fileUploader)
+        private readonly IAuthHelper _authHelper;
+        public AccountApplication(IAccountRepository accountRepository, IPasswordHasher passwordHasher, IFileUploader fileUploader, IAuthHelper authHelper)
         {
             _accountRepository = accountRepository;
             _passwordHasher = passwordHasher;
             _fileUploader = fileUploader;
+            _authHelper = authHelper;
         }
         public OperationResult Create(CreateViewModel command)
         {
@@ -48,6 +52,7 @@ namespace AccountManagment.Application
               
             }
             account.Edit(command.Name, command.Family, command.PhoneNumber, command.Email, command.BirthDate, command.Address, command.Picture);
+            _accountRepository.SaveChanges();
             return result.IsSuccess();
         }
 
@@ -71,27 +76,55 @@ namespace AccountManagment.Application
 
         public List<AccountViewModel> GetList(bool status)
         {
-            throw new NotImplementedException();
+            var list = _accountRepository.GetAccounts(status);
+            return Maps(list);
         }
 
         public OperationResult login(LoginViewModel command)
         {
-            throw new NotImplementedException();
+            OperationResult operation = new OperationResult();
+            var account = _accountRepository.GetByPhone(command.PhoneNumber);
+            if (account == null)
+            {
+                return operation.Failed(ApplicationMessage.WrongPhoneNumber);
+            }
+            (bool Verified, bool needUpgrade)result = _passwordHasher.Check(account.Password, command.Password);
+            if (!result.Verified)
+            {
+                return operation.Failed(ApplicationMessage.WrongPassword);
+            }
+            var auth = new AuthViewModel(account.Id, account.Name,account.Family,account.RoleId,account.PhoneNumber,account.Picture);
+            _authHelper.SignIn(auth);
+            return operation.IsSuccess();
         }
 
         public OperationResult logout()
         {
-            throw new NotImplementedException();
+            OperationResult result = new OperationResult();
+            _authHelper.SignOut();
+            return result.IsSuccess();
         }
 
         public OperationResult Restore(long Id)
         {
-            throw new NotImplementedException();
+            var opration = new OperationResult();
+            _accountRepository.Restore(Id);
+            return opration.IsSuccess();
         }
 
-        public AccountSearchModel Search(string search)
+        public List<AccountSearchModel> Search(string search)
         {
-            throw new NotImplementedException();
+            var accountList = _accountRepository.Search(search);
+            var accounts = new List<AccountSearchModel>();
+            foreach (var account in accountList)
+            {
+                accounts.Add(SearchMap(account));
+            }
+            return accounts;
+        }
+        public OperationResult ChangeRole(long id,long roleId)
+        {
+            return _accountRepository.ChangeRole(id,roleId);
         }
         //Maps
         public EditViewModel EditingMap(Accounts edit)
@@ -121,6 +154,25 @@ namespace AccountManagment.Application
                 Picture=map.Picture,
                 RoleId=map.RoleId
 
+            };
+        }
+        public List<AccountViewModel> Maps(List<Accounts> list)
+        {
+            var result = new List<AccountViewModel>();
+            foreach (var item in list)
+            {
+                result.Add(Map(item));
+            }
+            return result;
+        }
+        private AccountSearchModel SearchMap(Accounts account)
+        {
+            return new AccountSearchModel
+            {
+                Id = account.Id,
+                Name = account.Name,
+                Family = account.Family,
+                PhoneNumber = account.PhoneNumber,
             };
         }
     }

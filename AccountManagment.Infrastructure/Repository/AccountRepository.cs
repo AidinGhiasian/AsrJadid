@@ -10,6 +10,20 @@ namespace AccountManagment.Infrastructure.Repository
         {
             _dbContext = dbContext;
         }
+
+        public OperationResult ChangeRole(long id, long roleId)
+        {
+            OperationResult result = new OperationResult();
+            var account = _dbContext.Accounts.FirstOrDefault(x => x.Id == id);
+            if (account == null)
+            {
+                return result.Failed(ApplicationMessage.NotFund);
+            }
+            account.ChangeRole(roleId);
+            _dbContext.SaveChanges();
+            return result.IsSuccess();
+        }
+
         public OperationResult Delete(long id)
         {
             OperationResult op = new OperationResult();

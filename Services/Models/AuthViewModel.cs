@@ -11,7 +11,7 @@
         public string PhoneNumber { get; set; }
         public string Picture { get; set; }
         public AuthViewModel(){}
-        public AuthViewModel(long id, string name, long roleId, string phoneNumber, string picture,string family)
+        public AuthViewModel(long id, string name, string family, long roleId, string phoneNumber, string picture)
         {
             Id = id;
             Name = name;
