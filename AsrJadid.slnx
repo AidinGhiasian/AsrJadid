@@ -16,13 +16,15 @@
   </Folder>
   <Folder Name="/StoneManagement/" />
   <Folder Name="/StoneManagement/SM.Application/">
+    <Project Path="StoneManagement.Application.Contracts/StoneManagement.Application.Contracts.csproj" Id="dc6b7fa8-ff3c-4729-836d-a2f6e7a9c78c" />
     <Project Path="StoneManagement.Application/StoneManagement.Application.csproj" Id="05838d9e-9e02-4aae-94de-b1886a9cc57f" />
   </Folder>
   <Folder Name="/StoneManagement/SM.Domain/">
     <Project Path="StoneManagement.Domain/StoneManagement.Domain.csproj" Id="d4dab5e5-cd38-4162-8aa7-156a631ec209" />
   </Folder>
   <Folder Name="/StoneManagement/SM.Infrastructure/">
-    <Project Path="StoneManagement.Infrastructure/StoneManagement.Infrastructure.csproj" Id="6729889a-cf2a-4df7-bd13-76414b795015" />
+    <Project Path="StoneManagement.Infrastructure.Configuration/StoneManagement.Infrastructure.Configuration.csproj" Id="69991eb5-1f9e-4de5-b715-64e03b5e6c04" />
+    <Project Path="StoneManagement.Infrastructure/StoneManagement.Infrastructure.EFCore.csproj" Id="6729889a-cf2a-4df7-bd13-76414b795015" />
   </Folder>
   <Project Path="AsrJadid/AsrJadid.csproj" />
 </Solution>
