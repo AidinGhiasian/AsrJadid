@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StoneManagement.Application.Contracts.Stone
+﻿namespace StoneManagement.Application.Contracts.Stone
 {
-    internal class EditViewModel
+    public class EditViewModel:CreateViewModel
     {
+        public long Id { get; set; }
+        public string Picture { get; set; }
     }
 }

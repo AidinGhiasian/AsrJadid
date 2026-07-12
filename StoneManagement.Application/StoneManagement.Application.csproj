@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StoneManagement.Application.Contracts\StoneManagement.Application.Contracts.csproj" />
+    <ProjectReference Include="..\StoneManagement.Domain\StoneManagement.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

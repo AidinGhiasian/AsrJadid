@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\StoneManagement.Application.Contracts\StoneManagement.Application.Contracts.csproj" />
+    <ProjectReference Include="..\StoneManagement.Application\StoneManagement.Application.csproj" />
     <ProjectReference Include="..\StoneManagement.Domain\StoneManagement.Domain.csproj" />
     <ProjectReference Include="..\StoneManagement.Infrastructure\StoneManagement.Infrastructure.EFCore.csproj" />
   </ItemGroup>

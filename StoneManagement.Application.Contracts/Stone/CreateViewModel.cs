@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace StoneManagement.Application.Contracts.Stone
 {
-    internal class CreateViewModel
+    public class CreateViewModel
     {
+        public IFormFile PictureFile { get; set; }
+        public string StoneName { get; set; }
+        public double Length { get; set; }
+        public double Width { get; set; }
+        public double Weight { get; set; }
+        public decimal Price { get; set; }
+        public string Color { get; set; }
+        public int Stock { get; set; }
+        public long CategoryId { get; set; }
+        public string Description { get; set; }
     }
 }
