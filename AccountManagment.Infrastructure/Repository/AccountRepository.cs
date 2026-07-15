@@ -17,7 +17,7 @@ namespace AccountManagment.Infrastructure.Repository
             var account = _dbContext.Accounts.FirstOrDefault(x => x.Id == id);
             if (account == null)
             {
-                return result.Failed(ApplicationMessage.NotFund);
+                return result.Failed(ApplicationMessage.NotFound);
             }
             account.ChangeRole(roleId);
             _dbContext.SaveChanges();
@@ -30,7 +30,7 @@ namespace AccountManagment.Infrastructure.Repository
             var da = _dbContext.Accounts.FirstOrDefault(x => x.Id == id);
             if (da == null)
             {
-                return op.Failed(ApplicationMessage.NotFund);
+                return op.Failed(ApplicationMessage.NotFound);
             }
             da.ChangeStatus(false);
             return op.IsSuccess();
@@ -57,7 +57,7 @@ namespace AccountManagment.Infrastructure.Repository
             var ra = _dbContext.Accounts.FirstOrDefault(x => x.Id == id);
             if (ra == null)
             {
-                return op.Failed(ApplicationMessage.NotFund);
+                return op.Failed(ApplicationMessage.NotFound);
             }
             ra.ChangeStatus(true);
             return op.IsSuccess();

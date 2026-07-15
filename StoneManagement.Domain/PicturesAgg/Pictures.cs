@@ -4,11 +4,13 @@ namespace StoneManagement.Domain.PicturesAgg
 {
     public class Pictures:EntityBase
     {
-        public long StoneId { get; set; }
-        public string Picture { get; set; }
-        public Pictures(string picture)
+        //public long Id { get; set; }
+        public long StoneId { get;private set; }
+        public string Picture { get;private set; }
+        public Pictures(string picture,long stoneId)
         {
             Picture = picture;
+            StoneId = stoneId; 
         }
     }
 }

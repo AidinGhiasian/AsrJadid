@@ -8,5 +8,7 @@ namespace StoneManagement.Application.Contracts.StoneCategory
 {
     public class CreateViewModel
     {
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

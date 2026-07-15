@@ -26,7 +26,7 @@ namespace AccountManagment.Application
             var role = _roleRepository.GetById(command.Id);
             if (role==null)
             {
-                return result.Failed(ApplicationMessage.NotFund);
+                return result.Failed(ApplicationMessage.NotFound);
             }
             role.Edit(command.Name);
             _roleRepository.SaveChanges();

@@ -19,7 +19,7 @@ namespace StoneManagement.Infrastructure.EFCore.Repository
             var categ = _dbcontext.Categories.FirstOrDefault(x=>x.Id == id);
             if (categ == null)
             {
-                return result.Failed(ApplicationMessage.NotFund);
+                return result.Failed(ApplicationMessage.NotFound);
             }
             _dbcontext.Categories.Remove(categ);
             return result.IsSuccess();

@@ -16,7 +16,7 @@ namespace StoneManagement.Infrastructure.EFCore.Repository
             var picture = _stoneDbContext.Pictures.FirstOrDefault(x => x.Id == id);
             if (picture == null)
             {
-                result.Failed(ApplicationMessage.NotFund);
+                result.Failed(ApplicationMessage.NotFound);
             }
             _stoneDbContext.Pictures.Remove(picture);
             return result.IsSuccess();

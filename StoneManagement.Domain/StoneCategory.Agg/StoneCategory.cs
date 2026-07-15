@@ -8,7 +8,7 @@ namespace StoneManagement.Domain.StoneCategory.Agg
         public string Name { get;private set; }
         public string Slug { get;private set; }
         public string Description { get;private set; }
-        public List<Stones> Stones { get;private set; }
+        public List<Stones>? Stones { get;private set; }
 
         public StoneCategory(string name,string description) 
         {

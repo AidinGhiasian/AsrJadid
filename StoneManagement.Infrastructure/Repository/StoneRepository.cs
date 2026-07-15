@@ -18,7 +18,7 @@ namespace StoneManagement.Infrastructure.Repository
             var stone = _dbcontext.Stones.FirstOrDefault(x=>x.Id==id);
             if (stone == null)
             {
-                operation.Failed(ApplicationMessage.NotFund);
+                operation.Failed(ApplicationMessage.NotFound);
             }
             _dbcontext.Stones.Remove(stone);
             _dbcontext.SaveChanges();
