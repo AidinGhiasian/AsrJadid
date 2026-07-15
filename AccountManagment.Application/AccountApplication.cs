@@ -165,7 +165,7 @@ namespace AccountManagment.Application
             }
             return result;
         }
-        private List<AccountSearchModel SearchMap(List<Accounts> account)
+        private List<AccountSearchModel> SearchMap(List<Accounts> account)
         {
             var result = new List<AccountSearchModel>();
             foreach (var item in account)
