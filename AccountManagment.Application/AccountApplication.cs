@@ -165,14 +165,16 @@ namespace AccountManagment.Application
             }
             return result;
         }
-        private List<AccountSearchModel> SearchMap(List<Accounts> account)
+        private AccountSearchModel SearchMap(Accounts account)
         {
-            var result = new List<AccountSearchModel>();
-            foreach (var item in account)
+            return new AccountSearchModel
             {
-                result.Add(Map(item));
-            }
-            return result;
+                Id = account.Id,
+                Name = account.Name,
+                Family = account.Family,
+                PhoneNumber = account.PhoneNumber,
+
+            };
         }
     }
 }

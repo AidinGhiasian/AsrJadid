@@ -9,9 +9,9 @@ namespace StoneManagement.Application.Contracts.StoneCategory
 {
     public class StoneCategoryViewModel
     {
-        public string Name { get; private set; }
-        public string Slug { get; private set; }
-        public string Description { get; private set; }
-        public List<Stones>? Stones { get; private set; }
+        public string Name { get;  set; }
+        public string Slug { get;  set; }
+        public string Description { get;  set; }
+        public List<Stones>? Stones { get;  set; }
     }
 }

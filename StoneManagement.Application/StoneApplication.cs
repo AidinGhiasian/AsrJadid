@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
@@ -29,29 +30,29 @@ namespace StoneManagement.Application
             var createdStone = new Stones(picture, command.StoneName, command.Length, command.Width, command.Weight, command.Price,
                 command.Stock, command.Color, command.Description);
             _stoneRepository.Add(createdStone);
-           return operation.IsSuccess();
+            return operation.IsSuccess();
         }
 
         public OperationResult Delete(long id)
         {
             OperationResult result = new OperationResult();
-             _stoneRepository.Delete(id);
+            _stoneRepository.Delete(id);
             return result.IsSuccess();
         }
 
         public OperationResult Edit(EditViewModel model)
         {
-           OperationResult operation = new OperationResult();
+            OperationResult operation = new OperationResult();
             var stone = _stoneRepository.GetByLongId(model.Id);
-            if(stone != null)
+            if (stone != null)
             {
-                if(model.Picture==null)
+                if (model.Picture == null)
                 {
                     return operation.Failed(ApplicationMessage.NotFound);
                 }
                 _fileUploader.Delete(model.Picture);
                 var path = "Stone";
-                model.Picture= _fileUploader.UploadNewSize(model.PictureFile, path, 360);
+                model.Picture = _fileUploader.UploadNewSize(model.PictureFile, path, 360);
             }
             stone.Edit(model.Picture, model.StoneName, model.Length, model.Width, model.Weight, model.Price, model.Stock,
                 model.Color, model.Description);
@@ -79,7 +80,13 @@ namespace StoneManagement.Application
 
         public List<SearchViewModel> Search(string search)
         {
-            throw new NotImplementedException();
+            var searchString = _stoneRepository.Search(search);
+            var result = new List<SearchViewModel>();
+            foreach (var item in searchString)
+            {
+                result.Add(SearchMap(item));
+            }
+            return result;
         }
         //Map 
         public StoneViewModel Map(Stones map)
@@ -114,8 +121,7 @@ namespace StoneManagement.Application
                 Description = map.Description
             };
         }
-        public List<SearchViewModel 
-        public List<StoneViewModel>Maps(List<Stones> maps)
+        public List<StoneViewModel> Maps(List<Stones> maps)
         {
             var result = new List<StoneViewModel>();
             foreach (var item in maps)
@@ -123,6 +129,23 @@ namespace StoneManagement.Application
                 result.Add(Map(item));
             }
             return result;
+        }
+        public SearchViewModel SearchMap(Stones stones)
+        {
+            return new SearchViewModel
+            {
+                Id = stones.Id,
+                Picture = stones.Picture,
+                StoneName = stones.StoneName,
+                Length = stones.Length,
+                Width = stones.Width,
+                Weight = stones.Weight,
+                Price = stones.Price,
+                Stock = stones.Stock,
+                Color = stones.Color,
+                Description = stones.Description,
+                CategoryId = stones.CategoryId,
+            };
         }
     }
 }

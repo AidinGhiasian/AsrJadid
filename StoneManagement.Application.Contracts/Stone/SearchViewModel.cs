@@ -3,6 +3,7 @@
     public class SearchViewModel
     {
         public long Id { get; set; }
+        public string Picture { get; set; }
         public string StoneName { get; set; }
         public double Length { get; set; }
         public double Width { get; set; }
