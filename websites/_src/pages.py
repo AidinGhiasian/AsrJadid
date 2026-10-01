@@ -976,9 +976,17 @@ def mini_posts_html(limit_chars=44):
 
 def blog(t):
     featured = ARTICLES[0]
-    rest = ARTICLES[1:]
-    mini_posts = mini_posts_html(44)
-    return f'''
+    cards = "".join(
+        '<article class="card blog-card" data-cat="' + a['cat'] + '">'
+        '<a class="card-media" href="article.html"><img src="assets/images/' + a['image'] + '" alt="' + a['title'] + '" loading="lazy">'
+        '<span class="badge badge-soft">' + a['cat'] + '</span></a>'
+        '<div class="card-body"><div class="card-meta"><span>' + icon("calendar") + ' ' + a['date'] +
+        '</span><span>' + icon("clock") + ' ' + a['read'] + '</span></div>'
+        '<h3 class="card-title"><a href="article.html">' + a['title'] + '</a></h3>'
+        '<p class="card-text">' + a['excerpt'][:120] + '…</p>'
+        '<a class="link-more" href="article.html">ادامه مطلب ' + icon("arrow-left") + '</a></div></article>'
+        for a in ARTICLES[1:7])
+    return f"""
 {page_hero("وبلاگ عصرجدید", "مقالات تخصصی سنگ مصنوعی، راهنمای خرید، مقایسه محصولات و نکات اجرایی", [("صفحه اصلی", "index.html"), ("وبلاگ", "")], bg="hero-2.jpg")}
 <section class="section">
   <div class="container">
@@ -992,41 +1000,213 @@ def blog(t):
         <a class="btn btn-primary" href="article.html">خواندن مقاله {icon("arrow-left")}</a>
       </div>
     </article>
-    <div class="blog-layout">
-      <div class="blog-main">
-        <div class="toolbar">
-          <div class="toolbar-right"><span class="tb-count">{fa_num(len(ARTICLES))} مقاله منتشرشده</span></div>
-          <div class="toolbar-left">
-            <div class="filter-chips">{''.join(f'<button class="chip-btn{" active" if i == 0 else ""}" type="button" data-bfilter="{"all" if i == 0 else c}">{n}</button>' for i, (c, n) in enumerate([("all", "همه"), ("راهنمای خرید", "راهنمای خرید"), ("مقایسه محصول", "مقایسه"), ("دانستنی", "دانستنی"), ("نگهداری", "نگهداری")]))}</div>
-          </div>
-        </div>
-        <div class="grid grid-2 js-blog">{blog_cards(6)}</div>
-        <div class="shop-pagination">{pagination(1, 3)}</div>
+    <div class="filter-chips" style="margin-bottom:22px">{''.join(f'<a class="tab-btn{" active" if h == "blog.html" else ""}" href="{h}">{n}</a>' for h, n in [("blog.html", "گرید ۳ ستونه"), ("blog-grid-2cols.html", "گرید ۲ ستونه"), ("blog-grid-3cols.html", "گرید ۳ ستونه"), ("blog-grid-4cols.html", "گرید ۴ ستونه"), ("blog-grid-sidebar.html", "با نوار کنار"), ("blog-listing.html", "نمایش لیستی")])}</div>
+    <div class="grid grid-3 js-blog">{cards}</div>
+    <div class="shop-pagination">{pagination(1, 3)}</div>
+  </div>
+</section>"""
+
+
+def blog_grid(t, cols=3):
+    """آرشیو وبلاگ در حالت گرید با تعداد ستون دلخواه"""
+    per = {2: 4, 3: 6, 4: 8}[cols]
+    cards = "".join(
+        '<article class="card blog-card" data-cat="' + a['cat'] + '">'
+        '<a class="card-media" href="article.html"><img src="assets/images/' + a['image'] + '" alt="' + a['title'] + '" loading="lazy">'
+        '<span class="badge badge-soft">' + a['cat'] + '</span></a>'
+        '<div class="card-body"><div class="card-meta"><span>' + icon("calendar") + ' ' + a['date'] + '</span>'
+        '<span>' + icon("clock") + ' ' + a['read'] + '</span></div>'
+        '<h3 class="card-title"><a href="article.html">' + a['title'] + '</a></h3>'
+        '<p class="card-text">' + a['excerpt'][:96] + '…</p></div></article>'
+        for a in (ARTICLES * 2)[:per])
+    tabs = "".join(
+        f'<a class="tab-btn{" active" if c == cols else ""}" href="blog-grid-{c}cols.html">گرید {fa_num(c)} ستونه</a>'
+        for c in (2, 3, 4))
+    return f"""
+{page_hero(f"آرشیو وبلاگ — گرید {fa_num(cols)} ستونه", "مقالات و راهنمای خرید محصولات عصرجدید", [("صفحه اصلی", "index.html"), ("وبلاگ", "blog.html"), (f"گرید {fa_num(cols)} ستونه", "")], crumb=True, bg="cat-4.jpg")}
+<section class="section">
+  <div class="container">
+    <div class="filter-chips" style="margin-bottom:24px">
+      <a class="tab-btn" href="blog.html">صفحه وبلاگ</a>{tabs}
+      <a class="tab-btn" href="blog-grid-sidebar.html">با نوار کنار</a>
+      <a class="tab-btn" href="blog-listing.html">لیستی</a>
+    </div>
+    <div class="grid grid-{cols}">{cards}</div>
+    <div class="shop-pagination">{pagination(1, 3)}</div>
+  </div>
+</section>"""
+
+
+def blog_sidebar(t):
+    """وبلاگ با نوار کنار (دسته‌بندی، پرطرفدار، خبرنامه)"""
+    cards = "".join(
+        '<article class="card blog-card" data-cat="' + a['cat'] + '">'
+        '<a class="card-media" href="article.html"><img src="assets/images/' + a['image'] + '" alt="' + a['title'] + '" loading="lazy">'
+        '<span class="badge badge-soft">' + a['cat'] + '</span></a>'
+        '<div class="card-body"><div class="card-meta"><span>' + icon("calendar") + ' ' + a['date'] + '</span></div>'
+        '<h3 class="card-title"><a href="article.html">' + a['title'] + '</a></h3>'
+        '<p class="card-text">' + a['excerpt'][:110] + '…</p>'
+        '<a class="link-more" href="article.html">ادامه مطلب ' + icon("arrow-left") + '</a></div></article>'
+        for a in ARTICLES[:4])
+    return f"""
+{page_hero("وبلاگ عصرجدید — با نوار کنار", "جستجو، دسته‌بندی و مقالات پرطرفدار در کنار فهرست مقالات", [("صفحه اصلی", "index.html"), ("وبلاگ", "blog.html"), ("با نوار کنار", "")], bg="cat-3.jpg")}
+<section class="section">
+  <div class="container blog-layout">
+    <div class="blog-main">
+      <div class="grid grid-2">{cards}</div>
+      <div class="shop-pagination">{pagination(1, 3)}</div>
+    </div>
+    <aside class="blog-side">
+      <div class="side-card">
+        <h3 class="side-title-static">{icon("search")} جستجو در مقالات</h3>
+        <form class="form js-form" novalidate><div class="field"><input type="search" placeholder="عنوان مقاله…" aria-label="جستجو"></div>
+          <button class="btn btn-primary btn-block" type="submit">جستجو</button></form>
       </div>
-      <aside class="blog-side">
-        <div class="side-card">
-          <h3 class="side-title-static">{icon("search")} جستجو در مقالات</h3>
-          <form class="form js-form" novalidate><div class="field"><input type="search" placeholder="عنوان مقاله…" aria-label="جستجو"></div>
-            <button class="btn btn-primary btn-block" type="submit">جستجو</button></form>
-        </div>
-        <div class="side-card">
-          <h3 class="side-title-static">{icon("tag")} دسته‌بندی‌ها</h3>
-          <ul class="side-nav">
-            <li><a href="#">راهنمای خرید<span>۲</span></a></li><li><a href="#">دانستنی سنگ مصنوعی<span>۲</span></a></li>
-            <li><a href="#">مقایسه محصولات<span>۱</span></a></li><li><a href="#">نگهداری و ترمیم<span>۱</span></a></li>
-          </ul>
-        </div>
-        <div class="side-card">
-          <h3 class="side-title-static">{icon("spark")} مقالات پرطرفدار</h3>
-          <ul class="mini-posts">{mini_posts}</ul>
-        </div>
-        <div class="side-card side-news">{icon("mail")}<h3>عضویت در خبرنامه</h3><p>مقالات جدید را در ایمیل خود دریافت کنید.</p>
-          <form class="form js-form" novalidate><div class="field"><input type="email" placeholder="ایمیل" required aria-label="ایمیل"></div>
-            <button class="btn btn-primary btn-block" type="submit">عضویت</button></form></div>
-      </aside>
+      <div class="side-card">
+        <h3 class="side-title-static">{icon("tag")} دسته‌بندی‌ها</h3>
+        <ul class="side-nav">
+          <li><a href="#">راهنمای خرید<span>{fa_num(2)}</span></a></li>
+          <li><a href="#">دانستنی سنگ مصنوعی<span>{fa_num(2)}</span></a></li>
+          <li><a href="#">مقایسه محصولات<span>{fa_num(1)}</span></a></li>
+          <li><a href="#">نگهداری و ترمیم<span>{fa_num(1)}</span></a></li>
+        </ul>
+      </div>
+      <div class="side-card">
+        <h3 class="side-title-static">{icon("spark")} پربازدیدترین‌ها</h3>
+        <ul class="mini-posts">{mini_posts_html(44)}</ul>
+      </div>
+      <div class="side-card side-news">{icon("mail")}<h3>عضویت در خبرنامه</h3>
+        <p>مقالات جدید را در ایمیل خود دریافت کنید.</p>
+        <form class="form js-form" novalidate><div class="field"><input type="email" placeholder="ایمیل" required aria-label="ایمیل"></div>
+          <button class="btn btn-primary btn-block" type="submit">عضویت</button></form></div>
+    </aside>
+  </div>
+</section>"""
+
+
+def blog_listing(t):
+    """نمایش لیستی مقالات"""
+    rows = "".join(
+        '<article class="card" style="padding:18px"><div style="display:flex;gap:18px;flex-wrap:wrap">'
+        '<a href="article.html" style="width:230px;flex:none;border-radius:14px;overflow:hidden">'
+        '<img src="assets/images/' + a['image'] + '" alt="' + a['title'] + '" style="width:100%;height:160px;object-fit:cover" loading="lazy"></a>'
+        '<div style="flex:1;min-width:240px">'
+        '<div class="card-meta"><span class="badge badge-soft">' + a['cat'] + '</span>'
+        '<span>' + icon("calendar") + ' ' + a['date'] + '</span><span>' + icon("clock") + ' ' + a['read'] + '</span></div>'
+        '<h3 class="card-title" style="margin-top:8px"><a href="article.html">' + a['title'] + '</a></h3>'
+        '<p class="card-text">' + a['excerpt'] + '</p>'
+        '<a class="link-more" href="article.html">ادامه مطلب ' + icon("arrow-left") + '</a></div></div></article>'
+        for a in ARTICLES)
+    return f"""
+{page_hero("آرشیو لیستی مقالات", "همه مقالات عصرجدید در یک نگاه", [("صفحه اصلی", "index.html"), ("وبلاگ", "blog.html"), ("نمایش لیستی", "")], bg="cat-5.jpg")}
+<section class="section">
+  <div class="container">
+    <div class="filter-chips" style="margin-bottom:24px">
+      <a class="tab-btn" href="blog.html">صفحه وبلاگ</a>
+      <a class="tab-btn" href="blog-grid-2cols.html">گرید ۲ ستونه</a>
+      <a class="tab-btn" href="blog-grid-3cols.html">گرید ۳ ستونه</a>
+      <a class="tab-btn" href="blog-grid-4cols.html">گرید ۴ ستونه</a>
+      <a class="tab-btn" href="blog-grid-sidebar.html">با نوار کنار</a>
+      <a class="tab-btn active" href="blog-listing.html">لیستی</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">{rows}</div>
+    <div class="shop-pagination">{pagination(1, 3)}</div>
+  </div>
+</section>"""
+
+
+def about2(t):
+    """نسخه دوم صفحه درباره ما — تمرکز بر اعداد، گواهی‌ها و تیم"""
+    certs = "".join(
+        '<article class="card cert-card"><span class="cert-ico">' + icon("check-circle") + '</span>'
+        '<h3 class="card-title">' + c['name'] + '</h3><span class="muted">' + c['year'] + '</span>'
+        '<p class="card-text">' + c['text'] + '</p></article>' for c in CERTIFICATES)
+    team = "".join(
+        '<article class="card team-card"><span class="avatar avatar-xl">' + tm['initials'] + '</span>'
+        '<h3 class="card-title">' + tm['name'] + '</h3><span class="role">' + tm['role'] + '</span>'
+        '<p class="card-text">' + tm['bio'] + '</p></article>' for tm in TEAM)
+    return f"""
+{page_hero("درباره عصرجدید — روایت اعداد", "۱۹ سال تولید، ۴۲۰ پروژه، ۶٬۸۰۰ مشتری وفادار", [("صفحه اصلی", "index.html"), ("درباره ما", "about.html"), ("نسخه دوم", "")], bg="hero-1.jpg")}
+<section class="section">
+  <div class="container">
+    {stats_row()}
+  </div>
+</section>
+<section class="section section-soft">
+  <div class="container">
+    {section_head("کیفیت و استانداردها", "گواهی‌نامه‌ها و آزمون‌های کیفی", "همه محصولات پیش از ارسال در آزمایشگاه داخلی بررسی می‌شوند.")}
+    <div class="grid grid-4">{certs}</div>
+  </div>
+</section>
+<section class="section">
+  <div class="container about-split">
+    <div class="as-media">
+      <img class="as-img-1" src="assets/images/cat-1.jpg" alt="خط تولید عصرجدید">
+      <img class="as-img-2" src="assets/images/hero-3.jpg" alt="نمایشگاه محصولات">
+      <div class="as-badge">{icon("flag")}<div><strong>۴۰۰٬۰۰۰</strong><small>مترمربع ظرفیت سالانه</small></div></div>
+    </div>
+    <div class="as-text">
+      {section_head("فرآیند تولید", "از تأمین مواد اولیه تا بسته‌بندی", "", align="start")}
+      <p>پودر سنگ، رزین و رنگدانه‌های معدنی پس از کنترل ورودی وارد خط میکسر می‌شوند. صفحات با پرس تحت خلأ و ویبره شکل می‌گیرند، در کوره پخت می‌شوند و سپس پرداخت سطح (پولیش یا مات) انجام می‌شود. پیش از بسته‌بندی، هر بچ تولیدی آزمون جذب آب، مقاومت فشاری و ثبات رنگ را می‌گذراند.</p>
+      <ul class="check-list">
+        <li>{icon("check-circle")} ۴ ایستگاه کنترل کیفیت در طول خط تولید</li>
+        <li>{icon("check-circle")} آزمون جذب آب زیر ۱٪ روی همه بچ‌ها</li>
+        <li>{icon("check-circle")} بسته‌بندی با پالت چوبی و گوشه‌گیر فوم</li>
+      </ul>
+      <div class="as-actions">
+        <a class="btn btn-primary" href="projects.html">{icon("building")} پروژه‌های اجراشده</a>
+        <a class="btn btn-outline" href="gallery.html">{icon("image")} گالری محصولات</a>
+      </div>
     </div>
   </div>
-</section>'''
+</section>
+<section class="section section-soft">
+  <div class="container">
+    {section_head("تیم عصرجدید", "افرادی که پروژه شما را پیش می‌برند", "تیم فنی، فروش و پشتیبانی ما در یک نگاه.")}
+    <div class="grid grid-4">{team}</div>
+  </div>
+</section>
+{cta_band("برای پروژه بعدی خود آماده‌اید؟", "کارشناسان ما برآورد متراژ و هزینه پروژه شما را رایگان تهیه می‌کنند.")}"""
+
+
+def product_list(t):
+    """لیست محصولات در حالت لیستی"""
+    rows = "".join(
+        '<article class="card" style="padding:18px" data-cat="' + s['cat'] + '" data-price="' + str(s['price']) + '" data-id="' + str(s['id']) + '">'
+        '<div style="display:flex;gap:18px;flex-wrap:wrap">'
+        '<a href="product.html" style="width:240px;flex:none;border-radius:14px;overflow:hidden">'
+        '<img src="assets/images/' + s['image'] + '" alt="' + s['name'] + '" style="width:100%;height:180px;object-fit:cover" loading="lazy"></a>'
+        '<div style="flex:1;min-width:260px;display:flex;flex-direction:column;gap:8px">'
+        '<div class="card-meta"><a class="cat-link" href="category.html">' + cat_name(s['cat']) + '</a><span class="code">کد ' + s['code'] + '</span>'
+        + stars(s['rate']) + '<span class="rate-num">' + fa_num(s['rate'], 1) + '</span></div>'
+        '<h3 class="card-title"><a href="product.html">' + s['name'] + '</a></h3>'
+        '<p class="card-text">' + s['short'] + '</p>'
+        '<ul class="meta-list"><li>' + icon("ruler") + ' ' + s['size'] + '</li><li>' + icon("box") + ' موجودی: ' + fa_num(s['stock']) + ' ' + s['unit'] + '</li></ul>'
+        '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:auto">'
+        + price_html(s) +
+        '<button class="btn btn-primary btn-icon js-add" type="button" data-id="' + str(s['id']) + '">' + icon("cart") + ' افزودن به سبد</button>'
+        '<a class="btn btn-outline" href="product.html">جزئیات محصول</a></div>'
+        '</div></div></article>' for s in STONES)
+    return f"""
+{page_hero("لیست محصولات", "نمایش لیستی محصولات عصرجدید با مشخصات کلیدی هر محصول", [("صفحه اصلی", "index.html"), ("محصولات", "products.html"), ("نمایش لیستی", "")], bg="p-3.jpg")}
+<section class="section">
+  <div class="container">
+    <div class="toolbar">
+      <div class="toolbar-right">
+        <span class="tb-count">{fa_num(len(STONES))} محصول</span>
+        <a class="chip-btn" href="products.html">{icon("grid-view")} نمایش شبکه‌ای</a>
+        <a class="chip-btn active" href="product-list.html">{icon("list-view")} نمایش لیستی</a>
+      </div>
+      <div class="toolbar-left">
+        <label class="sort-select">{icon("sort")}
+          <select aria-label="ترتیب نمایش"><option>مرتب‌سازی: پیشنهاد عصرجدید</option><option>ارزان‌ترین</option><option>گران‌ترین</option><option>جدیدترین</option></select></label>
+      </div>
+    </div>
+    <div class="js-products" style="display:flex;flex-direction:column;gap:18px">{rows}</div>
+    <div class="shop-pagination">{pagination(1, 3)}</div>
+  </div>
+</section>
+{cta_band()}"""
 
 
 def article(t):

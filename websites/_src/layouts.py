@@ -598,10 +598,8 @@ def page(t, title, body, active="", desc="", extra_class="", scripts=""):
 
 # ------------------------------------------------------- admin shell ---- #
 def admin_page(t, title, body, active="dashboard", desc=""):
-    css_theme = f"admin-theme-{t}"
-    a = ADMIN_NAV
     items = ""
-    for item in a:
+    for item in ADMIN_NAV:
         if item["type"] == "group":
             items += f'<li class="adm-nav-group">{item["label"]}</li>'
         else:
@@ -619,20 +617,18 @@ def admin_page(t, title, body, active="dashboard", desc=""):
 <link rel="icon" type="image/svg+xml" href="../assets/images/favicon.svg">
 <link rel="stylesheet" href="../assets/css/admin.css">
 </head>
-<body class="admin {css_theme}">
+<body class="admin admin-theme-{t}">
 {sprite()}
 <div class="adm-shell">
   <aside class="adm-side" id="admSide">
     <div class="adm-brand">
       <a href="dashboard.html">
         <span class="brand-mark">{icon("diamond")}</span>
-        <span class="brand-text"><strong>{SITE['name']}</strong><small>پنل مدیریت نسخه {fa_num(t)}</small></span>
+        <span class="brand-text"><strong>{SITE['name']}</strong><small>پنل مدیریت فروشگاه</small></span>
       </a>
       <button class="adm-side-close js-adm-side-close" type="button" aria-label="بستن">{icon("x")}</button>
     </div>
-    <nav class="adm-nav">
-      <ul>{items}</ul>
-    </nav>
+    <nav class="adm-nav"><ul>{items}</ul></nav>
     <div class="adm-side-foot">
       <a href="../index.html" class="adm-site-link">{icon("home")} مشاهده سایت</a>
       <a href="login.html" class="adm-site-link danger">{icon("logout")} خروج از حساب</a>
@@ -646,16 +642,14 @@ def admin_page(t, title, body, active="dashboard", desc=""):
         <span class="adm-crumb-sub">{desc}</span>
       </div>
       <div class="adm-top-actions">
-        <div class="adm-search">
-          {icon("search")}<input type="search" placeholder="جستجو در پنل…" class="js-admin-search" aria-label="جستجو">
-        </div>
-        <button class="adm-top-btn js-theme-toggle" type="button" title="تغییر حالت">{icon("sun")}</button>
+        <div class="adm-search">{icon("search")}<input type="search" placeholder="جستجو…" class="js-admin-search" aria-label="جستجو"></div>
+        <button class="adm-top-btn js-theme-toggle" type="button" title="حالت تیره">{icon("sun")}</button>
         <button class="adm-top-btn has-dot" type="button" title="اعلان‌ها">{icon("bell")}</button>
-        <div class="adm-user">
+        <a class="adm-user" href="profile.html">
           <span class="avatar">س‌ر</span>
           <span class="adm-user-text"><strong>مهندس سعید رضایی</strong><small>مدیر سیستم</small></span>
           {icon("chev-down")}
-        </div>
+        </a>
       </div>
     </header>
     <div class="adm-content">
@@ -680,8 +674,7 @@ def admin_page(t, title, body, active="dashboard", desc=""):
 ADMIN_NAV = [
     {"type": "link", "href": "dashboard.html", "label": "داشبورد", "icon": "dashboard"},
     {"type": "group", "label": "فروشگاه"},
-    {"type": "link", "href": "products.html", "label": "مدیریت محصولات", "icon": "package", "badge": "۱۶۱"},
-    {"type": "link", "href": "product-form.html", "label": "افزودن محصول", "icon": "plus"},
+    {"type": "link", "href": "products.html", "label": "محصولات", "icon": "package", "badge": "۱۶۱"},
     {"type": "link", "href": "categories.html", "label": "دسته‌بندی‌ها", "icon": "grid"},
     {"type": "link", "href": "orders.html", "label": "سفارش‌ها", "icon": "cart", "badge": "۳۷"},
     {"type": "link", "href": "comments.html", "label": "دیدگاه‌ها", "icon": "message", "badge": "۵"},

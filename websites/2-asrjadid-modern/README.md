@@ -7,16 +7,23 @@
 ```
 ├── index.html              صفحه اصلی
 ├── about.html              درباره ما
+├── about-2.html            درباره ما — نسخه دوم (روایت اعداد)
 ├── categories.html         دسته‌بندی محصولات
 ├── products.html           لیست محصولات (فیلتر قیمت/دسته/رنگ + گرید و لیست)
 ├── product.html            جزئیات محصول (گالری، تب‌ها، مشخصات، دیدگاه)
+├── product-list.html       لیست محصولات — نمایش لیستی
 ├── category.html           آرشیو یک دسته‌بندی
 ├── services.html           خدمات
 ├── service.html            جزئیات خدمت + محاسبه‌گر متراژ و هزینه
 ├── projects.html           پروژه‌های اجرایی
 ├── project.html            جزئیات پروژه
 ├── gallery.html            گالری تصاویر (فیلتر + لایت‌باکس + ویدیو)
-├── blog.html               وبلاگ
+├── blog.html               وبلاگ (گرید ۳ ستونه + مقاله ویژه)
+├── blog-grid-2cols.html    آرشیو وبلاگ — گرید ۲ ستونه
+├── blog-grid-3cols.html    آرشیو وبلاگ — گرید ۳ ستونه
+├── blog-grid-4cols.html    آرشیو وبلاگ — گرید ۴ ستونه
+├── blog-grid-sidebar.html  وبلاگ با نوار کنار
+├── blog-listing.html       آرشیو لیستی مقالات
 ├── article.html            جزئیات مقاله (فهرست مطالب، دیدگاه‌ها)
 ├── price-list.html         لیست قیمت ۱۴۰۴ (چاپ و فیلتر دسته)
 ├── cart.html               سبد خرید
@@ -41,7 +48,7 @@
 ├── 404.html                صفحه خطای ۴۰۴
 ├── admin/                  پنل مدیریت
 │   ├── login.html          ورود مدیران
-│   ├── dashboard.html      داشبورد (نمودار فروش، سفارش‌ها، انبار)
+│   ├── dashboard.html      داشبورد (KPI، نمودار فروش SVG، سفارش‌ها، انبار)
 │   ├── products.html       مدیریت محصولات
 │   ├── product-form.html   افزودن/ویرایش محصول
 │   ├── categories.html     دسته‌بندی‌ها
