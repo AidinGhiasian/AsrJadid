@@ -1,0 +1,77 @@
+/* ==========================================================================
+   پوسته ۱ — «کلاسیک لوکس» عصرجدید
+   کرم/طلایی، گوشه‌های نرم، تاکید بر تصاویر بزرگ و حس لوکس سنتی
+   ========================================================================== */
+:root{
+  --c-brand:#b98a3c; --c-brand-2:#8d6522; --c-brand-soft:#f7f0df;
+  --c-ink:#2b2118; --c-ink-2:#54483c; --c-muted:#93877a;
+  --c-bg:#fffdf9; --c-soft:#faf6ee; --c-soft-2:#f2ebdd; --c-card:#fffdf9;
+  --c-line:#ece3d3; --c-line-2:#dccfb9;
+  --r-sm:8px; --r-md:14px; --r-lg:22px;
+  --sh-1:0 2px 10px rgba(74,58,38,.06);
+  --sh-2:0 12px 34px rgba(74,58,38,.10);
+  --sh-3:0 26px 64px rgba(74,58,38,.18);
+}
+body.theme-1{background-image:radial-gradient(circle at 12% 8%,rgba(185,138,60,.05),transparent 42%)}
+.theme-1 h1,.theme-1 h2,.theme-1 .sec-title{letter-spacing:-.3px}
+.theme-1 .brand-text strong{color:var(--c-ink);font-weight:800}
+.theme-1 .brand-mark{box-shadow:0 6px 18px rgba(185,138,60,.34)}
+.theme-1 .sec-title{position:relative;display:inline-block}
+.theme-1 .section-head.align-center .sec-title::after{content:"";display:block;width:74px;height:3px;border-radius:3px;
+  background:linear-gradient(90deg,var(--c-brand),transparent);margin:14px auto 0}
+.theme-1 .section-head.align-start .sec-title::after{content:"";display:block;width:64px;height:3px;border-radius:3px;
+  background:linear-gradient(90deg,var(--c-brand),transparent);margin:12px 0 0}
+.theme-1 .card{border-radius:var(--r-lg)}
+.theme-1 .product-card .card-media{aspect-ratio:4/3}
+.theme-1 .product-card::after{content:"";position:absolute;inset:0;border-radius:var(--r-lg);pointer-events:none;
+  box-shadow:inset 0 0 0 1px transparent;transition:box-shadow var(--t)}
+.theme-1 .card{border:1px solid var(--c-line)}
+.theme-1 .btn-primary{background:linear-gradient(150deg,var(--c-brand),var(--c-brand-2));border:0}
+.theme-1 .btn-primary:hover{background:linear-gradient(150deg,var(--c-brand-2),#7a561b)}
+.theme-1 .badge{border-radius:var(--r-pill);background:linear-gradient(150deg,var(--c-brand),var(--c-brand-2))}
+.theme-1 .nav-link{font-weight:500}
+.theme-1 .nav-item.active .nav-link,.theme-1 .nav-link:hover{background:var(--c-brand-soft)}
+.theme-1 .tab-btn.active{background:var(--c-brand);border-color:var(--c-brand);color:#fff}
+.theme-1 .chip-btn.active{background:var(--c-brand);border-color:var(--c-brand)}
+.theme-1 .page-link:hover,.theme-1 .page-link.active{background:var(--c-brand);border-color:var(--c-brand)}
+.theme-1 .stat-value,.theme-1 .price .amount,.theme-1 .cmp-price{color:var(--c-brand-2)}
+.theme-1 .stat{border-radius:var(--r-md);background:var(--c-brand-soft);border-color:#eadfc6}
+.theme-1 .eyebrow{border:1px solid #eadfc6}
+.theme-1 .topbar{background:#231a12}
+.theme-1 .tb-social a:hover{background:var(--c-brand)}
+.theme-1 .hero-slider .slide-title{text-shadow:0 4px 30px rgba(0,0,0,.35)}
+.theme-1 .hero-quick{border-radius:0}
+.theme-1 .hq-item{background:linear-gradient(180deg,#fffdf9,var(--c-soft))}
+.theme-1 .cat-card{border-radius:var(--r-lg);box-shadow:var(--sh-2)}
+.theme-1 .cat-card::after{content:"";position:absolute;inset:14px;border:1px solid rgba(255,255,255,.28);border-radius:var(--r-md);
+  opacity:0;transition:opacity var(--t);z-index:2;pointer-events:none}
+.theme-1 .cat-card:hover::after{opacity:1}
+.theme-1 .cta-band{background:linear-gradient(120deg,#2b2118,#3d2f21 60%,#2b2118)}
+.theme-1 .cta-band::before{content:"";position:absolute;inset-inline-end:-60px;bottom:-120px;width:360px;height:360px;border-radius:50%;
+  background:radial-gradient(circle,rgba(185,138,60,.28),transparent 65%)}
+.theme-1 .site-footer{background:#241c15}
+.theme-1 .footer-trust{background:rgba(0,0,0,.16)}
+.theme-1 .fixed-cta-band{border-radius:0}
+.theme-1 .side-help.side-card{background:linear-gradient(140deg,#2b2118,#3c2d1f)}
+.theme-1 .side-help{background:linear-gradient(140deg,#2b2118,#3c2d1f)}
+.theme-1 .service-card{border-top:3px solid var(--c-brand-soft);transition:border-color var(--t),box-shadow var(--t)}
+.theme-1 .service-card:hover{border-top-color:var(--c-brand);box-shadow:var(--sh-2)}
+.theme-1 .value-card,.theme-1 .team-card,.theme-1 .cert-card{background:linear-gradient(180deg,#fffdf9,var(--c-soft))}
+.theme-1 .sum-total,.theme-1 .calc-total{background:linear-gradient(120deg,#2b2118,#3b2c1e)}
+.theme-1 .auth-page{background:linear-gradient(180deg,var(--c-soft),#fffdf9)}
+.theme-1 .panel-page{background:linear-gradient(180deg,#faf6ee,#fffdf9)}
+.theme-1 .ps-user small{color:var(--c-brand)}
+.theme-1 .page-hero{padding:clamp(40px,5.6vw,80px) 0}
+.theme-1 .page-hero::before{background:linear-gradient(270deg,rgba(24,18,12,.94),rgba(43,33,24,.68))}
+.theme-1 .breadcrumb li[aria-current]{color:var(--c-brand)}
+.theme-1 .tl-year{background:linear-gradient(150deg,var(--c-brand),var(--c-brand-2))}
+.theme-1 .pr-num{background:linear-gradient(150deg,var(--c-brand),var(--c-brand-2))}
+.theme-1 .video-play{color:var(--c-brand-2)}
+.theme-1 .post-featured{border-radius:var(--r-lg)}
+.theme-1 .table thead th{background:var(--c-brand-soft)}
+.theme-1 .table tbody tr:hover{background:#fdfaf4}
+.theme-1 .testi-quote{opacity:.75}
+.theme-1 .g-item{border-radius:var(--r-md)}
+.theme-1 .price-table .pl-price{color:var(--c-brand-2)}
+.theme-1 .footer-bottom{background:rgba(0,0,0,.22)}
+.theme-1 .sp,.theme-1 .product-card .badge{letter-spacing:0}
