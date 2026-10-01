@@ -13,5 +13,7 @@ namespace Services.Application
         public string UploadNewSize(IFormFile file, string Path, int wight);
         public string UploadNewSizeFromWightAndHeight(IFormFile file, string Path, int wight, int Height);
         public void Delete(string pictureName);
+        public int GetFileCount(List<IFormFile> files);
     }
 }
+

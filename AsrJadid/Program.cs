@@ -1,4 +1,25 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration.UserSecrets;
+using Services.Application;
+using Services.Application.HashPassword;
+using Services.Model;
+
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpContextAccessor();
+
+//var contectionstring = builder.Configuration.GetConnectionString("AsrjadidDB");
+//StoneMInfrastructureConfigurationBootstraper.Configure(builder.Services, contectionstring);
+//AccountMInfrastructureConfigurationBootstraper.Configure(builder.Services, contectionstring);
+
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+builder.Services.AddTransient<IFileUploader, FileUploader>();
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => true;
+    options.MinimumSameSitePolicy = SameSiteMode.Lax;
+});
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();

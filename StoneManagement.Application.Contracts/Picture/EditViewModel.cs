@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StoneManagement.Application.Contracts.Picture
 {
-    public class EditViewModel
+    public class EditViewModel:CreateViewModel
     {
         public long Id { get; set; }//ایدی تصویر
         public string Picture { get; set; }

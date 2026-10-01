@@ -11,5 +11,6 @@ namespace StoneManagement.Application.Contracts.Picture
     {
         public IFormFile PictureFile { get; set; }
         public long StoneId { get; set; }
+        public List<IFormFile> Files { get; set; }
     }
 }
