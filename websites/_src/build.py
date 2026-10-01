@@ -140,11 +140,6 @@ def build_theme(t):
     readme = read_src("README_TEMPLATE.md").replace("__THEME_TITLE__", THEME_TITLES[t]).replace("__T__", str(t))
     write(os.path.join(dest, "README.md"), readme)
 
-    # صفحه پیش‌فرض پوشه ادمین
-    write(os.path.join(dest, "admin", "index.html"),
-          f'<!DOCTYPE html><html lang="fa" dir="rtl"><head><meta charset="utf-8">'
-          f'<meta http-equiv="refresh" content="0; url=login.html"><title>ورود به پنل مدیریت</title></head>'
-          f'<body><p>در حال انتقال به صفحه ورود پنل مدیریت… <a href="login.html">ورود</a></p></body></html>')
     return dest
 
 
