@@ -10,7 +10,7 @@ build.build_theme(2)
 PY
 cd ..
 mkdir -p download
-rm -f download/theme2-modern.zip
-(cd 2-asrjadid-modern && zip -qr ../download/theme2-modern.zip .)
+rm -f download/Asr-Jadid-template.zip
+(cd 2-asrjadid-modern && zip -qr ../download/Asr-Jadid-template.zip .)
 echo "✔ بسته ساخته شد:"
-ls -lh download/theme2-modern.zip
+ls -lh download/Asr-Jadid-template.zip
