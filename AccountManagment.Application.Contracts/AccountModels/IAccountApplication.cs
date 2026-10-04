@@ -1,9 +1,4 @@
 ﻿using Services.Application;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AccountManagment.Application.Contracts.AccountModels
 {
@@ -16,11 +11,11 @@ namespace AccountManagment.Application.Contracts.AccountModels
         public List<AccountViewModel> GetList(bool status);
         public AccountViewModel? GetById(long id);
         public List<AccountSearchModel> Search(string search);
-        public EditViewModel GetDetails(long Id);
-        public AccountViewModel GetInfo(long Id);
+        public EditViewModel? GetDetails(long Id);
+        public AccountViewModel? GetInfo(long Id);
         public OperationResult login(LoginViewModel command);
         public OperationResult logout();
         public OperationResult ChangeRole(long id,long roleId);
-
+        public OperationResult ChangePassword(ChangePassword command);
     }
 }

@@ -33,6 +33,7 @@ namespace AccountManagment.Infrastructure.Repository
                 return op.Failed(ApplicationMessage.NotFound);
             }
             da.ChangeStatus(false);
+            _dbContext.SaveChanges();
             return op.IsSuccess();
         }
 
@@ -60,6 +61,7 @@ namespace AccountManagment.Infrastructure.Repository
                 return op.Failed(ApplicationMessage.NotFound);
             }
             ra.ChangeStatus(true);
+            _dbContext.SaveChanges();
             return op.IsSuccess();
         }
 

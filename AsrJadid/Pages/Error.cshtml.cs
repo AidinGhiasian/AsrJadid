@@ -1,28 +1,25 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Diagnostics;
 
 namespace AsrJadid.Pages
 {
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    [IgnoreAntiforgeryToken]
     public class ErrorModel : PageModel
     {
         public string? RequestId { get; set; }
 
+        public int StatusCode { get; set; } = 500;
+
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
-        private readonly ILogger<ErrorModel> _logger;
-
-        public ErrorModel(ILogger<ErrorModel> logger)
+        public void OnGet(int? code)
         {
-            _logger = logger;
-        }
+            StatusCode = code ?? 500;
+            RequestId = HttpContext.TraceIdentifier;
 
-        public void OnGet()
-        {
-            RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+            // در حالت توسعه، کد وضعیت واقعی پاسخ جایگزین می‌شود
+            if (HttpContext.Response.StatusCode >= 400)
+            {
+                StatusCode = HttpContext.Response.StatusCode;
+            }
         }
     }
-
 }

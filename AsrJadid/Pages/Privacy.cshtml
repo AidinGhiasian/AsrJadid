@@ -1,8 +1,45 @@
-﻿@page
+@page
 @model PrivacyModel
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "حریم خصوصی";
+    ViewData["Active"] = "about";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<section class="page-hero">
+  <div class="container">
+    <div class="ph-inner">
+      <h1 class="ph-title">حریم خصوصی</h1>
+      <p class="ph-sub">نحوه جمع‌آوری، استفاده و نگهداری اطلاعات کاربران عصرجدید</p>
+    </div>
+  </div>
+</section>
+<nav class="breadcrumb-wrap" aria-label="مسیر صفحه">
+  <div class="container">
+    <ol class="breadcrumb"><li><a asp-page="/Index">صفحه اصلی</a></li><li aria-current="page">حریم خصوصی</li></ol>
+  </div>
+</nav>
+<section class="section">
+  <div class="container legal-layout">
+    <aside class="side-card">
+      <h3 class="side-title-static"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg> سرفصل‌ها</h3>
+      <ul class="side-nav"><li><a href="#p0">چه اطلاعاتی جمع‌آوری می‌کنیم؟<span>۱</span></a></li><li><a href="#p1">اطلاعات شما برای چه استفاده می‌شود؟<span>۲</span></a></li><li><a href="#p2">اشتراک‌گذاری با اشخاص ثالث<span>۳</span></a></li><li><a href="#p3">کوکی‌ها<span>۴</span></a></li><li><a href="#p4">امنیت اطلاعات<span>۵</span></a></li><li><a href="#p5">حقوق کاربران<span>۶</span></a></li></ul>
+      <div class="side-help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg><h3>امنیت اطلاعات</h3><p>ارتباط شما با سایت روی HTTPS رمزنگاری می‌شود.</p></div>
+    </aside>
+    <div class="legal-main">
+      <div class="notice-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 9v5m0 3h.01"/></svg><p>ما هیچ‌گاه اطلاعات شما را نمی‌فروشیم و فقط برای ارائه بهتر خدمات از آن استفاده می‌کنیم.</p></div>
+      <div class="prose"><div class="legal-block">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> چه اطلاعاتی جمع‌آوری می‌کنیم؟</h2><p>نام، شماره تماس، ایمیل، آدرس تحویل بار و اطلاعات سفارش. اطلاعات پرداخت به‌صورت امن از طریق درگاه بانکی پردازش می‌شود و در سرورهای ما ذخیره نمی‌گردد.</p></div><div class="legal-block">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> اطلاعات شما برای چه استفاده می‌شود؟</h2><p>برای پردازش سفارش، هماهنگی ارسال بار، صدور ضمانت‌نامه، پاسخ به درخواست پشتیبانی و اطلاع‌رسانی تخفیف‌ها (در صورت رضایت شما).</p></div><div class="legal-block">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> اشتراک‌گذاری با اشخاص ثالث</h2><p>اطلاعات شما فقط با شرکت‌های باربری همکار برای ارسال بار به اشتراک گذاشته می‌شود. ما هیچ‌گاه اطلاعات مشتریان را نمی‌فروشیم.</p></div><div class="legal-block">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> کوکی‌ها</h2><p>از کوکی برای نگه‌داشتن سبد خرید، ورود به حساب و بهبود تجربه مرور استفاده می‌کنیم. می‌توانید کوکی‌ها را از تنظیمات مرورگر خود غیرفعال کنید.</p></div><div class="legal-block">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> امنیت اطلاعات</h2><p>ارتباط شما با سایت روی پروتکل HTTPS رمزنگاری می‌شود و رمزهای عبور به‌صورت هش‌شده (PBKDF2) ذخیره می‌گردند.</p></div><div class="legal-block">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> حقوق کاربران</h2><p>شما در هر زمان می‌توانید درخواست حذف اطلاعات خود را از طریق ایمیل پشتیبانی ارسال کنید؛ درخواست شما حداکثر تا ۷۲ ساعت کاری بررسی می‌شود.</p></div></div>
+      <div class="card info-card">
+        <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></span>
+        <h3 class="card-title">درخواست حذف یا اصلاح اطلاعات</h3>
+        <p class="card-text">برای حذف حساب کاربری یا اصلاح اطلاعات شخصی، از طریق ایمیل پشتیبانی با ما در تماس باشید.</p>
+        <a class="btn btn-primary" href="mailto:info@@asrjadid.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg> info@@asrjadid.com</a>
+      </div>
+    </div>
+  </div>
+</section>

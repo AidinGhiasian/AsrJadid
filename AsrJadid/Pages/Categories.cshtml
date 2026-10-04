@@ -1,0 +1,100 @@
+@page
+@using Services.Application
+@model CategoriesModel
+@{
+    ViewData["Title"] = "گروه محصولات";
+    ViewData["Active"] = "categories";
+}
+
+<section class="page-hero" style="--ph-img:url(/assets/images/cat-2.jpg)">
+  <div class="container">
+    <div class="ph-inner">
+      <h1 class="ph-title">دسته‌بندی محصولات</h1>
+      <p class="ph-sub">شش گروه محصولی برای همه نیازهای نما، کف، دیوار و سطوح داخلی</p>
+    </div>
+  </div>
+</section>
+<nav class="breadcrumb-wrap" aria-label="مسیر صفحه">
+  <div class="container">
+    <ol class="breadcrumb"><li><a asp-page="/Index">صفحه اصلی</a></li><li aria-current="page">دسته‌بندی‌ها</li></ol>
+  </div>
+</nav>
+<section class="section">
+  <div class="container">
+    
+<div class="section-head align-center">
+  <div class="sec-text">
+    <span class="eyebrow">گروه محصولات</span>
+    <h2 class="sec-title">محصول مناسب پروژه خود را انتخاب کنید</h2>
+    <p class="sec-sub">هر گروه شامل طرح‌ها و رنگ‌های متعدد با امکان ارسال نمونه فیزیکی است.</p>
+  </div>
+  
+</div>
+    <div class="grid grid-3 cat-grid">
+@foreach (var cat in Model.Categories)
+{
+    <a class="cat-card" asp-page="/Category" asp-route-slug="@cat.Slug">
+        <img src="@cat.Picture.ImageUrl()" alt="@cat.Name" loading="lazy">
+        <span class="cat-overlay"></span>
+        <span class="cat-body">
+            <span class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V4h10v17M14 9h6v12M7 8h4M7 12h4M7 16h4M17 13h1M17 17h1"/></svg></span>
+            <span class="cat-name">@cat.Name</span>
+            <span class="cat-desc">@cat.Description</span>
+            <span class="cat-count">@cat.StoneCount.ToPersianNumber() محصول <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></i></span>
+        </span>
+    </a>
+}
+</div>
+  </div>
+</section>
+<section class="section section-soft">
+  <div class="container">
+    <div class="grid grid-2">
+      <div class="card info-card">
+        <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></svg></span>
+        <h3 class="card-title">مقایسه سریع کاربردها</h3>
+        <div class="table-wrap">
+          <table class="table">
+            <thead><tr><th>کاربرد</th><th>گروه پیشنهادی</th><th>مزیت کلیدی</th></tr></thead>
+            <tbody>
+              <tr><td>نمای ساختمان</td><td>نما و فاسد</td><td>ثبات رنگ، جذب آب زیر ۱٪</td></tr>
+              <tr><td>صفحه کابینت</td><td>کوارتز / کورین</td><td>مقاوم به خط و حرارت</td></tr>
+              <tr><td>دیوار شاخص داخلی</td><td>پنل سه‌بعدی</td><td>عمق و جلوه نورپردازی</td></tr>
+              <tr><td>کف پرتردد</td><td>کفپوش و دیوارپوش</td><td>ضدلغزش R10، ضدخش</td></tr>
+              <tr><td>نمای کافه و رستوران</td><td>آجر و سنگ آنتیک</td><td>بافت طبیعی، رنگ گرم</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card info-card">
+        <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15 15 3l6 6L9 21z"/><path d="m7 11 2 2M10 8l2 2M13 5l2 2"/></svg></span>
+        <h3 class="card-title">نمی‌دانید کدام محصول مناسب است؟</h3>
+        <p class="card-text">تیم فنی عصرجدید بر اساس کاربری فضا، شرایط اقلیمی و بودجه پروژه، سه گزینه پیشنهادی ارائه می‌کند و نمونه فیزیکی رنگ را برای شما ارسال می‌کند.</p>
+        <ul class="check-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> مشاوره تلفنی و ویدیویی رایگان</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> ارسال بسته نمونه ۱۲ طرحی</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> محاسبه متراژ و برآورد هزینه</li>
+        </ul>
+        <a class="btn btn-primary" asp-page="/Contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12Z"/></svg> درخواست مشاوره فنی</a>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div class="cta-text">
+      <span class="eyebrow eyebrow-light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg> عصرجدید</span>
+      <h2>آماده دریافت پیش‌فاکتور هستید؟</h2>
+      <p>متراژ و کاربری پروژه را بگویید تا برآورد دقیق قیمت را برایتان ارسال کنیم.</p>
+      <div class="cta-actions">
+      <a class="btn btn-primary btn-lg" asp-page="/Contact">درخواست مشاوره</a>
+      <a class="btn btn-outline btn-lg" asp-page="/PriceList">دریافت لیست قیمت</a>
+    </div>
+    </div>
+    <ul class="cta-points">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> بازدید و اندازه‌گیری رایگان در تهران و کرج</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> برش CNC طبق نقشه پروژه با تلرانس ±۰٫۵ میلی‌متر</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> ضمانت‌نامه کتبی ۱۸ ماهه و ضمانت سطح کوارتز ۱۰ ساله</li>
+    </ul>
+  </div>
+</section>

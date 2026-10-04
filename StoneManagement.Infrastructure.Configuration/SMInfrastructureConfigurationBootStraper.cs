@@ -7,7 +7,6 @@ using StoneManagement.Application.Contracts.StoneCategory;
 using StoneManagement.Domain.PicturesAgg;
 using StoneManagement.Domain.Stone.Agg;
 using StoneManagement.Domain.StoneCategory.Agg;
-using StoneManagement.Infrastructure.EFCore.Repository;
 using StoneManagement.Infrastructure.Repository;
 
 namespace StoneManagement.Infrastructure.Configuration

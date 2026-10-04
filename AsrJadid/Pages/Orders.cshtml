@@ -1,0 +1,41 @@
+@page
+@model OrdersModel
+@{
+    ViewData["Title"] = "سفارش‌های من";
+}
+
+<section class="page-hero">
+    <div class="container">
+        <div class="ph-inner">
+            <h1 class="ph-title">سفارش‌های من</h1>
+            <p class="ph-sub">پیگیری وضعیت سفارش‌ها و فاکتورها</p>
+        </div>
+    </div>
+</section>
+<nav class="breadcrumb-wrap" aria-label="مسیر صفحه">
+    <div class="container">
+        <ol class="breadcrumb"><li><a asp-page="/Index">صفحه اصلی</a></li><li><a asp-page="/Dashboard">پنل کاربری</a></li><li aria-current="page">سفارش‌های من</li></ol>
+    </div>
+</nav>
+<section class="section">
+    <div class="container">
+        <div class="panel-layout">
+            <partial name="_AccountSidebar" />
+            <div class="panel-main">
+                <div class="card">
+                    <div class="card-head-row">
+                        <h2>فهرست سفارش‌ها</h2>
+                        <a class="btn btn-primary btn-sm" asp-page="/Products">ثبت سفارش جدید</a>
+                    </div>
+                    <div id="ordersBox">
+                        <div class="empty-state"><p class="muted">در حال بارگذاری سفارش‌ها…</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/assets/js/basket-pages.js" asp-append-version="true"></script>
+}

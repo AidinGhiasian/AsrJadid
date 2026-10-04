@@ -10,8 +10,12 @@ namespace Services.Application
             {"فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور", "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"};
 
         public static string[] DayNames = {"شنبه", "یکشنبه", "دو شنبه", "سه شنبه", "چهار شنبه", "پنج شنبه", "جمعه"};
-        public static string[] DayNamesG = {"یکشنبه", "دو شنبه", "سه شنبه", "چهار شنبه", "پنج شنبه", "جمعه", "شنبه"};
 
+        private static readonly string[] Pn = {"۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"};
+        private static readonly string[] En = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+
+        // ایندکس این آرایه بر اساس مقدار DayOfWeek است (Sunday = 0)
+        private static readonly string[] FaWeek = {"یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه", "شنبه"};
 
         public static string ToFarsi(this DateTime? date)
         {
@@ -33,15 +37,12 @@ namespace Services.Application
             var pc = new PersianCalendar();
             return $"{pc.GetYear(date)}/{pc.GetMonth(date):00}/{pc.GetDayOfMonth(date):00}";
         }
-        private static readonly string[] GW = { "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
-        private static readonly string[] FW = { "شنبه", "یکشنبه", "دوشنبه", "سه شنبه", "چهارشنبه", "پنجشنبه", "جمعه" };
+
         public static string ToWeekEnglishToFarsi(this DateTime date)
         {
-            var cash = "";
-            for (var i = 0; i < 10; i++)
-                   cash = cash.Replace(date.DayOfWeek.ToString(), FW[i]);
-            return cash;
+            return FaWeek[(int)date.DayOfWeek];
         }
+
         public static string ToDiscountFormat(this DateTime date)
         {
             if (date == new DateTime()) return "";
@@ -59,12 +60,11 @@ namespace Services.Application
             return
                 $"{pc.GetYear(date)}/{pc.GetMonth(date):00}/{pc.GetDayOfMonth(date):00} - {date.Hour:00}:{date.Minute:00}:{date.Second:00}";
         }
-       
-        private static readonly string[] Pn = {"۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"};
-        private static readonly string[] En = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
         public static string ToEnglishNumber(this string strNum)
         {
+            if (string.IsNullOrEmpty(strNum)) return strNum;
+
             var cash = strNum;
             for (var i = 0; i < 10; i++)
                 cash = cash.Replace(Pn[i], En[i]);
@@ -73,7 +73,29 @@ namespace Services.Application
 
         public static string ToPersianNumber(this int intNum)
         {
-            var chash = intNum.ToString();
+            return intNum.ToString().ToPersianNumber();
+        }
+
+        public static string ToPersianNumber(this long longNum)
+        {
+            return longNum.ToString().ToPersianNumber();
+        }
+
+        public static string ToPersianNumber(this decimal decimalNum)
+        {
+            return decimalNum.ToString(CultureInfo.InvariantCulture).ToPersianNumber();
+        }
+
+        public static string ToPersianNumber(this double doubleNum)
+        {
+            return doubleNum.ToString(CultureInfo.InvariantCulture).ToPersianNumber();
+        }
+
+        public static string ToPersianNumber(this string strNum)
+        {
+            if (string.IsNullOrEmpty(strNum)) return strNum ?? string.Empty;
+
+            var chash = strNum;
             for (var i = 0; i < 10; i++)
                 chash = chash.Replace(En[i], Pn[i]);
             return chash;
@@ -100,7 +122,6 @@ namespace Services.Application
             return c.ToDateTime(year, month, day, 0, 0, 0, 0);
         }
 
-
         public static DateTime ToGeorgianDateTime(this string persianDate)
         {
             persianDate = persianDate.ToEnglishNumber();
@@ -115,9 +136,34 @@ namespace Services.Application
             return myMoney.ToString("N0", CultureInfo.CreateSpecificCulture("fa-ir"));
         }
 
+        public static string ToMoney(this decimal myMoney)
+        {
+            return myMoney.ToString("N0", CultureInfo.CreateSpecificCulture("fa-ir"));
+        }
+
         public static string ToFileName(this DateTime date)
         {
             return $"{date.Year:0000}-{date.Month:00}-{date.Day:00}-{date.Hour:00}-{date.Minute:00}-{date.Second:00}";
+        }
+
+        /// <summary>
+        /// آدرس تصویر را بر اساس نوع مسیر ذخیره‌شده برمی‌گرداند؛
+        /// تصاویر پیش‌فرض قالب داخل assets و تصاویر آپلودشده داخل Pictures هستند.
+        /// </summary>
+        public static string ImageUrl(this string? picture)
+        {
+            if (string.IsNullOrWhiteSpace(picture))
+                return "/assets/images/placeholder.jpg";
+
+            var path = picture.Replace("\\", "/").TrimStart('/');
+
+            if (path.StartsWith("assets/", StringComparison.OrdinalIgnoreCase))
+                return "/" + path;
+
+            if (path.StartsWith("Pictures/", StringComparison.OrdinalIgnoreCase))
+                return "/" + path;
+
+            return "/Pictures/" + path;
         }
     }
 }

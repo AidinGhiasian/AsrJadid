@@ -1,0 +1,56 @@
+@page
+@model AsrJadid.Pages.Admin.RolesModel
+@{
+    ViewData["Title"] = "نقش‌ها و دسترسی‌ها";
+    ViewData["Crumb"] = "تعریف نقش‌های کاربری پنل";
+    ViewData["AdminActive"] = "/Admin/Roles";
+}
+
+<div class="adm-page-head">
+    <div class="adm-page-title"><h2>نقش‌های کاربری (@Model.Roles.Count.ToPersianNumber() مورد)</h2><p>نقش «مدیر سایت» دسترسی کامل به پنل دارد و نقش «کاربر» فقط به پنل کاربری دسترسی دارد.</p></div>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="notice-bar notice-ok"><p>@Model.SuccessMessage</p></div>
+}
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="notice-bar"><p>@Model.ErrorMessage</p></div>
+}
+
+<div class="adm-grid-2">
+    <div class="adm-card">
+        <h3 class="adm-card-title">@(Model.Input.Id > 0 ? "ویرایش نقش" : "نقش جدید")</h3>
+        <form class="adm-form" method="post">
+            <input type="hidden" asp-for="Input.Id" />
+            <div class="field"><label>نام نقش <span class="req">*</span></label><input asp-for="Input.Name" required></div>
+            <div class="adm-inline-actions">
+                <button class="btn btn-primary" type="submit">@(Model.Input.Id > 0 ? "ذخیره تغییرات" : "ثبت نقش")</button>
+                @if (Model.Input.Id > 0)
+                {
+                    <a class="btn btn-ghost" asp-page="/Admin/Roles">انصراف</a>
+                }
+            </div>
+        </form>
+    </div>
+
+    <div class="adm-card">
+        <div class="table-wrap">
+          <table class="adm-table">
+            <thead><tr><th>شناسه</th><th>نام نقش</th><th>تعداد کاربران</th><th></th></tr></thead>
+            <tbody>
+@foreach (var role in Model.Roles)
+{
+    <tr>
+        <td>@role.Id.ToPersianNumber()</td>
+        <td>@role.Name</td>
+        <td>@Model.Accounts.Count(x => x.RoleId == role.Id).ToPersianNumber()</td>
+        <td><a class="btn btn-outline btn-sm" asp-page="/Admin/Roles" asp-route-edit="@role.Id">ویرایش</a></td>
+    </tr>
+}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>

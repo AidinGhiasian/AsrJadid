@@ -1,0 +1,187 @@
+@page
+@model AboutModel
+@{
+    ViewData["Title"] = "درباره ما";
+    ViewData["Active"] = "about";
+}
+
+<section class="page-hero" style="--ph-img:url(/assets/images/hero-3.jpg)">
+  <div class="container">
+    <div class="ph-inner">
+      <h1 class="ph-title">درباره عصرجدید</h1>
+      <p class="ph-sub">۱۹ سال تولید سنگ مصنوعی؛ از کارگاه ۲۰۰ متری تا خط تولید ۱۲٬۰۰۰ مترمربعی</p>
+    </div>
+  </div>
+</section>
+<nav class="breadcrumb-wrap" aria-label="مسیر صفحه">
+  <div class="container">
+    <ol class="breadcrumb"><li><a asp-page="/Index">صفحه اصلی</a></li><li aria-current="page">درباره ما</li></ol>
+  </div>
+</nav>
+<section class="section">
+  <div class="container about-split">
+    <div class="as-media">
+      <img class="as-img-1" src="~/assets/images/hero-3.jpg" alt="کارخانه عصرجدید">
+      <img class="as-img-2" src="~/assets/images/cat-5.jpg" alt="نمونه محصولات">
+      <div class="as-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4h9l1 2h5v9h-6l-1-2H5"/></svg><div><strong>۴۲۰+</strong><small>پروژه اجراشده</small></div></div>
+    </div>
+    <div class="as-text">
+      
+<div class="section-head align-start">
+  <div class="sec-text">
+    <span class="eyebrow">معرفی شرکت</span>
+    <h2 class="sec-title">سنگ مصنوعی، این بار با استانداردهای صنعتی</h2>
+    
+  </div>
+  
+</div>
+      <p>عصرجدید از سال ۱۳۸۵ در زمینه تولید و عرضه سنگ مصنوعی، نانوسنگ، پنل‌های سه‌بعدی و صفحات یکپارچه کوارتز و کورین فعالیت می‌کند. بیش از ۱۹ سال تجربه، ۴۲۰ پروژه اجراشده و ۱۲٬۰۰۰ مترمربع خط تولید، پشتوانه کیفیت محصولات ماست.</p>
+      <p>ما در عصرجدید باور داریم سنگ مصنوعی باید مثل سنگ طبیعی زیبا، اما بادوام‌تر، سبک‌تر و اقتصادی‌تر باشد. به همین دلیل از سال ۱۳۸۵ روی فرمولاسیون و پوشش نانو محصولات سرمایه‌گذاری کرده‌ایم و امروز محصولات ما در پروژه‌های مسکونی، تجاری، اداری و درمانی به کار می‌رود.</p>
+      <div class="stats-row"><div class="stat"><span class="stat-value js-count" data-to="420">۴۲۰</span><span class="stat-suffix">+</span><span class="stat-label">پروژه اجراشده</span></div><div class="stat"><span class="stat-value js-count" data-to="12000">۱۲,۰۰۰</span><span class="stat-suffix"> m²</span><span class="stat-label">ظرفیت خط تولید</span></div><div class="stat"><span class="stat-value js-count" data-to="19">۱۹</span><span class="stat-suffix"> سال</span><span class="stat-label">سابقه فعالیت</span></div><div class="stat"><span class="stat-value js-count" data-to="6800">۶,۸۰۰</span><span class="stat-suffix">+</span><span class="stat-label">مشتری وفادار</span></div></div>
+      <div class="as-actions">
+        <a class="btn btn-primary" asp-page="/Projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V4h10v17M14 9h6v12M7 8h4M7 12h4M7 16h4M17 13h1M17 17h1"/></svg> پروژه‌های اجراشده</a>
+        <a class="btn btn-outline" asp-page="/Contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12Z"/></svg> تماس با ما</a>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="feature-strip"><div class="container feature-grid"><div class="feature"><span class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 4h11v11H1zM12 8h5l3 3.5V15h-8z"/><circle cx="5.5" cy="17.5" r="2"/><circle cx="16.5" cy="17.5" r="2"/></svg></span><span class="feat-body"><strong>ارسال به سراسر کشور</strong><small>ارسال بار با باربری تخصصی و بیمه کامل محموله</small></span></div><div class="feature"><span class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="feat-body"><strong>ضمانت اصالت کالا</strong><small>۱۸ ماه ضمانت‌نامه کتبی برای همه محصولات تولیدی</small></span></div><div class="feature"><span class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15 15 3l6 6L9 21z"/><path d="m7 11 2 2M10 8l2 2M13 5l2 2"/></svg></span><span class="feat-body"><strong>مشاوره و اندازه‌گیری</strong><small>کارشناسان ما به‌صورت رایگان بازدید و متراژ می‌گیرند</small></span></div><div class="feature"><span class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></svg></span><span class="feat-body"><strong>تنوع رنگ و طرح</strong><small>بیش از ۹۰ طرح و رنگ در ۶ گروه محصولی مختلف</small></span></div></div></section>
+<section class="section section-soft">
+  <div class="container">
+    
+<div class="section-head align-center">
+  <div class="sec-text">
+    <span class="eyebrow">مسیر رشد</span>
+    <h2 class="sec-title">تاریخچه عصرجدید</h2>
+    <p class="sec-sub">نقاط عطف فعالیت ما در دو دهه گذشته.</p>
+  </div>
+  
+</div>
+    <div class="timeline"><div class="tl-item">
+      <span class="tl-year">۱۳۸۵</span>
+      <div class="tl-body"><h3>تأسیس کارگاه نخست</h3><p>شروع فعالیت در کارگاهی ۲۰۰ متری با تولید قرنیز و ابزاره سنگ مصنوعی.</p></div>
+    </div><div class="tl-item">
+      <span class="tl-year">۱۳۹۰</span>
+      <div class="tl-body"><h3>راه‌اندازی خط تولید نانوسنگ</h3><p>ورود به بازار نمای ساختمان با تولید نانوسنگ نما در ۶ طرح اولیه.</p></div>
+    </div><div class="tl-item">
+      <span class="tl-year">۱۳۹۵</span>
+      <div class="tl-body"><h3>افتتاح سالن CNC و کورین</h3><p>راه‌اندازی خط برش CNC و تولید صفحات یکپارچه کورین و کوارتز.</p></div>
+    </div><div class="tl-item">
+      <span class="tl-year">۱۳۹۸</span>
+      <div class="tl-body"><h3>ساخت کارخانه چهاردانگه</h3><p>انتقال تولید به زمینی ۱۲٬۰۰۰ متری و افزایش ظرفیت به ۴۰۰٬۰۰۰ مترمربع سالانه.</p></div>
+    </div><div class="tl-item">
+      <span class="tl-year">۱۴۰۰</span>
+      <div class="tl-body"><h3>شبکه نمایندگی‌ها</h3><p>افتتاح ۱۸ نمایندگی فروش در شهرهای تهران، شیراز، مشهد، اصفهان و تبریز.</p></div>
+    </div><div class="tl-item">
+      <span class="tl-year">۱۴۰۳</span>
+      <div class="tl-body"><h3>فروشگاه اینترنتی نسل جدید</h3><p>راه‌اندازی پلتفرم فروش آنلاین و پرتال محاسبه‌گر متراژ و هزینه.</p></div>
+    </div></div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    
+<div class="section-head align-center">
+  <div class="sec-text">
+    <span class="eyebrow">ارزش‌های ما</span>
+    <h2 class="sec-title">چرا کارفرمایان عصرجدید را انتخاب می‌کنند؟</h2>
+    <p class="sec-sub">سه تعهد اصلی ما در همه پروژه‌ها.</p>
+  </div>
+  
+</div>
+    <div class="grid grid-3">
+      <article class="card value-card"><span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><h3 class="card-title">کیفیت کنترل‌شده</h3>
+        <p class="card-text">هر بچ تولیدی پیش از ارسال، آزمون جذب آب، مقاومت فشاری و ثبات رنگ را در آزمایشگاه داخلی می‌گذراند. برگه آزمون به سفارش‌های بالای ۵۰۰ مترمربع پیوست می‌شود.</p></article>
+      <article class="card value-card"><span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6a4 4 0 0 0 5.4 5.4L21 13l-8 8-2-2-4-4-2-2 8-8 1 1.6Z"/><path d="M6 6l3 3"/></svg></span><h3 class="card-title">اجرای تخصصی</h3>
+        <p class="card-text">نصب سنگ مصنوعی جزئیات فنی دارد؛ از انتخاب چسب و بند تا جهت چیدمان. تیم اجرایی ما با چک‌لیست استاندارد و فرم رضایت‌نامه کار را تحویل می‌دهد.</p></article>
+      <article class="card value-card"><span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12Z"/></svg></span><h3 class="card-title">پشتیبانی بلندمدت</h3>
+        <p class="card-text">پس از تحویل هم کنار شما هستیم؛ از ترمیم موضعی و پولیش سطح تا تأمین قطعات پله و قرنیز برای توسعه‌های بعدی پروژه.</p></article>
+    </div>
+  </div>
+</section>
+<section class="section section-soft">
+  <div class="container">
+    
+<div class="section-head align-center">
+  <div class="sec-text">
+    <span class="eyebrow">افتخارات و تأییدیه‌ها</span>
+    <h2 class="sec-title">گواهی‌نامه‌ها و استانداردها</h2>
+    <p class="sec-sub">مدارک کیفیتی که پشتوانه محصولات عصرجدید است.</p>
+  </div>
+  
+</div>
+    <div class="grid grid-4"><article class="card cert-card">
+      <span class="cert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></span>
+      <h3 class="card-title">گواهی ISO 9001</h3>
+      <span class="muted">۱۴۰۲</span>
+      <p class="card-text">سیستم مدیریت کیفیت در تولید سنگ مصنوعی</p>
+    </article><article class="card cert-card">
+      <span class="cert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></span>
+      <h3 class="card-title">تأییدیه سازمان استاندارد</h3>
+      <span class="muted">۱۴۰۱</span>
+      <p class="card-text">تطابق محصولات نانو سنگ با استاندارد ملی</p>
+    </article><article class="card cert-card">
+      <span class="cert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></span>
+      <h3 class="card-title">گواهی آزمایشگاه بتن</h3>
+      <span class="muted">۱۴۰۳</span>
+      <p class="card-text">مقاومت فشاری و جذب آب نمونه‌های تصادفی</p>
+    </article><article class="card cert-card">
+      <span class="cert-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></span>
+      <h3 class="card-title">نشان مشتری‌مداری</h3>
+      <span class="muted">۱۴۰۲</span>
+      <p class="card-text">رضایت ۹۶٪ مشتریان در نظرسنجی سالانه</p>
+    </article></div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    
+<div class="section-head align-center">
+  <div class="sec-text">
+    <span class="eyebrow">تیم عصرجدید</span>
+    <h2 class="sec-title">افرادی که پروژه شما را پیش می‌برند</h2>
+    <p class="sec-sub">تیم فنی، فروش و پشتیبانی ما در یک نگاه.</p>
+  </div>
+  
+</div>
+    <div class="grid grid-4"><article class="card team-card">
+      <span class="avatar avatar-xl">ف‌ع</span>
+      <h3 class="card-title">دکتر فرهاد عصرجدید</h3>
+      <span class="role">بنیان‌گذار و مدیرعامل</span>
+      <p class="card-text">۲۵ سال تجربه در صنعت مصالح نوین، فارغ‌التحصیل مهندسی مواد دانشگاه صنعتی شریف.</p>
+    </article><article class="card team-card">
+      <span class="avatar avatar-xl">س‌ر</span>
+      <h3 class="card-title">مهندس سعید رضایی</h3>
+      <span class="role">مدیر فنی و تولید</span>
+      <p class="card-text">مسئول توسعه فرمولاسیون نانوسنگ و کنترل کیفیت خط تولید.</p>
+    </article><article class="card team-card">
+      <span class="avatar avatar-xl">م‌ک</span>
+      <h3 class="card-title">مهندس مریم کاظمی</h3>
+      <span class="role">مدیر طراحی و فروش</span>
+      <p class="card-text">طراح ارشد صفحات کورین و کوارتز، مشاور انتخاب محصول معماران.</p>
+    </article><article class="card team-card">
+      <span class="avatar avatar-xl">ز‌ا</span>
+      <h3 class="card-title">خانم زهرا امینی</h3>
+      <span class="role">مدیر خدمات مشتریان</span>
+      <p class="card-text">مسئول پشتیبانی پس از فروش، پیگیری سفارش‌ها و رضایت‌سنجی مشتریان.</p>
+    </article></div>
+  </div>
+</section>
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div class="cta-text">
+      <span class="eyebrow eyebrow-light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg> عصرجدید</span>
+      <h2>همکاری با عصرجدید را شروع کنیم؟</h2>
+      <p>برای پروژه‌های عمرانی، همکاری با معماران و اخذ نمایندگی فروش، آماده گفتگو هستیم.</p>
+      <div class="cta-actions">
+      <a class="btn btn-primary btn-lg" asp-page="/Contact">درخواست مشاوره</a>
+      <a class="btn btn-outline btn-lg" asp-page="/PriceList">دریافت لیست قیمت</a>
+    </div>
+    </div>
+    <ul class="cta-points">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> بازدید و اندازه‌گیری رایگان در تهران و کرج</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> برش CNC طبق نقشه پروژه با تلرانس ±۰٫۵ میلی‌متر</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> ضمانت‌نامه کتبی ۱۸ ماهه و ضمانت سطح کوارتز ۱۰ ساله</li>
+    </ul>
+  </div>
+</section>

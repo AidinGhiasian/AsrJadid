@@ -8,11 +8,20 @@
 
   <ItemGroup>
     <PackageReference Include="SixLabors.ImageSharp" Version="4.1.2" />
-    <PackageReference Include="System.Drawing.Common" Version="10.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Services\Services.csproj" />
+    <ProjectReference Include="..\AccountManagment.Application\AccountManagment.Application.csproj" />
+    <ProjectReference Include="..\AccountManagment.Application.Contracts\AccountManagment.Application.Contracts.csproj" />
+    <ProjectReference Include="..\AccountManagment.Infrastructure\AccountManagment.Infrastructure.EFCore.csproj" />
+    <ProjectReference Include="..\AccountManagment\AccountManagment.Domain.csproj" />
+    <ProjectReference Include="..\StoneManagement.Application.Contracts\StoneManagement.Application.Contracts.csproj" />
+    <ProjectReference Include="..\StoneManagement.Domain\StoneManagement.Domain.csproj" />
+    <ProjectReference Include="..\StoneManagement.Infrastructure\StoneManagement.Infrastructure.EFCore.csproj" />
+    <ProjectReference Include="..\StoneManagement.Infrastructure.Configuration\StoneManagement.Infrastructure.Configuration.csproj" />
+    <ProjectReference Include="..\AccountManagment.Infrastructure.Configuration\AccountManagment.Infrastructure.Configuration.csproj" />
   </ItemGroup>
 
 </Project>

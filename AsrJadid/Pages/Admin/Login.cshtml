@@ -1,0 +1,62 @@
+@page
+@model AsrJadid.Pages.Admin.LoginModel
+@{
+    Layout = null;
+    ViewData["Title"] = "ورود به پنل مدیریت";
+}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ورود به پنل مدیریت | عصرجدید</title>
+    <link rel="icon" type="image/svg+xml" href="~/assets/images/favicon.svg">
+    <link rel="stylesheet" href="~/assets/css/admin.css">
+</head>
+<body class="admin adm-login-page admin-login-page admin-theme-2">
+    <partial name="_AdminSprite" />
+    <div class="adm-login">
+        <div class="adm-login-brand">
+            <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 8 6-8 12L4 9l8-6Z" /><path d="M4 9h16" /></svg></span>
+            <h1>پنل مدیریت عصرجدید</h1>
+            <p>برای ورود، اطلاعات حساب مدیریتی خود را وارد کنید.</p>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+        {
+            <div class="notice-bar"><p>@Model.ErrorMessage</p></div>
+        }
+
+        <form class="adm-form" method="post">
+            <div class="field">
+                <label>شماره همراه مدیر</label>
+                <div class="input-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" /></svg>
+                    <input asp-for="Input.PhoneNumber" placeholder="۰۹۱۵۹۸۶۱۲۱۶" required>
+                </div>
+            </div>
+            <div class="field">
+                <label>رمز عبور</label>
+                <div class="input-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
+                    <input asp-for="Input.Password" type="password" placeholder="••••••••" required>
+                </div>
+            </div>
+            <div class="adm-login-row">
+                <label class="check-row"><input type="checkbox" asp-for="Input.RememberMe"><span>مرا به خاطر بسپار</span></label>
+                <a asp-page="/ForgotPassword" class="link">فراموشی رمز</a>
+            </div>
+            <button class="btn btn-primary btn-lg btn-block" type="submit">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9" /></svg> ورود به پنل
+            </button>
+        </form>
+        <p class="adm-crumb-sub" style="text-align:center;margin-top:14px">دسترسی مدیریتی فقط برای حساب مدیر فعال است. در صورت فراموشی رمز با پشتیبانی تماس بگیرید: <a class="link" href="tel:+989159861216">۰۹۱۵۹۸۶۱۲۱۶</a></p>
+        <div class="adm-login-foot">
+            <a asp-page="/Index"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 3l9 8" /><path d="M5 10v11h14V10" /></svg> بازگشت به سایت</a>
+            <span>پشتیبانی فنی: <a class="link" href="tel:+989159861216" dir="ltr">۰۹۱۵-۹۸۶-۱۲۱۶</a></span>
+        </div>
+    </div>
+    <div class="toast-wrap" id="toastWrap"></div>
+    <script src="~/assets/js/admin.js"></script>
+</body>
+</html>

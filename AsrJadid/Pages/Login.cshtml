@@ -1,0 +1,65 @@
+@page
+@model LoginModel
+@{
+    ViewData["Title"] = "ورود به حساب";
+}
+
+<section class="auth-page">
+    <div class="container auth-layout">
+        <div class="auth-card card">
+            <div class="auth-head">
+                <span class="auth-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 8 6-8 12L4 9l8-6Z" /><path d="M4 9h16" /></svg></span>
+                <h1>ورود به حساب کاربری</h1>
+                <p>برای پیگیری سفارش‌ها، لیست قیمت اختصاصی و مدیریت پروژه‌ها وارد شوید.</p>
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+            {
+                <div class="notice-bar"><p>@Model.ErrorMessage</p></div>
+            }
+
+            <form class="form" method="post">
+                <input type="hidden" asp-for="ReturnUrl" />
+                <div class="field">
+                    <label>شماره همراه</label>
+                    <div class="input-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" /></svg>
+                        <input asp-for="Input.PhoneNumber" placeholder="۰۹۱۵۹۸۶۱۲۱۶" inputmode="numeric" autocomplete="username">
+                    </div>
+                    <span class="muted">@Html.ValidationMessageFor(x => x.Input.PhoneNumber)</span>
+                </div>
+                <div class="field">
+                    <label>رمز عبور</label>
+                    <div class="input-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg>
+                        <input asp-for="Input.Password" type="password" placeholder="••••••••" autocomplete="current-password">
+                        <button class="input-btn js-pass-toggle" type="button" aria-label="نمایش رمز"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z" /><circle cx="12" cy="12" r="2.5" /></svg></button>
+                    </div>
+                    <span class="muted">@Html.ValidationMessageFor(x => x.Input.Password)</span>
+                </div>
+                <div class="auth-row">
+                    <label class="check-row"><input type="checkbox" asp-for="Input.RememberMe"><span>مرا به خاطر بسپار</span></label>
+                    <a asp-page="/ForgotPassword" class="link">رمز عبور را فراموش کرده‌اید؟</a>
+                </div>
+                <button class="btn btn-primary btn-block btn-lg" type="submit">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9" /></svg> ورود به حساب
+                </button>
+            </form>
+
+            <p class="auth-foot">حساب کاربری ندارید؟ <a asp-page="/Register" class="link">ثبت‌نام کنید</a></p>
+            <p class="auth-foot muted">مدیر سایت هستید؟ از <a asp-page="/Admin/Login" class="link">ورود مدیران</a> استفاده کنید.</p>
+        </div>
+        <aside class="auth-aside">
+            <img src="~/assets/images/hero-2.jpg" alt="عصرجدید">
+            <div class="aa-body">
+                <h2>مزایای عضویت در عصرجدید</h2>
+                <ul class="check-list check-light">
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="m8 12 3 3 5-6" /></svg> مشاهده قیمت اختصاصی همکاران و پروژه‌ها</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="m8 12 3 3 5-6" /></svg> پیگیری آنلاین سفارش و بارنامه</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="m8 12 3 3 5-6" /></svg> ذخیره لیست خرید و مقایسه محصولات</li>
+                    <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="m8 12 3 3 5-6" /></svg> دریافت فاکتور رسمی و ضمانت‌نامه دیجیتال</li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+</section>

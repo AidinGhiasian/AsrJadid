@@ -1,6 +1,8 @@
-﻿using AccountManagment.Domain.Domain.Account.Agg;
+﻿using AccountManagment.Application;
+using AccountManagment.Application.Contracts.AccountModels;
+using AccountManagment.Application.Contracts.RoleModels;
+using AccountManagment.Domain.Domain.Account.Agg;
 using AccountManagment.Domain.Domain.Roles.Agg;
-using AccountManagment.Infrastructure.EFCore.Repository;
 using AccountManagment.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +18,10 @@ namespace AccountManagment.Infrastructure.Configuration
 
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+
+            // سرویس‌های لایه Application
+            services.AddScoped<IAccountApplication, AccountApplication>();
+            services.AddScoped<IRoleApplication, RoleApplication>();
 
 
             services.AddDbContext<AccountDbContext>(options => options.UseSqlServer(connectionString));

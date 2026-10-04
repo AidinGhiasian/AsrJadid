@@ -1,0 +1,87 @@
+@page
+@model AsrJadid.Pages.Admin.IndexModel
+@{
+    ViewData["Title"] = "داشبورد مدیریت";
+    ViewData["Crumb"] = "نمای کلی محصولات، انبار و کاربران";
+    ViewData["AdminActive"] = "/Admin/Index";
+}
+
+<div class="adm-page-head">
+    <div class="adm-page-title"><h2>خلاصه وضعیت فروشگاه</h2><p>آخرین به‌روزرسانی: @DateTime.Now.ToFarsi() – @DateTime.Now.ToString("HH:mm").ToPersianNumber()</p></div>
+    <div class="adm-page-actions">
+        <a class="btn btn-outline btn-sm" asp-page="/Admin/Categories">دسته‌بندی‌ها</a>
+        <a class="btn btn-primary btn-sm" asp-page="/Admin/StoneForm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg> محصول جدید</a>
+    </div>
+</div>
+
+<div class="admin-kpis">
+    <article class="kpi">
+        <div class="kpi-top"><span class="kpi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5v-9Z" /><path d="m3 7.5 9 4.5 9-4.5M12 12v9" /></svg></span></div>
+        <span class="kpi-title">تعداد محصولات</span>
+        <div class="kpi-value">@Model.Stones.Count.ToPersianNumber()<small>محصول</small></div>
+    </article>
+    <article class="kpi">
+        <div class="kpi-top"><span class="kpi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z" /></svg></span></div>
+        <span class="kpi-title">دسته‌بندی‌ها</span>
+        <div class="kpi-value">@Model.Categories.Count.ToPersianNumber()<small>دسته</small></div>
+    </article>
+    <article class="kpi">
+        <div class="kpi-top"><span class="kpi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h12v4" /><rect x="3" y="7" width="18" height="12" rx="2" /><path d="M17 13h.01" /></svg></span></div>
+        <span class="kpi-title">ارزش موجودی انبار</span>
+        <div class="kpi-value">@Model.InventoryValue.ToMoney().ToPersianNumber()<small>تومان</small></div>
+    </article>
+    <article class="kpi">
+        <div class="kpi-top"><span class="kpi-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5" /><path d="M2 21c0-3.5 3.1-5.5 7-5.5s7 2 7 5.5" /></svg></span></div>
+        <span class="kpi-title">کاربران فعال</span>
+        <div class="kpi-value">@Model.Accounts.Count.ToPersianNumber()<small>کاربر</small></div>
+    </article>
+</div>
+
+<div class="adm-page-head">
+    <div class="adm-page-title"><h2>وضعیت دسته‌بندی‌ها</h2><p>تعداد محصول و موجودی هر دسته</p></div>
+</div>
+<div class="adm-card">
+    <div class="table-wrap">
+      <table class="adm-table">
+        <thead><tr><th>دسته‌بندی</th><th>نشانه (slug)</th><th>تعداد محصول</th><th>محصولات ناموجود</th><th></th></tr></thead>
+        <tbody>
+@foreach (var cat in Model.Categories)
+{
+    var items = Model.Stones.Where(x => x.CategoryId == cat.Id).ToList();
+    <tr>
+        <td>@cat.Name</td>
+        <td class="adm-crumb-sub">@cat.Slug</td>
+        <td>@items.Count.ToPersianNumber()</td>
+        <td>@items.Count(x => x.Stock <= 0).ToPersianNumber()</td>
+        <td><a class="btn btn-outline btn-sm" asp-page="/Category" asp-route-slug="@cat.Slug">مشاهده در سایت</a></td>
+    </tr>
+}
+        </tbody>
+    </table>
+    </div>
+</div>
+
+<div class="adm-page-head">
+    <div class="adm-page-title"><h2>آخرین محصولات ثبت‌شده</h2><p>۶ محصول تازه‌تر</p></div>
+    <div class="adm-page-actions"><a class="btn btn-outline btn-sm" asp-page="/Admin/Stones">مدیریت محصولات</a></div>
+</div>
+<div class="adm-card">
+    <div class="table-wrap">
+      <table class="adm-table">
+        <thead><tr><th>تصویر</th><th>نام محصول</th><th>دسته‌بندی</th><th>قیمت (تومان)</th><th>موجودی</th><th></th></tr></thead>
+        <tbody>
+@foreach (var stone in Model.Latest)
+{
+    <tr>
+        <td><img src="@stone.Picture.ImageUrl()" alt="@stone.StoneName" style="width:56px;height:44px;object-fit:cover;border-radius:8px"></td>
+        <td>@stone.StoneName</td>
+        <td>@stone.CategoryName</td>
+        <td>@stone.Price.ToMoney().ToPersianNumber()</td>
+        <td>@(stone.Stock > 0 ? stone.Stock.ToPersianNumber() : "ناموجود")</td>
+        <td><a class="btn btn-outline btn-sm" asp-page="/Admin/StoneForm" asp-route-id="@stone.Id">ویرایش</a></td>
+    </tr>
+}
+        </tbody>
+    </table>
+    </div>
+</div>

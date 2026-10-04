@@ -1,0 +1,74 @@
+@page
+@model ProfileModel
+@{
+    ViewData["Title"] = "اطلاعات حساب";
+    ViewData["PanelActive"] = "profile";
+}
+
+<section class="page-hero">
+    <div class="container">
+        <div class="ph-inner">
+            <h1 class="ph-title">اطلاعات حساب</h1>
+            <p class="ph-sub">ویرایش مشخصات، تصویر پروفایل و رمز عبور</p>
+        </div>
+    </div>
+</section>
+<nav class="breadcrumb-wrap" aria-label="مسیر صفحه">
+    <div class="container">
+        <ol class="breadcrumb"><li><a asp-page="/Index">صفحه اصلی</a></li><li><a asp-page="/Dashboard">پنل کاربری</a></li><li aria-current="page">اطلاعات حساب</li></ol>
+    </div>
+</nav>
+<section class="section">
+    <div class="container">
+        <div class="panel-layout">
+            <partial name="_AccountSidebar" />
+            <div class="panel-main">
+                @if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+                {
+                    <div class="notice-bar notice-ok"><p>@Model.SuccessMessage</p></div>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+                {
+                    <div class="notice-bar"><p>@Model.ErrorMessage</p></div>
+                }
+
+                <div class="grid grid-2">
+                    <div class="card">
+                        <h3 class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" /></svg> مشخصات فردی</h3>
+                        <form class="form" method="post" enctype="multipart/form-data">
+                            <div class="form-grid">
+                                <div class="field"><label>نام</label><input asp-for="Input.Name" required></div>
+                                <div class="field"><label>نام خانوادگی</label><input asp-for="Input.Family" required></div>
+                                <div class="field"><label>شماره همراه</label><input asp-for="Input.PhoneNumber" type="tel" required></div>
+                                <div class="field"><label>ایمیل</label><input asp-for="Input.Email" type="email"></div>
+                                <div class="field full"><label>نشانی</label><textarea asp-for="Input.Address" rows="2"></textarea></div>
+                                <div class="field"><label>تاریخ تولد</label><input type="date" name="Input.BirthDate" value="@(Model.Input.BirthDate == default ? "" : Model.Input.BirthDate.ToString("yyyy-MM-dd"))"></div>
+                                <div class="field">
+                                    <label>تصویر پروفایل</label>
+                                    <input asp-for="Input.PictureFile" type="file" accept="image/*">
+                                    <span class="muted">فرمت‌های مجاز: JPG و PNG، حداکثر ۵ مگابایت. در صورت انتخاب نشدن، تصویر فعلی حفظ می‌شود.</span>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button class="btn btn-primary" type="submit">ذخیره تغییرات</button>
+                                <a class="btn btn-ghost" asp-page="/Dashboard">بازگشت به داشبورد</a>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg> تغییر رمز عبور</h3>
+                        <form class="form" method="post" asp-page-handler="Password">
+                            <div class="field"><label>رمز عبور جدید</label><input asp-for="PasswordInput.Password" type="password" required autocomplete="new-password"></div>
+                            <div class="field"><label>تکرار رمز عبور جدید</label><input asp-for="PasswordInput.RePassword" type="password" required autocomplete="new-password"></div>
+                            <p class="muted">برای امنیت بیشتر، از رمزی با حرف و عدد استفاده کنید.</p>
+                            <div class="form-actions">
+                                <button class="btn btn-primary" type="submit">تغییر رمز عبور</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

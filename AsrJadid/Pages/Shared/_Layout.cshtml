@@ -1,52 +1,231 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+@using Services.Application
+@using Services.Models
+@using StoneManagement.Application.Contracts.StoneCategory
+@inject IStoneCategoryApplication CategoryApp
+@inject IAuthHelper AuthHelper
+@{
+    var account = AuthHelper.CurrentAccountInfo();
+    var isAuthenticated = AuthHelper.IsAuthenticated();
+    var isAdmin = AuthHelper.CurrentAccountRole() == RolesCode.Admin;
+    var active = ViewData["Active"] as string ?? "";
+
+    var categories = new List<StoneCategoryViewModel>();
+    try { categories = CategoryApp.GetAll(); } catch { /* در صورت عدم دسترسی به بانک اطلاعاتی، منو خالی می‌ماند */ }
+}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AsrJadid</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/AsrJadid.styles.css" asp-append-version="true" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] | عصرجدید — سنگ مصنوعی و صفحات یکپارچه</title>
+    <meta name="description" content="@(ViewData["Description"] ?? "سنگ مصنوعی عصرجدید؛ نانوسنگ نما، صفحات کوارتز و کورین، پنل سه‌بعدی و آجرنما با ۱۹ سال سابقه تولید")">
+    <meta name="theme-color" content="#2c231b">
+    <link rel="icon" type="image/svg+xml" href="~/assets/images/favicon.svg">
+    <link rel="stylesheet" href="~/assets/css/style-2.css">
+    @await RenderSectionAsync("Head", required: false)
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">AsrJadid</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
+<body class="theme-2 @ViewData["BodyClass"]">
+    @await Html.PartialAsync("_Sprite")
+    <a class="skip-link" href="#main">رفتن به محتوای اصلی</a>
+
+    <header class="site-header t2-header js-header">
+        <div class="container header-inner">
+            <a class="brand" asp-page="/Index">
+                <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z" /><path d="m3 13 9 5 9-5" /></svg></span>
+                <span class="brand-text">
+                    <strong>عصرجدید</strong>
+                    <small>سنگ مصنوعی نسل جدید</small>
+                </span>
+            </a>
+            <nav class="nav-main" id="mainNav" aria-label="منوی اصلی">
+                <ul class="nav-list">
+                    <li class="nav-item @(active == "home" ? "active" : "")"><a class="nav-link" asp-page="/Index">خانه</a></li>
+                    <li class="nav-item @(active == "products" ? "active" : "")"><a class="nav-link" asp-page="/Products">محصولات</a></li>
+                    <li class="nav-item @(active == "services" ? "active" : "")"><a class="nav-link" asp-page="/Services">خدمات</a></li>
+                    <li class="nav-item @(active == "projects" ? "active" : "")"><a class="nav-link" asp-page="/Projects">پروژه‌ها</a></li>
+                    <li class="nav-item @(active == "about" ? "active" : "")"><a class="nav-link" asp-page="/About">درباره ما</a></li>
+                    <li class="nav-item @(active == "blog" ? "active" : "")"><a class="nav-link" asp-page="/Blog">وبلاگ</a></li>
+                    <li class="nav-item has-mega @(active == "categories" ? "active" : "")">
+                        <a class="nav-link" asp-page="/Categories">گروه محصولات <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg></a>
+                        <div class="mega">
+                            <ul class="mega-grid">
+                                @foreach (var cat in categories)
+                                {
+                                    <li>
+                                        <a asp-page="/Category" asp-route-slug="@cat.Slug">
+                                            <img src="@cat.Picture.ImageUrl()" alt="@cat.Name" loading="lazy">
+                                            <span><strong>@cat.Name</strong><small>@cat.StoneCount.ToPersianNumber() محصول</small></span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <div class="nav-mobile-extra">
+                    <a class="btn btn-outline btn-block" asp-page="/Gallery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" /><circle cx="8.5" cy="9.5" r="1.5" /><path d="m4 18 5-5 4 4 3-3 4 4" /></svg> گالری نمونه کارها</a>
+                    <a class="btn btn-primary btn-block" asp-page="/PriceList"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 20h16" /></svg> دانلود لیست قیمت</a>
+                </div>
+            </nav>
+            <div class="header-actions">
+                <button class="icon-btn js-search-open" type="button" title="جستجو"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg></button>
+                <a class="icon-btn" asp-page="/Compare" title="مقایسه"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16m0 0-3-3m3 3 3-3M17 20V4m0 0-3 3m3-3 3 3" /></svg></a>
+                <a class="icon-btn" asp-page="/Cart" title="سبد خرید"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5" /><circle cx="18" cy="20" r="1.5" /><path d="M2 3h2.2l2.4 12.2a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.6L21 7H5" /></svg><span class="dot-count js-cart-count">۰</span></a>
+                @if (isAuthenticated)
+                {
+                    <a class="icon-btn" asp-page="/Dashboard" title="@($"{account.Name} {account.Family}".Trim())"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" /></svg></a>
+                    @if (isAdmin)
+                    {
+                        <a class="btn btn-dark header-cta" asp-page="/Admin/Index"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21V4h10v17M14 9h6v12M7 8h4M7 12h4M7 16h4M17 13h1M17 17h1" /></svg> پنل مدیریت</a>
+                    }
+                }
+                else
+                {
+                    <a class="btn btn-dark header-cta" asp-page="/Login"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12Z" /></svg> ورود / ثبت‌نام</a>
+                }
+                <button class="icon-btn nav-toggle js-nav-toggle" type="button" aria-label="منو"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" /></svg></button>
+            </div>
+        </div>
+        <div class="t2-ticker">
+            <div class="container ticker-inner">
+                <span class="ticker-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18" /></svg> این هفته</span>
+                <p>٪۱۳ تخفیف روی نانوسنگ نما و پنل‌های سه‌بعدی • ارسال رایگان سفارش‌های بالای ۵۰ مترمربع در تهران و کرج • مشاوره فنی رایگان با کارشناسان عصرجدید</p>
+                <a asp-page="/Products">مشاهده تخفیف‌ها <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7" /></svg></a>
+            </div>
+        </div>
+    </header>
+
+    <main id="main" class="site-main">
+        @RenderBody()
+    </main>
+
+    <footer class="site-footer t2-footer">
+        <div class="container">
+            <div class="newsletter">
+                <div class="nl-text">
+                    <h3>خبرنامه عصرجدید</h3>
+                    <p>تخفیف‌های فصلی، طرح‌های جدید و مقالات کاربردی را اول از همه دریافت کنید.</p>
+                </div>
+                <form class="nl-form js-newsletter" method="post" asp-page="/Contact" asp-page-handler="Newsletter" novalidate>
+                    <div class="field">
+                        <input type="email" name="email" placeholder="ایمیل خود را وارد کنید" required aria-label="ایمیل خبرنامه">
+                    </div>
+                    <button class="btn btn-primary" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg> عضویت در خبرنامه</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-main">
+            <div class="container footer-grid">
+                <div class="f-col f-about">
+                    <a class="brand brand-light" asp-page="/Index">
+                        <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z" /><path d="m3 13 9 5 9-5" /></svg></span>
+                        <span class="brand-text"><strong>عصرجدید</strong><small>سنگ مصنوعی نسل جدید</small></span>
+                    </a>
+                    <p>تولیدکننده سنگ مصنوعی، نانوسنگ، پنل سه‌بعدی و صفحات یکپارچه کوارتز و کورین با ۱۹ سال سابقه و خط تولید ۱۲٬۰۰۰ متری در چهاردانگه تهران.</p>
+                    <ul class="f-badges">
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z" /><path d="m9 12 2 2 4-4" /></svg> ISO 9001</li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="m8 12 3 3 5-6" /></svg> استاندارد ملی</li>
+                    </ul>
+                    <div class="f-social">
+                        <a href="https://wa.me/989159861216" target="_blank" rel="noopener" aria-label="واتس‌اپ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.6 7L4 20l1.2-4A8 8 0 1 1 20 12Z" /><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5" /></svg></a>
+                        <a href="tel:+989159861216" aria-label="تماس تلفنی"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z" /></svg></a>
+                        <a href="mailto:info@asrjadid.com" aria-label="ایمیل"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg></a>
+                        <a asp-page="/Contact" aria-label="فرم تماس و استعلام قیمت"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12Z" /></svg></a>
+                    </div>
+                </div>
+                <div class="f-col">
+                    <h4 class="f-title">حساب کاربری</h4>
+                    <ul class="f-links">
+                        @if (isAuthenticated)
+                        {
+                            <li><a asp-page="/Dashboard">پنل کاربری</a></li>
+                            <li><a asp-page="/Orders">سفارش‌های من</a></li>
+                            <li><a asp-page="/Profile">ویرایش پروفایل</a></li>
+                            <li><a asp-page="/Logout">خروج از حساب</a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-page="/Login">ورود به حساب</a></li>
+                            <li><a asp-page="/Register">ثبت‌نام</a></li>
+                        }
+                        <li><a asp-page="/Wishlist">علاقه‌مندی‌ها</a></li>
+                        <li><a asp-page="/Compare">مقایسه محصولات</a></li>
                     </ul>
                 </div>
+                <div class="f-col">
+                    <h4 class="f-title">گروه محصولات</h4>
+                    <ul class="f-links">
+                        @foreach (var cat in categories.Take(5))
+                        {
+                            <li><a asp-page="/Category" asp-route-slug="@cat.Slug">@cat.Name</a></li>
+                        }
+                    </ul>
+                </div>
+                <div class="f-col f-contact">
+                    <h4 class="f-title">تماس با ما</h4>
+                    <ul class="f-contact-list">
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg><span>تهران، بزرگراه فتح، شهرک صنعتی چهاردانگه، خیابان صنعت ۱۲، پلاک ۴۸</span></li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z" /></svg><a href="tel:+989159861216">۰۹۱۵۹۸۶۱۲۱۶</a></li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 6 10-6" /></svg><a href="mailto:info@asrjadid.com">info@asrjadid.com</a></li>
+                        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg><span>شنبه تا چهارشنبه ۸:۳۰ تا ۱۷:۳۰ | پنجشنبه ۸:۳۰ تا ۱۳:۰۰</span></li>
+                    </ul>
+                    <div class="f-news-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15V10a6 6 0 1 0-12 0v5l-2 3h16l-2-3Z" /><path d="M10 21h4" /></svg> پاسخ‌گویی تلفنی تا ساعت ۲۰</div>
+                </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - AsrJadid - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+        <div class="footer-bottom">
+            <div class="container fb-inner">
+                <div class="fb-copy">
+                    <p>© ۱۴۰۴ شرکت <strong>عصرجدید</strong> — تولیدکننده سنگ مصنوعی و صفحات یکپارچه</p>
+                    <span class="fb-credit">ساخته شده توسط تیم امین الله - آیدین غیاثیان</span>
+                </div>
+                <ul class="fb-links">
+                    <li><a asp-page="/Terms">قوانین</a></li>
+                    <li><a asp-page="/Privacy">حریم خصوصی</a></li>
+                    <li><a asp-page="/Sitemap">نقشه سایت</a></li>
+                    <li><a asp-page="/Admin/Login">ورود مدیران</a></li>
+                </ul>
+                <div class="fb-pay">
+                    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20M6 15h4" /></svg> پرداخت امن</span>
+                    <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z" /><path d="m9 12 2 2 4-4" /></svg> SSL</span>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <div class="search-overlay" id="searchOverlay" hidden>
+        <div class="search-box">
+            <form class="search-form" method="get" asp-page="/Search">
+                <input type="search" name="q" placeholder="جستجوی محصول، طرح یا مقاله… (مثلاً: نانوسنگ نما)" aria-label="جستجو" autofocus>
+                <button class="btn btn-primary" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.5-3.5" /></svg> جستجو</button>
+            </form>
+            <div class="search-suggest">
+                <span class="ss-title">جستجوهای پرطرفدار:</span>
+                <a asp-page="/Products" asp-route-q="نانوسنگ">نانوسنگ نما</a>
+                <a asp-page="/Products" asp-route-q="کوارتز">صفحه کوارتز</a>
+                <a asp-page="/Products" asp-route-q="کورین">کورین یکپارچه</a>
+                <a asp-page="/Products" asp-route-q="آجر">آجرنما تراکوتا</a>
+                <a asp-page="/Products" asp-route-q="سه‌بعدی">پنل سه‌بعدی</a>
+            </div>
+            <button class="search-close js-search-close" type="button" aria-label="بستن"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg></button>
+        </div>
+    </div>
 
+    <div class="float-tools">
+        <a class="ft-btn ft-wa" href="https://wa.me/989159861216" target="_blank" rel="noopener" title="واتس‌اپ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.6 7L4 20l1.2-4A8 8 0 1 1 20 12Z" /><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5" /></svg></a>
+        <a class="ft-btn ft-tel" href="tel:+989159861216" title="تماس تلفنی"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z" /></svg></a>
+        <button class="ft-btn ft-top js-top" type="button" title="بازگشت به بالا"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-7 7 7-7 7 7" /></svg></button>
+    </div>
+    <div class="toast-wrap" id="toastWrap"></div>
+    <div class="modal" id="quickModal" hidden>
+        <div class="modal-backdrop js-modal-close"></div>
+        <div class="modal-card modal-lg">
+            <button class="modal-close js-modal-close" type="button" aria-label="بستن"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12" /></svg></button>
+            <div class="modal-body" id="quickBody"></div>
+        </div>
+    </div>
+
+    <script src="~/assets/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

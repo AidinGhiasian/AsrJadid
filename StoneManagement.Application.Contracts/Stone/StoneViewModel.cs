@@ -7,11 +7,15 @@
         public string StoneName { get; set; }
         public double Length { get; set; }
         public double Width { get; set; }
-        public double Weight { get;  set; }
-        public decimal Price { get;  set; }
+        public double Weight { get; set; }
+        public decimal Price { get; set; }
         public string Color { get; set; }
-        public int Stock { get;  set; }
+        public int Stock { get; set; }
         public long CategoryId { get; set; }
+        public string CategoryName { get; set; }
+        public string CategorySlug { get; set; }
         public string Description { get; set; }
+        public DateTime CreateDateTime { get; set; }
+        public List<string> Pictures { get; set; } = new();
     }
 }

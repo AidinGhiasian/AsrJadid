@@ -1,0 +1,82 @@
+@page
+@model AsrJadid.Pages.Admin.AccountsModel
+@{
+    ViewData["Title"] = "مدیریت مشتریان";
+    ViewData["Crumb"] = "کاربران، نقش‌ها و وضعیت حساب";
+    ViewData["AdminActive"] = "/Admin/Accounts";
+}
+
+<div class="adm-page-head">
+    <div class="adm-page-title"><h2>کاربران (@Model.Accounts.Count.ToPersianNumber() مورد)</h2><p>جستجو، تغییر نقش، فعال‌سازی و حذف حساب کاربری</p></div>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="notice-bar notice-ok"><p>@Model.SuccessMessage</p></div>
+}
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="notice-bar"><p>@Model.ErrorMessage</p></div>
+}
+
+<form class="adm-card" method="get" style="padding:16px">
+    <div class="field"><label>جستجوی کاربر</label><input type="search" name="q" value="@Model.Query" placeholder="نام، نام خانوادگی یا شماره همراه"></div>
+    <div class="adm-inline-actions">
+        <button class="btn btn-primary" type="submit">جستجو</button>
+        <a class="btn btn-ghost" asp-page="/Admin/Accounts">نمایش همه</a>
+    </div>
+</form>
+
+<div class="adm-card">
+    <div class="table-wrap">
+      <table class="adm-table">
+        <thead><tr><th>نام و نام خانوادگی</th><th>شماره همراه</th><th>ایمیل</th><th>نقش</th><th>تاریخ عضویت</th><th>وضعیت</th><th></th></tr></thead>
+        <tbody>
+@foreach (var account in Model.Accounts)
+{
+    <tr>
+        <td>@account.Name @account.Family</td>
+        <td>@account.PhoneNumber.ToPersianNumber()</td>
+        <td>@(string.IsNullOrWhiteSpace(account.Email) ? "-" : account.Email)</td>
+        <td>
+            <form method="post" asp-page-handler="ChangeRole" asp-route-id="@account.Id" style="display:flex;gap:6px;align-items:center">
+                <select name="roleId" style="min-width:130px">
+@foreach (var role in Model.Roles)
+{
+    <option value="@role.Id" selected="@(account.RoleId == role.Id)">@role.Name</option>
+}
+                </select>
+                <button class="btn btn-outline btn-sm" type="submit">ثبت</button>
+            </form>
+        </td>
+        <td>@account.CreateDateTime.ToFarsi()</td>
+        <td>
+            @if (account.IsActive)
+            {
+                <span class="status status-done">فعال</span>
+            }
+            else
+            {
+                <span class="status status-canceled">غیرفعال</span>
+            }
+        </td>
+        <td>
+            @if (account.IsActive)
+            {
+                <form method="post" asp-page-handler="Deactivate" asp-route-id="@account.Id" style="display:inline" onsubmit="return confirm('حساب کاربر غیرفعال شود؟');">
+                    <button class="btn btn-ghost btn-sm" type="submit">غیرفعال‌سازی</button>
+                </form>
+            }
+            else
+            {
+                <form method="post" asp-page-handler="Restore" asp-route-id="@account.Id" style="display:inline">
+                    <button class="btn btn-outline btn-sm" type="submit">فعال‌سازی</button>
+                </form>
+            }
+        </td>
+    </tr>
+}
+        </tbody>
+    </table>
+    </div>
+</div>

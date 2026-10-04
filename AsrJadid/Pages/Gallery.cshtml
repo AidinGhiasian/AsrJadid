@@ -1,0 +1,88 @@
+@page
+@model GalleryModel
+@{
+    ViewData["Title"] = "گالری نمونه کارها";
+    ViewData["Active"] = "products";
+}
+
+<section class="page-hero" style="--ph-img:url(/assets/images/hero-3.jpg)">
+  <div class="container">
+    <div class="ph-inner">
+      <h1 class="ph-title">گالری تصاویر (@Model.Items.Count.ToPersianNumber() تصویر)</h1>
+      <p class="ph-sub">نگاهی نزدیک به طرح‌ها، رنگ‌ها و پروژه‌های اجراشده عصرجدید</p>
+    </div>
+  </div>
+</section>
+<nav class="breadcrumb-wrap" aria-label="مسیر صفحه">
+  <div class="container">
+    <ol class="breadcrumb"><li><a asp-page="/Index">صفحه اصلی</a></li><li aria-current="page">گالری</li></ol>
+  </div>
+</nav>
+<section class="section">
+  <div class="container">
+    
+<div class="section-head align-center">
+  <div class="sec-text">
+    <span class="eyebrow">گالری</span>
+    <h2 class="sec-title">فیلتر کنید و تصاویر را در اندازه کامل ببینید</h2>
+    <p class="sec-sub">روی هر تصویر کلیک کنید تا در حالت تمام‌صفحه نمایش داده شود.</p>
+  </div>
+  
+</div>
+    <div class="filter-chips js-gallery-filter">
+      <button class="chip-btn active" type="button" data-filter="all">همه</button>
+@foreach (var cat in Model.Categories)
+{
+      <button class="chip-btn" type="button" data-filter="@cat.Name">@cat.Name</button>
+}
+    </div>
+    <div class="gallery-grid" id="galleryGrid">
+@foreach (var item in Model.Items)
+{
+      <figure class="g-item" data-cat="@item.CategoryName">
+        <a href="@item.Image" class="g-link js-lightbox" aria-label="@item.Title">
+          <img src="@item.Image" alt="@item.Title" loading="lazy">
+          <span class="g-overlay"><strong>@item.Title</strong><small>@item.CategoryName</small><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></i></span>
+        </a>
+      </figure>
+}
+    </div>
+  </div>
+</section>
+<section class="section section-soft">
+  <div class="container">
+    
+<div class="section-head align-center">
+  <div class="sec-text">
+    <span class="eyebrow">ویدیو معرفی</span>
+    <h2 class="sec-title">خط تولید و پروژه‌های عصرجدید در ۳ دقیقه</h2>
+    <p class="sec-sub">گزارشی کوتاه از فرآیند تولید نانوسنگ و اجرای پروژه‌های شاخص.</p>
+  </div>
+  
+</div>
+    <div class="video-box">
+      <img src="~/assets/images/hero-1.jpg" alt="ویدیو معرفی عصرجدید">
+      <span class="vb-overlay"></span>
+      <button class="video-play js-modal-btn" type="button" data-modal="video" aria-label="پخش ویدیو"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m10 8.5 6 3.5-6 3.5v-7Z"/></svg></button>
+      <div class="vb-caption"><strong>از قالب‌گیری تا تحویل پروژه</strong><small>مدت زمان: ۳ دقیقه و ۱۲ ثانیه</small></div>
+    </div>
+  </div>
+</section>
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div class="cta-text">
+      <span class="eyebrow eyebrow-light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg> عصرجدید</span>
+      <h2>نمونه طرح مورد نظرتان را نیافتید؟</h2>
+      <p>با ارسال یک تصویر مرجع، نزدیک‌ترین طرح موجود را برایتان انتخاب و ارسال می‌کنیم.</p>
+      <div class="cta-actions">
+      <a class="btn btn-primary btn-lg" asp-page="/Contact">درخواست مشاوره</a>
+      <a class="btn btn-outline btn-lg" asp-page="/PriceList">دریافت لیست قیمت</a>
+    </div>
+    </div>
+    <ul class="cta-points">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> بازدید و اندازه‌گیری رایگان در تهران و کرج</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> برش CNC طبق نقشه پروژه با تلرانس ±۰٫۵ میلی‌متر</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> ضمانت‌نامه کتبی ۱۸ ماهه و ضمانت سطح کوارتز ۱۰ ساله</li>
+    </ul>
+  </div>
+</section>

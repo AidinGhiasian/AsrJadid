@@ -1,0 +1,38 @@
+@page
+@model AsrJadid.Pages.Admin.SettingsModel
+@{
+    ViewData["Title"] = "تنظیمات سایت";
+    ViewData["Crumb"] = "اطلاعات پایه فروشگاه";
+    ViewData["AdminActive"] = "/Admin/Settings";
+}
+
+<div class="adm-page-head">
+    <div class="adm-page-title"><h2>اطلاعات پایه فروشگاه</h2><p>این اطلاعات در صفحات سایت (تماس، فوتر و درباره ما) استفاده می‌شود.</p></div>
+</div>
+
+<div class="notice-bar notice-demo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z" /><path d="M12 9v5m0 3h.01" /></svg>
+    <p>ماژول «تنظیمات» در پروژه شما جدول اختصاصی ندارد؛ مقادیر زیر مستقیماً در قالب صفحات قرار دارند. برای ویرایش آنلاین این اطلاعات، افزودن یک Aggregate تنظیمات لازم است که پس از تأیید شما انجام می‌شود.</p>
+</div>
+
+<div class="adm-grid-2">
+    <div class="adm-card">
+        <h3 class="adm-card-title">اطلاعات تماس</h3>
+        <ul class="kv-list">
+            <li><span>تلفن فروش</span><strong>۰۹۱۵۹۸۶۱۲۱۶</strong></li>
+            <li><span>ایمیل</span><strong>info@@asrjadid.com</strong></li>
+            <li><span>نشانی کارخانه</span><strong>تهران، چهاردانگه، شهرک صنعتی</strong></li>
+            <li><span>ساعات کاری</span><strong>شنبه تا پنجشنبه ۸ تا ۱۷</strong></li>
+        </ul>
+    </div>
+    <div class="adm-card">
+        <h3 class="adm-card-title">وضعیت ماژول‌ها</h3>
+        <ul class="kv-list">
+            <li><span>محصولات (Stones)</span><strong>فعال – @Model.StoneCount.ToPersianNumber() رکورد</strong></li>
+            <li><span>دسته‌بندی‌ها</span><strong>فعال – @Model.CategoryCount.ToPersianNumber() رکورد</strong></li>
+            <li><span>کاربران و نقش‌ها</span><strong>فعال – @Model.AccountCount.ToPersianNumber() کاربر</strong></li>
+            <li><span>سفارش‌ها (پایگاه داده)</span><strong>در انتظار تأیید افزودن Aggregate</strong></li>
+            <li><span>دیدگاه‌ها</span><strong>در انتظار تأیید افزودن Aggregate</strong></li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,144 @@
+@page
+@model PriceListModel
+@{
+    ViewData["Title"] = "لیست قیمت";
+    ViewData["Active"] = "products";
+}
+
+<section class="page-hero">
+  <div class="container">
+    <div class="ph-inner">
+      <h1 class="ph-title">لیست قیمت @DateTime.Now.Year.ToPersianNumber()</h1>
+      <p class="ph-sub">قیمت‌های به‌روز محصولات عصرجدید، بدون احتساب مالیات و هزینه حمل</p>
+    </div>
+  </div>
+</section>
+<nav class="breadcrumb-wrap" aria-label="مسیر صفحه">
+  <div class="container">
+    <ol class="breadcrumb"><li><a asp-page="/Index">صفحه اصلی</a></li><li aria-current="page">لیست قیمت</li></ol>
+  </div>
+</nav>
+<section class="section">
+  <div class="container">
+    <div class="notice-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 9v5m0 3h.01"/></svg>
+      <p>قیمت‌های این جدول آخرین بار در <strong>@DateTime.Now.ToFarsi()</strong> به‌روزرسانی شده و تا ۴۸ ساعت اعتبار دارد. برای قیمت قطعی، پیش‌فاکتور رسمی دریافت کنید.</p>
+      <a class="btn btn-outline sm" asp-page="/Contact">دریافت پیش‌فاکتور</a></div>
+    <div class="table-wrap card">
+      <div class="table-tools">
+        <div class="filter-chips">
+          <button class="chip-btn active" type="button" data-pfilter="all">همه</button>
+@foreach (var cat in Model.Categories)
+{
+          <button class="chip-btn" type="button" data-pfilter="@cat.Slug">@cat.Name</button>
+}
+        </div>
+        <div class="table-tools-left">
+          <button class="btn btn-outline sm js-print" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8V4h10v4M7 18H4V9h16v9h-3"/><path d="M7 14h10v7H7z"/></svg> چاپ</button>
+          <button class="btn btn-primary sm" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 20h16"/></svg> دانلود Excel</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="table price-table" id="priceTable">
+        <thead><tr><th>محصول</th><th>دسته‌بندی</th><th>ابعاد</th><th>واحد فروش</th><th>قیمت واحد (تومان)</th><th>وضعیت</th></tr></thead>
+        <tbody>
+@foreach (var stone in Model.Stones)
+{
+    <tr data-cat="@stone.CategorySlug">
+        <td class="pl-prod"><img src="@stone.Picture.ImageUrl()" alt="@stone.StoneName"><span>@stone.StoneName<small>کد @stone.Id.ToPersianNumber()</small></span></td>
+        <td>@stone.CategoryName</td>
+        <td>@stone.Length.ToPersianNumber() × @stone.Width.ToPersianNumber() سانتی‌متر</td>
+        <td>مترمربع</td>
+        <td class="pl-price">@stone.Price.ToMoney().ToPersianNumber()</td>
+        <td>@(stone.Stock > 0 ? "موجود" : "ناموجود")</td>
+    </tr>
+}
+        </tbody>
+      </table>
+      </div>
+    </div>
+    <div class="price-terms">
+      <div class="card info-card"><span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12"/><circle cx="7.5" cy="7.5" r="2"/><circle cx="16.5" cy="16.5" r="2"/></svg></span><h3 class="card-title">تخفیف پلکانی خرید</h3>
+        <ul class="check-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> ۵۰ تا ۲۰۰ مترمربع: ۲٪ تخفیف</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> ۲۰۰ تا ۵۰۰ مترمربع: ۴٪ تخفیف</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> بیش از ۵۰۰ مترمربع: تا ۸٪ تخفیف + مشاوره اختصاصی</li>
+        </ul></div>
+      <div class="card info-card"><span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 4h11v11H1zM12 8h5l3 3.5V15h-8z"/><circle cx="5.5" cy="17.5" r="2"/><circle cx="16.5" cy="17.5" r="2"/></svg></span><h3 class="card-title">شرایط حمل و پرداخت</h3>
+        <ul class="check-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> ارسال رایگان در تهران و کرج برای سفارش بالای ۵۰ مترمربع</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> حمل شهرستان با باربری، مطابق تعرفه و به عهده خریدار</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> ۳۰٪ پیش‌پرداخت، مانده پس از آماده‌سازی بار</li>
+        </ul></div>
+    </div>
+  </div>
+</section>
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div class="cta-text">
+      <span class="eyebrow eyebrow-light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg> عصرجدید</span>
+      <h2>مشاوره و استعلام قیمت رایگان</h2>
+      <p>کارشناسان عصرجدید آماده بررسی پروژه شما و ارائه پیش‌فاکتور دقیق هستند.</p>
+      <div class="cta-actions">
+      <a class="btn btn-primary btn-lg" asp-page="/Contact">درخواست مشاوره</a>
+      <a class="btn btn-outline btn-lg" asp-page="/PriceList">دریافت لیست قیمت</a>
+    </div>
+    </div>
+    <ul class="cta-points">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> بازدید و اندازه‌گیری رایگان در تهران و کرج</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> برش CNC طبق نقشه پروژه با تلرانس ±۰٫۵ میلی‌متر</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> ضمانت‌نامه کتبی ۱۸ ماهه و ضمانت سطح کوارتز ۱۰ ساله</li>
+    </ul>
+  </div>
+</section>
+<section class="section section-soft">
+  <div class="container">
+<div class="section-head align-center">
+  <div class="sec-text">
+    <span class="eyebrow">پرسش‌های قیمتی</span>
+    <h2 class="sec-title">سوالات متداول درباره قیمت و پرداخت</h2>
+    
+  </div>
+  <a class="link-more" asp-page="/Faq">مشاهده همه <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a>
+</div>
+    <div class="accordion"><div class="acc-item open">
+      <button class="acc-head js-acc" type="button" aria-expanded="true">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> سنگ مصنوعی عصرجدید چه تفاوتی با سنگ طبیعی دارد؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>سنگ مصنوعی با ترکیب پودر سنگ، رزین و رنگدانه‌های معدنی تولید می‌شود؛ در نتیجه یکنواخت، سبک‌تر، ضدآب و ارزان‌تر از سنگ طبیعی است، اما بافت تصادفی سنگ طبیعی را ندارد. برای نما و کفپوش پروژه‌های نوساز، سنگ مصنوعی معمولاً اقتصادی‌ترین انتخاب است.</p></div>
+    </div><div class="acc-item">
+      <button class="acc-head js-acc" type="button" aria-expanded="false">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> ارسال بار به شهرستان چطور انجام می‌شود؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>ارسال به سراسر کشور با باربری‌های همکار و بسته‌بندی مخصوص انجام می‌شود. هزینه حمل پس از اعلام آدرس و متراژ محاسبه و در پیش‌فاکتور درج می‌گردد. بارها بیمه کامل هستند و بارنامه به نام خریدار صادر می‌شود.</p></div>
+    </div><div class="acc-item">
+      <button class="acc-head js-acc" type="button" aria-expanded="false">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> امکان سفارش طرح یا رنگ سفارشی وجود دارد؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>بله. برای سفارش‌های بالای ۵۰ مترمربع، امکان تولید رنگ سفارشی و برای سفارش‌های بالای ۲۰۰ مترمربع، امکان قالب اختصاصی طرح وجود دارد. زمان تولید سفارشی بین ۷ تا ۱۴ روز کاری است.</p></div>
+    </div><div class="acc-item">
+      <button class="acc-head js-acc" type="button" aria-expanded="false">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> ضمانت محصولات چقدر است و شامل چه مواردی می‌شود؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>همه محصولات دارای ضمانت‌نامه کتبی ۱۸ ماهه هستند. این ضمانت شامل ثبات رنگ، سلامت صفحه و جذب آب است. برای صفحات کوارتز، ضمانت سطح ۱۰ ساله نیز ارائه می‌شود. آسیب‌های ناشی از نصب اشتباه یا ضربه، از ضمانت خارج است.</p></div>
+    </div><div class="acc-item">
+      <button class="acc-head js-acc" type="button" aria-expanded="false">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> هزینه بازدید و اندازه‌گیری چگونه است؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>بازدید و اندازه‌گیری در تهران و کرج رایگان است و برای سایر شهرها از طریق ارسال نقشه و ویدیو کنفرانس انجام می‌شود. در صورت ثبت سفارش، هزینه بازدید شهرستان‌ها از مبلغ فاکتور کسر می‌شود.</p></div>
+    </div><div class="acc-item">
+      <button class="acc-head js-acc" type="button" aria-expanded="false">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> برش صفحات طبق نقشه پروژه انجام می‌دهید؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>بله، برش CNC با تلرانس ±۰٫۵ میلی‌متر و پولیش لبه در ۴۸ ساعت کاری انجام می‌شود. برای این کار، فایل نقشه (DWG یا PDF) را از طریق واتس‌اپ یا ایمیل دریافت می‌کنیم.</p></div>
+    </div><div class="acc-item">
+      <button class="acc-head js-acc" type="button" aria-expanded="false">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> حداقل مقدار سفارش چقدر است؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>حداقل سفارش برای خرید مستقیم ۱۰ مترمربع است. برای مقادیر کمتر، می‌توانید از نمایندگی‌های شهر خود یا فروشگاه اینترنتی (سفارش‌های خرد) استفاده کنید.</p></div>
+    </div><div class="acc-item">
+      <button class="acc-head js-acc" type="button" aria-expanded="false">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> مدت زمان آماده‌سازی و تحویل سفارش چقدر است؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>محصولات موجود انبار در ۲۴ تا ۷۲ ساعت ارسال می‌شوند. محصولات تولیدی طبق سفارش، بین ۳ تا ۷ روز کاری و سفارش‌های سفارشی بین ۷ تا ۱۴ روز کاری آماده می‌شوند.</p></div>
+    </div></div></div>
+</section>

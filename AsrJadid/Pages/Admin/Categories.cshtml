@@ -1,0 +1,69 @@
+@page
+@model AsrJadid.Pages.Admin.CategoriesModel
+@{
+    ViewData["Title"] = "مدیریت دسته‌بندی‌ها";
+    ViewData["Crumb"] = "افزودن، ویرایش و حذف دسته‌بندی محصولات";
+    ViewData["AdminActive"] = "/Admin/Categories";
+}
+
+<div class="adm-page-head">
+    <div class="adm-page-title"><h2>دسته‌بندی‌ها (@Model.Categories.Count.ToPersianNumber() مورد)</h2><p>هر دسته‌بندی دارای نام، توضیح و تصویر شاخص است</p></div>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="notice-bar notice-ok"><p>@Model.SuccessMessage</p></div>
+}
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="notice-bar"><p>@Model.ErrorMessage</p></div>
+}
+
+<div class="adm-grid-2">
+    <div class="adm-card">
+        <h3 class="adm-card-title">@(Model.Input.Id > 0 ? "ویرایش دسته‌بندی" : "دسته‌بندی جدید")</h3>
+        <form class="adm-form" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Input.Id" />
+            <input type="hidden" asp-for="Input.Picture" />
+            <div class="field"><label>نام دسته‌بندی <span class="req">*</span></label><input asp-for="Input.Name" required></div>
+            <div class="field"><label>توضیحات</label><textarea asp-for="Input.Description" rows="3"></textarea></div>
+            <div class="field"><label>تصویر شاخص</label><input asp-for="Input.PictureFile" type="file" accept="image/*"></div>
+            @if (!string.IsNullOrWhiteSpace(Model.Input.Picture))
+            {
+                <img src="@Model.Input.Picture.ImageUrl()" alt="تصویر دسته‌بندی" style="width:140px;border-radius:12px">
+            }
+            <div class="adm-inline-actions">
+                <button class="btn btn-primary" type="submit">@(Model.Input.Id > 0 ? "ذخیره تغییرات" : "ثبت دسته‌بندی")</button>
+                @if (Model.Input.Id > 0)
+                {
+                    <a class="btn btn-ghost" asp-page="/Admin/Categories">انصراف</a>
+                }
+            </div>
+        </form>
+    </div>
+
+    <div class="adm-card">
+        <div class="table-wrap">
+          <table class="adm-table">
+            <thead><tr><th>تصویر</th><th>نام</th><th>نشانه</th><th>تعداد محصول</th><th></th></tr></thead>
+            <tbody>
+@foreach (var cat in Model.Categories)
+{
+    <tr>
+        <td><img src="@cat.Picture.ImageUrl()" alt="@cat.Name" style="width:56px;height:44px;object-fit:cover;border-radius:8px"></td>
+        <td>@cat.Name</td>
+        <td class="adm-crumb-sub">@cat.Slug</td>
+        <td>@cat.StoneCount.ToPersianNumber()</td>
+        <td>
+            <a class="btn btn-outline btn-sm" asp-page="/Admin/Categories" asp-route-edit="@cat.Id">ویرایش</a>
+            <form method="post" asp-page-handler="Delete" asp-route-id="@cat.Id" style="display:inline" onsubmit="return confirm('این دسته‌بندی حذف شود؟');">
+                <button class="btn btn-ghost btn-sm" type="submit">حذف</button>
+            </form>
+        </td>
+    </tr>
+}
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>

@@ -1,75 +1,90 @@
 ﻿using Services.Application;
 using StoneManagement.Application.Contracts.Stone;
-using StoneManagement.Domain.PicturesAgg;
 using StoneManagement.Domain.Stone.Agg;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using StoneManagement.Domain.StoneCategory.Agg;
 
 namespace StoneManagement.Application
 {
     public class StoneApplication : IStoneApplication
     {
         private readonly IStoneRepository _stoneRepository;
+        private readonly IStoneCategoryRepository _stoneCategoryRepository;
         private readonly IFileUploader _fileUploader;
-        public StoneApplication(IStoneRepository stoneRepository, IFileUploader fileUploader)
+
+        public StoneApplication(IStoneRepository stoneRepository, IStoneCategoryRepository stoneCategoryRepository, IFileUploader fileUploader)
         {
             _stoneRepository = stoneRepository;
+            _stoneCategoryRepository = stoneCategoryRepository;
             _fileUploader = fileUploader;
         }
+
         public OperationResult Create(CreateViewModel command)
         {
             OperationResult operation = new OperationResult();
+
+            if (command == null || string.IsNullOrWhiteSpace(command.StoneName))
+            {
+                return operation.Failed("نام محصول را وارد کنید.");
+            }
+
             var path = "Stone";
-            var picture = _fileUploader.UploadNewSize(command.PictureFile, path, 360);
+            var picture = _fileUploader.UploadNewSize(command.PictureFile, path, 720);
+
             var createdStone = new Stones(picture, command.StoneName, command.Length, command.Width, command.Weight, command.Price,
-                command.Stock, command.Color, command.Description);
+                command.Stock, command.Color, command.Description, command.CategoryId);
+
             _stoneRepository.Add(createdStone);
-            return operation.IsSuccess();
+            _stoneRepository.SaveChanges();
+
+            return operation.IsSuccess("محصول با موفقیت ثبت شد.");
         }
 
         public OperationResult Delete(long id)
         {
-            OperationResult result = new OperationResult();
-            _stoneRepository.Delete(id);
-            return result.IsSuccess();
+            return _stoneRepository.Delete(id);
         }
 
         public OperationResult Edit(EditViewModel model)
         {
             OperationResult operation = new OperationResult();
+
             var stone = _stoneRepository.GetByLongId(model.Id);
-            if (stone != null)
+            if (stone == null)
             {
-                if (model.Picture == null)
-                {
-                    return operation.Failed(ApplicationMessage.NotFound);
-                }
-                _fileUploader.Delete(model.Picture);
-                var path = "Stone";
-                model.Picture = _fileUploader.UploadNewSize(model.PictureFile, path, 360);
+                return operation.Failed(ApplicationMessage.NotFound);
             }
-            stone.Edit(model.Picture, model.StoneName, model.Length, model.Width, model.Weight, model.Price, model.Stock,
-                model.Color, model.Description);
-            return operation.IsSuccess();
+
+            if (model.PictureFile != null)
+            {
+                if (!string.IsNullOrWhiteSpace(stone.Picture))
+                {
+                    _fileUploader.Delete(stone.Picture);
+                }
+                var path = "Stone";
+                model.Picture = _fileUploader.UploadNewSize(model.PictureFile, path, 720);
+            }
+            else if (string.IsNullOrWhiteSpace(model.Picture))
+            {
+                model.Picture = stone.Picture;
+            }
+
+            stone.Edit(model.Picture, model.StoneName, model.Length, model.Width, model.Weight, model.Price,
+                model.Stock, model.Color, model.Description, model.CategoryId);
+
+            _stoneRepository.SaveChanges();
+            return operation.IsSuccess("محصول با موفقیت ویرایش شد.");
         }
 
-
-        public EditViewModel GetDetails(long id)
+        public EditViewModel? GetDetails(long id)
         {
             var stone = _stoneRepository.GetByLongId(id);
-            return EditingMap(stone);
+            return stone == null ? null : EditingMap(stone);
         }
 
-        public StoneViewModel GetInfo(long id)
+        public StoneViewModel? GetInfo(long id)
         {
             var stone = _stoneRepository.GetByLongId(id);
-            return Map(stone);
+            return stone == null ? null : Map(stone);
         }
 
         public List<StoneViewModel> GetList()
@@ -78,19 +93,23 @@ namespace StoneManagement.Application
             return Maps(stoneList);
         }
 
+        public List<StoneViewModel> GetByCategory(long categoryId)
+        {
+            var stoneList = _stoneRepository.GetByCategory(categoryId);
+            return Maps(stoneList);
+        }
+
         public List<SearchViewModel> Search(string search)
         {
             var searchString = _stoneRepository.Search(search);
-            var result = new List<SearchViewModel>();
-            foreach (var item in searchString)
-            {
-                result.Add(SearchMap(item));
-            }
-            return result;
+            return SearchMaps(searchString);
         }
+
         //Map 
         public StoneViewModel Map(Stones map)
         {
+            var category = map.CategoryId > 0 ? _stoneCategoryRepository.GetByLongId(map.CategoryId) : null;
+
             return new StoneViewModel
             {
                 Id = map.Id,
@@ -102,9 +121,15 @@ namespace StoneManagement.Application
                 Price = map.Price,
                 Stock = map.Stock,
                 Color = map.Color,
-                Description = map.Description
+                CategoryId = map.CategoryId,
+                CategoryName = category?.Name,
+                CategorySlug = category?.Slug,
+                Description = map.Description,
+                CreateDateTime = map.CreateDateTime,
+                Pictures = map.Pictures?.Where(x => !string.IsNullOrWhiteSpace(x.Picture)).Select(x => x.Picture).ToList() ?? new List<string>()
             };
         }
+
         public EditViewModel EditingMap(Stones map)
         {
             return new EditViewModel
@@ -118,9 +143,11 @@ namespace StoneManagement.Application
                 Price = map.Price,
                 Stock = map.Stock,
                 Color = map.Color,
+                CategoryId = map.CategoryId,
                 Description = map.Description
             };
         }
+
         public List<StoneViewModel> Maps(List<Stones> maps)
         {
             var result = new List<StoneViewModel>();
@@ -130,22 +157,33 @@ namespace StoneManagement.Application
             }
             return result;
         }
-        public SearchViewModel SearchMap(Stones stones)
+
+        public SearchViewModel SearchMap(Stones stone)
         {
             return new SearchViewModel
             {
-                Id = stones.Id,
-                Picture = stones.Picture,
-                StoneName = stones.StoneName,
-                Length = stones.Length,
-                Width = stones.Width,
-                Weight = stones.Weight,
-                Price = stones.Price,
-                Stock = stones.Stock,
-                Color = stones.Color,
-                Description = stones.Description,
-                CategoryId = stones.CategoryId,
+                Id = stone.Id,
+                Picture = stone.Picture,
+                StoneName = stone.StoneName,
+                Length = stone.Length,
+                Width = stone.Width,
+                Weight = stone.Weight,
+                Price = stone.Price,
+                Stock = stone.Stock,
+                Color = stone.Color,
+                Description = stone.Description,
+                CategoryId = stone.CategoryId,
             };
+        }
+
+        public List<SearchViewModel> SearchMaps(List<Stones> stones)
+        {
+            var result = new List<SearchViewModel>();
+            foreach (var item in stones)
+            {
+                result.Add(SearchMap(item));
+            }
+            return result;
         }
     }
 }

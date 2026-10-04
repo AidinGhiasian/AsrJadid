@@ -1,0 +1,136 @@
+@page
+@model CheckoutModel
+@{
+    ViewData["Title"] = "تسویه حساب";
+}
+
+<section class="page-hero">
+    <div class="container">
+        <div class="ph-inner">
+            <h1 class="ph-title">تسویه حساب</h1>
+            <p class="ph-sub">اطلاعات ارسال و پرداخت را تکمیل کنید</p>
+        </div>
+    </div>
+</section>
+<nav class="breadcrumb-wrap" aria-label="مسیر صفحه">
+    <div class="container">
+        <ol class="breadcrumb"><li><a asp-page="/Index">صفحه اصلی</a></li><li><a asp-page="/Cart">سبد خرید</a></li><li aria-current="page">تسویه حساب</li></ol>
+    </div>
+</nav>
+<section class="section">
+    <div class="container">
+        <div class="cart-steps">
+            <span class="cs-item done"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6" /></svg></i> سبد خرید</span><span class="cs-line done"></span>
+            <span class="cs-item active"><i>۲</i> اطلاعات ارسال</span><span class="cs-line"></span>
+            <span class="cs-item"><i>۳</i> پرداخت</span><span class="cs-line"></span>
+            <span class="cs-item"><i>۴</i> سفارش کامل</span>
+        </div>
+
+        <div class="empty-state" id="coEmpty" hidden>
+            <h3>سبد خرید شما خالی است</h3>
+            <p class="muted">برای تسویه حساب ابتدا محصولی را به سبد خرید اضافه کنید.</p>
+            <a class="btn btn-primary" asp-page="/Products">مشاهده محصولات</a>
+        </div>
+
+        @if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+        {
+            <div class="notice-bar"><p>@Model.ErrorMessage</p></div>
+        }
+
+        <div class="checkout-layout">
+            <form class="checkout-main form" id="coForm" method="post">
+                <input type="hidden" asp-for="Input.TrackingCode" id="TrackingCode" />
+                <input type="hidden" asp-for="Input.ItemsJson" id="ItemsJson" />
+
+                <div class="card form-card">
+                    <h3 class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6" /></svg> اطلاعات خریدار</h3>
+                    <div class="form-grid">
+                        <div class="field"><label>نام <span class="req">*</span></label><input asp-for="Input.Name" required><span class="muted">@Html.ValidationMessageFor(x => x.Input.Name)</span></div>
+                        <div class="field"><label>نام خانوادگی <span class="req">*</span></label><input asp-for="Input.Family" required><span class="muted">@Html.ValidationMessageFor(x => x.Input.Family)</span></div>
+                        <div class="field"><label>شماره همراه <span class="req">*</span></label><input asp-for="Input.PhoneNumber" type="tel" required><span class="muted">@Html.ValidationMessageFor(x => x.Input.PhoneNumber)</span></div>
+                        <div class="field"><label>ایمیل</label><input asp-for="Input.Email" type="email"></div>
+                    </div>
+                </div>
+
+                <div class="card form-card">
+                    <h3 class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg> آدرس تحویل بار</h3>
+                    <div class="form-grid">
+                        <div class="field">
+                            <label>استان</label>
+                            <select asp-for="Input.Province">
+                                <option>تهران</option><option>البرز</option><option>اصفهان</option><option>خراسان رضوی</option>
+                                <option>فارس</option><option>آذربایجان شرقی</option><option>گیلان</option><option>مازندران</option>
+                                <option>یزد</option><option>کرمان</option><option>قم</option><option>مرکزی</option>
+                            </select>
+                        </div>
+                        <div class="field"><label>شهر <span class="req">*</span></label><input asp-for="Input.City" required><span class="muted">@Html.ValidationMessageFor(x => x.Input.City)</span></div>
+                        <div class="field full"><label>نشانی کامل <span class="req">*</span></label><textarea asp-for="Input.Address" rows="3" required></textarea><span class="muted">@Html.ValidationMessageFor(x => x.Input.Address)</span></div>
+                        <div class="field"><label>کد پستی</label><input asp-for="Input.PostalCode"></div>
+                        <div class="field"><label>نام گیرنده بار</label><input asp-for="Input.Receiver"></div>
+                        <div class="field full"><label>توضیحات سفارش (اختیاری)</label><textarea asp-for="Input.Description" rows="2" placeholder="مثلاً: بار در ساعات ۸ تا ۱۲ تحویل داده شود."></textarea></div>
+                    </div>
+                </div>
+
+                <div class="card form-card">
+                    <h3 class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 4h11v11H1zM12 8h5l3 3.5V15h-8z" /><circle cx="5.5" cy="17.5" r="2" /><circle cx="16.5" cy="17.5" r="2" /></svg> شیوه ارسال</h3>
+                    <div class="pay-list">
+                        <label class="pay-row"><input type="radio" name="Input.ShippingMethod" value="باربری" checked><span class="pay-body"><strong>ارسال با باربری</strong><small>مناسب بارهای سنگین و شهرستان</small></span><span class="pay-tag">پیشنهاد عصرجدید</span></label>
+                        <label class="pay-row"><input type="radio" name="Input.ShippingMethod" value="پست پیشتاز"><span class="pay-body"><strong>پست پیشتاز</strong><small>مناسب سفارش‌های کوچک تا ۳۰ کیلوگرم</small></span><span class="pay-tag"></span></label>
+                        <label class="pay-row"><input type="radio" name="Input.ShippingMethod" value="تحویل حضوری"><span class="pay-body"><strong>تحویل حضوری در کارخانه</strong><small>چهاردانگه تهران – بدون هزینه حمل</small></span><span class="pay-tag"></span></label>
+                    </div>
+                </div>
+
+                <div class="card form-card">
+                    <h3 class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2" /><path d="M2 10h20M6 15h4" /></svg> شیوه پرداخت</h3>
+                    <div class="pay-list">
+                        <label class="pay-row"><input type="radio" name="Input.PaymentMethod" value="آنلاین" checked><span class="pay-body"><strong>پرداخت آنلاین (درگاه بانکی)</strong><small>امن، سریع و با امکان صدور فاکتور رسمی</small></span></label>
+                        <label class="pay-row"><input type="radio" name="Input.PaymentMethod" value="کارت به کارت"><span class="pay-body"><strong>کارت به کارت</strong><small>ارسال تصویر فیش پس از واریز</small></span></label>
+                        <label class="pay-row"><input type="radio" name="Input.PaymentMethod" value="اعتباری"><span class="pay-body"><strong>خرید اعتباری سازمانی</strong><small>برای مشتریان سازمانی با قرارداد فعال</small></span></label>
+                    </div>
+                    <label class="check-row check-terms"><input type="checkbox" asp-for="Input.AcceptTerms" required><span>قوانین و مقررات فروش عصرجدید را مطالعه کرده و می‌پذیرم.</span></label>
+                </div>
+
+                <div class="form-actions">
+                    <a class="btn btn-ghost" asp-page="/Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-7-7 7 7-7 7" /></svg> بازگشت به سبد خرید</a>
+                    <button class="btn btn-primary btn-lg" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg> پرداخت و ثبت سفارش</button>
+                </div>
+            </form>
+
+            <aside class="checkout-side">
+                <div class="card summary">
+                    <h3>خلاصه سفارش</h3>
+                    <ul class="sum-list" id="coList">
+                        <li><span class="muted">در حال بارگذاری اقلام سبد…</span></li>
+                    </ul>
+                    <ul class="sum-list">
+                        <li><span>جمع کالاها</span><strong data-cart="subtotal">۰ تومان</strong></li>
+                        <li><span>مالیات بر ارزش افزوده (۹٪)</span><strong data-cart="tax">۰ تومان</strong></li>
+                        <li><span>هزینه حمل</span><strong data-cart="shipping">۰ تومان</strong></li>
+                    </ul>
+                    <div class="sum-total"><span>مبلغ قابل پرداخت</span><strong data-cart="total">۰ تومان</strong></div>
+                    <div class="secure-badges">
+                        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z" /><path d="m9 12 2 2 4-4" /></svg> پرداخت امن SSL</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="m8 12 3 3 5-6" /></svg> ضمانت اصل بودن کالا</span>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/assets/js/basket-pages.js" asp-append-version="true"></script>
+    <script>
+        // انتقال اقلام سبد خرید (که در مرورگر نگهداری می‌شود) به سرور در لحظه ثبت فرم
+        (function () {
+            var form = document.getElementById('coForm');
+            var target = document.getElementById('ItemsJson');
+            if (!form || !target) return;
+            form.addEventListener('submit', function () {
+                try {
+                    var cart = JSON.parse(localStorage.getItem('asr_cart')) || [];
+                    target.value = JSON.stringify(cart.map(function (i) { return { id: i.id, qty: i.qty }; }));
+                } catch (e) { target.value = '[]'; }
+            });
+        })();
+    </script>
+}

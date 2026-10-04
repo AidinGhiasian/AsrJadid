@@ -1,0 +1,54 @@
+@using Services.Application
+@using StoneManagement.Application.Contracts.Stone
+@model StoneViewModel
+@{
+    var instock = Model.Stock > 0;
+}
+<article class="card product-card" data-cat="@Model.CategorySlug" data-price="@Model.Price" data-id="@Model.Id" data-name="@Model.StoneName" data-color="@Model.Color" data-stock="@(instock ? 1 : 0)">
+    <div class="card-media">
+        <a asp-page="/Product" asp-route-id="@Model.Id" class="media-link" aria-label="@Model.StoneName">
+            <img src="@Model.Picture.ImageUrl()" alt="@Model.StoneName" loading="lazy">
+        </a>
+        @if (!instock)
+        {
+            <span class="badge badge-soft">ناموجود</span>
+        }
+        else if (Model.Stock < 200)
+        {
+            <span class="badge badge-primary">موجودی محدود</span>
+        }
+        <div class="card-actions">
+            <button class="icon-btn js-wish" type="button" title="افزودن به علاقه‌مندی‌ها" data-id="@Model.Id"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 7 3.5C19 15.6 12 20 12 20Z" /></svg></button>
+            <button class="icon-btn js-compare" type="button" title="افزودن به مقایسه" data-id="@Model.Id"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16m0 0-3-3m3 3 3-3M17 20V4m0 0-3 3m3-3 3 3" /></svg></button>
+            <button class="icon-btn js-quick" type="button" title="نمایش سریع" data-id="@Model.Id" data-name="@Model.StoneName" data-price="@Model.Price.ToPersianNumber()" data-price-raw="@Model.Price" data-image="@Model.Picture.ImageUrl()" data-desc="@Model.Description" data-stock="@(instock ? "موجود" : "ناموجود")" data-color="@Model.Color" data-link="@Url.Page("/Product", new { id = Model.Id })"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z" /><circle cx="12" cy="12" r="2.5" /></svg></button>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="card-meta">
+            <a asp-page="/Category" asp-route-slug="@Model.CategorySlug" class="cat-link">@(string.IsNullOrWhiteSpace(Model.CategoryName) ? "عصرجدید" : Model.CategoryName)</a>
+            <span class="code">کد @Model.Id</span>
+        </div>
+        <h3 class="card-title"><a asp-page="/Product" asp-route-id="@Model.Id">@Model.StoneName</a></h3>
+        <p class="card-text">@Model.Description</p>
+        <div class="card-rate">
+            <span class="stars" aria-label="امتیاز">
+                <i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z" /></svg></i>
+                <i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z" /></svg></i>
+                <i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z" /></svg></i>
+                <i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z" /></svg></i>
+                <i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z" /></svg></i>
+            </span>
+            <span class="card-stock @(instock ? "" : "out")">@(instock ? "موجود در انبار" : "ناموجود")</span>
+        </div>
+    </div>
+    <div class="card-foot">
+        <div class="price">
+            <strong>@Model.Price.ToPersianNumber()</strong>
+            <small>تومان / مترمربع</small>
+        </div>
+        <button class="btn btn-primary card-buy js-add js-add-cart" type="button" data-id="@Model.Id" data-name="@Model.StoneName" data-price="@Model.Price" data-image="@Model.Picture.ImageUrl()" disabled="@(instock ? null : "disabled")">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5" /><circle cx="18" cy="20" r="1.5" /><path d="M2 3h2.2l2.4 12.2a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.6L21 7H5" /></svg>
+            افزودن به سبد
+        </button>
+    </div>
+</article>
