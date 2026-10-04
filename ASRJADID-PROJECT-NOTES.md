@@ -102,3 +102,26 @@
 ### ه) پاک‌سازی
 - فایل‌ها و کتابخانه‌های بی‌استفادهٔ قالب پیش‌فرض حذف شدند (`wwwroot/lib` حدود ۹.۵ مگابایت، `wwwroot/css`، `wwwroot/js`، `favicon.ico`، `_Layout.cshtml.css`، `_ValidationScriptsPartial.cshtml`).
 - صفحهٔ خطای ۴۰۴/۵۰۰ به کدهای وضعیت هم وصل شد (`UseStatusCodePagesWithReExecute`).
+
+
+---
+
+## ۳) تنظیمات و اجرا (appsettings.json)
+
+فایل `AsrJadid/appsettings.json` مطابق تنظیمات سرور شما تنظیم شد:
+
+```json
+{
+  "ConnectionStrings": {
+    "AsrjadidDB": "Server=.;Database=AsrJadidDB;Integrated Security=True;TrustServerCertificate=True;"
+  },
+  "Hashing": { "Iterations": 10000 },
+  "Logging": { "LogLevel": { "Default": "Information", "Microsoft.AspNetCore": "Warning" } },
+  "AllowedHosts": "*"
+}
+```
+
+- پایگاه داده با نام **AsrJadidDB** روی نمونهٔ پیش‌فرض SQL Server (`Server=.`) استفاده می‌شود.
+- نیازی به Migration نیست؛ در اولین اجرا جدول‌ها و داده‌های اولیه (نقش‌ها، مدیر، دسته‌بندی‌ها و محصولات نمونه) خودکار ساخته می‌شوند.
+- اطلاعات ورود مدیر: **09159861216 / admin123**
+- اگر رمز عبور SQL Server دارید، کافی است بخش `Integrated Security=True` را به `User Id=...;Password=...;` تغییر دهید.
