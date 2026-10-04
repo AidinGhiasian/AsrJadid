@@ -1,0 +1,86 @@
+@page
+@using Services.Application
+@model SearchModel
+@{
+    ViewData["Title"] = "نتایج جستجو";
+    ViewData["Active"] = "products";
+}
+
+<section class="page-hero">
+  <div class="container">
+    <div class="ph-inner">
+      <h1 class="ph-title">@(string.IsNullOrWhiteSpace(Model.Query) ? "همه محصولات" : "نتایج جستجو")</h1>
+      <p class="ph-sub">@(string.IsNullOrWhiteSpace(Model.Query) ? "همه محصولات عصرجدید" : $"جستجو برای: «{Model.Query}» — {Model.Results.Count.ToPersianNumber()} نتیجه در محصولات")</p>
+    </div>
+  </div>
+</section>
+<nav class="breadcrumb-wrap" aria-label="مسیر صفحه">
+  <div class="container">
+    <ol class="breadcrumb"><li><a asp-page="/Index">صفحه اصلی</a></li><li aria-current="page">نتایج جستجو</li></ol>
+  </div>
+</nav>
+<section class="section">
+  <div class="container search-layout">
+    <aside class="search-side">
+      <div class="card">
+        <h3 class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg> جستجوی دوباره</h3>
+        <form class="form" method="get" asp-page="/Search">
+          <div class="field"><input type="search" name="q" value="@Model.Query" aria-label="جستجو"></div>
+          <button class="btn btn-primary btn-block" type="submit">جستجو</button>
+        </form>
+      </div>
+      <div class="card">
+        <h3 class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16l-6 7v6l-4 2v-8L4 5Z"/></svg> محدود کردن نتایج</h3>
+        <div class="side-body">
+          <ul class="stats-mini">
+            <li><span>محصول یافت‌شده</span><strong>@Model.Results.Count.ToPersianNumber()</strong></li>
+            <li><span>جستجوی شما</span><strong>@(string.IsNullOrWhiteSpace(Model.Query) ? "—" : Model.Query)</strong></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <h3 class="card-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12.5V4h8.5L21 13.5 12.5 22 3 12.5Z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg> جستجوهای مرتبط</h3>
+        <div class="tag-cloud">
+          <a asp-page="/Search" asp-route-q="نانوسنگ">نانوسنگ نما</a><a asp-page="/Search" asp-route-q="تراورتن">تراورتن مصنوعی</a><a asp-page="/Search" asp-route-q="سه‌بعدی">پنل سه‌بعدی</a>
+          <a asp-page="/Search" asp-route-q="آجرنما">آجرنما</a><a asp-page="/Search" asp-route-q="کوارتز">صفحه کوارتز</a><a asp-page="/Search" asp-route-q="کورین">کورین</a>
+        </div>
+      </div>
+    </aside>
+    <div class="search-main">
+      <div class="toolbar">
+        <div class="toolbar-right"><span class="tb-count">@Model.Results.Count.ToPersianNumber() نتیجه</span></div>
+        <div class="toolbar-left">
+          <label class="sort-select"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16m0 0-3-3m3 3 3-3M17 20V4m0 0-3 3m3-3 3 3"/></svg><select aria-label="ترتیب">
+            <option>مرتب‌سازی: بیشترین ارتباط</option><option>ارزان‌ترین</option><option>گران‌ترین</option><option>جدیدترین</option></select></label>
+        </div>
+      </div>
+      <div class="grid grid-3">
+@if (Model.Results.Count == 0)
+{
+    <div class="empty-state">
+        <h3>نتیجه‌ای پیدا نشد</h3>
+        <p>عبارت دیگری را جستجو کنید یا از منوی گروه محصولات دسته‌بندی مورد نظر را انتخاب کنید.</p>
+        <a class="btn btn-primary" asp-page="/Products">مشاهده همه محصولات</a>
+    </div>
+}
+else
+{
+    foreach (var item in Model.Results)
+    {
+        await Html.PartialAsync("_ProductCard", item);
+    }
+}
+</div>
+      <div class="card info-card">
+        <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7v18h10V6l-3-3Z"/><path d="M14 3v3h3M9 13h6M9 17h6"/></svg></span>
+        <h3 class="card-title">مقالات و راهنمای مرتبط</h3>
+        <ul class="side-nav">
+          <li><a asp-page="/Article">راهنمای انتخاب سنگ مصنوعی برای نمای ساختمان<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></a></li>
+          <li><a asp-page="/Faq">پرسش‌های پرتکرار درباره نصب و نگهداری<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></a></li>
+          <li><a asp-page="/PriceList">برآورد هزینه پروژه با لیست قیمت<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></a></li>
+          <li><a asp-page="/Blog">همه مقالات عصرجدید<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

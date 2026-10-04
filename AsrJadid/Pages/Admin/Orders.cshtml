@@ -1,0 +1,27 @@
+@page
+@model AsrJadid.Pages.Admin.OrdersModel
+@{
+    ViewData["Title"] = "سفارش‌ها";
+    ViewData["Crumb"] = "سفارش‌های ثبت‌شده در این مرورگر";
+    ViewData["AdminActive"] = "/Admin/Orders";
+}
+
+<div class="adm-page-head">
+    <div class="adm-page-title"><h2>سفارش‌ها</h2><p>سفارش‌های ثبت‌شده از مسیر تسویه حساب سایت</p></div>
+    <div class="adm-page-actions">
+        <a class="btn btn-outline btn-sm" asp-page="/Orders">سفارش‌های من (پنل کاربری)</a>
+    </div>
+</div>
+
+<div class="notice-bar notice-demo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z" /><path d="M12 9v5m0 3h.01" /></svg>
+    <p>در این نسخه، سفارش‌ها در مرورگر مشتری ذخیره می‌شوند و ماژول «سفارش» در پایگاه داده وجود ندارد. برای ثبت دائمی سفارش‌ها باید یک Aggregate سفارش (شبیه ساختار Stones) به پروژه اضافه شود؛ پس از تأیید شما این بخش تکمیل می‌شود.</p>
+</div>
+
+<div id="ordersBox">
+    <div class="adm-quiet"><p class="adm-crumb-sub">در حال بارگذاری سفارش‌های این مرورگر…</p></div>
+</div>
+
+@section Scripts {
+    <script src="~/assets/js/basket-pages.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,134 @@
+@page
+@using Services.Application
+@model CategoryModel
+@{
+    ViewData["Title"] = "دسته‌بندی";
+    ViewData["Active"] = "categories";
+}
+
+<section class="page-hero" style="--ph-img:url(/assets/images/cat-1.jpg)">
+  <div class="container">
+    <div class="ph-inner">
+      <h1 class="ph-title">@(Model.Category?.Name ?? "دسته‌بندی محصولات")</h1>
+      <p class="ph-sub">@(Model.Category?.Description ?? "محصولات این دسته‌بندی")</p>
+    </div>
+  </div>
+</section>
+<nav class="breadcrumb-wrap" aria-label="مسیر صفحه">
+  <div class="container">
+    <ol class="breadcrumb"><li><a asp-page="/Index">صفحه اصلی</a></li><li><a asp-page="/Products">محصولات</a></li><li aria-current="page">@(Model.Category?.Name ?? "دسته‌بندی")</li></ol>
+  </div>
+</nav>
+<section class="section">
+  <div class="container shop-layout">
+    <aside class="shop-side">
+      <div class="side-card">
+        <h3 class="side-title-static"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></svg> دسته‌بندی‌ها</h3>
+        <ul class="side-nav">
+@foreach (var c in Model.Categories)
+{
+          <li><a class="@(Model.Category != null && c.Slug == Model.Category.Slug ? "active" : "")" asp-page="/Category" asp-route-slug="@c.Slug">@c.Name<span>@c.StoneCount.ToPersianNumber()</span></a></li>
+}
+        </ul>
+      </div>
+
+      <div class="side-card">
+        <h3 class="side-title-static"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12.5V4h8.5L21 13.5 12.5 22 3 12.5Z"/><circle cx="7.5" cy="8.5" r="1.5"/></svg> برند</h3>
+        <p class="side-note">تمام صفحات سنگ این دسته با برند <strong>عصرجدید</strong> و ضمانت‌نامه کتبی کارخانه عرضه می‌شود.</p>
+      </div>
+      <div class="side-help">
+        <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15 15 3l6 6L9 21z"/><path d="m7 11 2 2M10 8l2 2M13 5l2 2"/></svg></span>
+        <h3>متراژ پروژه را می‌دانید؟</h3>
+        <p>محاسبه‌گر آنلاین متراژ و هزینه را رایگان استفاده کنید.</p>
+        <a class="btn btn-primary btn-block" asp-page="/PriceList">محاسبه و لیست قیمت</a>
+      </div>
+    </aside>
+    <div class="shop-main">
+      <div class="cat-intro">
+        <div class="ci-text">
+          <h2>درباره گروه @(Model.Category?.Name ?? "محصولات")</h2>
+          <p>@(Model.Category?.Description ?? "")</p>
+        </div>
+        <ul class="ci-points">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> @Model.Products.Count.ToPersianNumber() محصول در این گروه</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> موجودی انبار و ارسال ۲۴ ساعته</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> امکان ارسال نمونه فیزیکی رنگ</li>
+        </ul>
+      </div>
+      <div class="toolbar">
+        <div class="toolbar-right"><span class="tb-count">@Model.Products.Count.ToPersianNumber() محصول در این دسته</span></div>
+        <div class="toolbar-left">
+          <label class="sort-select"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16m0 0-3-3m3 3 3-3M17 20V4m0 0-3 3m3-3 3 3"/></svg>
+            <select aria-label="ترتیب نمایش">
+              <option>مرتب‌سازی: پیشنهاد عصرجدید</option><option>ارزان‌ترین</option><option>گران‌ترین</option><option>جدیدترین</option>
+            </select></label>
+        </div>
+      </div>
+      <div class="grid grid-3">
+@foreach (var item in Model.Products)
+{
+    @await Html.PartialAsync("_ProductCard", item)
+}
+</div>
+    </div>
+  </div>
+</section>
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div class="cta-text">
+      <span class="eyebrow eyebrow-light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg> عصرجدید</span>
+      <h2>مشاوره و استعلام قیمت رایگان</h2>
+      <p>کارشناسان عصرجدید آماده بررسی پروژه شما و ارائه پیش‌فاکتور دقیق هستند.</p>
+      <div class="cta-actions">
+      <a class="btn btn-primary btn-lg" asp-page="/Contact">درخواست مشاوره</a>
+      <a class="btn btn-outline btn-lg" asp-page="/PriceList">دریافت لیست قیمت</a>
+    </div>
+    </div>
+    <ul class="cta-points">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> بازدید و اندازه‌گیری رایگان در تهران و کرج</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> برش CNC طبق نقشه پروژه با تلرانس ±۰٫۵ میلی‌متر</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> ضمانت‌نامه کتبی ۱۸ ماهه و ضمانت سطح کوارتز ۱۰ ساله</li>
+    </ul>
+  </div>
+</section>
+<section class="section section-soft">
+  <div class="container">
+    
+<div class="section-head align-center">
+  <div class="sec-text">
+    <span class="eyebrow">مقالات مرتبط</span>
+    <h2 class="sec-title">راهنمای خرید این گروه محصول</h2>
+    
+  </div>
+  <a class="link-more" asp-page="/Blog">مشاهده همه <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a>
+</div>
+    <div class="grid grid-3"><article class="card blog-card" data-cat="راهنمای خرید">
+      <a class="card-media" asp-page="/Article"><img src="~/assets/images/p-2.jpg" alt="۵ نکته کلیدی در انتخاب سنگ مصنوعی برای نمای ساختمان" loading="lazy">
+        <span class="badge badge-soft">راهنمای خرید</span></a>
+      <div class="card-body">
+        <div class="card-meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg> ۱۴۰۴/۰۶/۱۲</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> ۶ دقیقه</span></div>
+        <h3 class="card-title"><a asp-page="/Article">۵ نکته کلیدی در انتخاب سنگ مصنوعی برای نمای ساختمان</a></h3>
+        <p class="card-text">جذب آب، مقاومت UV، ضخامت، سیستم نصب و ضمانت؛ این پنج معیار تعیین می‌کند نمای ساختمان شما سال‌ها بدرخشد یا در چند سال نخس…</p>
+        <a class="link-more" asp-page="/Article">ادامه مطلب <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a>
+      </div>
+    </article><article class="card blog-card" data-cat="مقایسه محصول">
+      <a class="card-media" asp-page="/Article"><img src="~/assets/images/p-10.jpg" alt="کورین یکپارچه یا کوارتز؟ راهنمای انتخاب صفحه آشپزخانه" loading="lazy">
+        <span class="badge badge-soft">مقایسه محصول</span></a>
+      <div class="card-body">
+        <div class="card-meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg> ۱۴۰۴/۰۵/۲۸</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> ۸ دقیقه</span></div>
+        <h3 class="card-title"><a asp-page="/Article">کورین یکپارچه یا کوارتز؟ راهنمای انتخاب صفحه آشپزخانه</a></h3>
+        <p class="card-text">برای آشپزخانه‌ای که زیاد آشپزی می‌کنید کوارتز بهتر است یا کورین؟ در این مطلب تفاوت‌ها را بر اساس حرارت، خط‌وخش، اتصال و …</p>
+        <a class="link-more" asp-page="/Article">ادامه مطلب <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a>
+      </div>
+    </article><article class="card blog-card" data-cat="نگهداری">
+      <a class="card-media" asp-page="/Article"><img src="~/assets/images/cat-4.jpg" alt="روش‌های صحیح نگهداری از سطوح سنگ مصنوعی" loading="lazy">
+        <span class="badge badge-soft">نگهداری</span></a>
+      <div class="card-body">
+        <div class="card-meta"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg> ۱۴۰۴/۰۵/۰۹</span><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> ۴ دقیقه</span></div>
+        <h3 class="card-title"><a asp-page="/Article">روش‌های صحیح نگهداری از سطوح سنگ مصنوعی</a></h3>
+        <p class="card-text">سنگ مصنوعی نیازی به نگهداری پیچیده ندارد؛ اما چند عادت ساده می‌تواند عمر سطح را چند برابر کند.…</p>
+        <a class="link-more" asp-page="/Article">ادامه مطلب <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a>
+      </div>
+    </article></div>
+  </div>
+</section>

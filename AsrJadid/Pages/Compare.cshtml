@@ -1,0 +1,35 @@
+@page
+@model CompareModel
+@{
+    ViewData["Title"] = "مقایسه محصولات";
+}
+
+<section class="page-hero">
+    <div class="container">
+        <div class="ph-inner">
+            <h1 class="ph-title">مقایسه محصولات</h1>
+            <p class="ph-sub">حداکثر ۴ محصول را کنار هم بررسی کنید</p>
+        </div>
+    </div>
+</section>
+<nav class="breadcrumb-wrap" aria-label="مسیر صفحه">
+    <div class="container">
+        <ol class="breadcrumb"><li><a asp-page="/Index">صفحه اصلی</a></li><li aria-current="page">مقایسه محصولات</li></ol>
+    </div>
+</nav>
+<section class="section">
+    <div class="container">
+        <div class="empty-state" id="compareEmpty" hidden>
+            <h3>لیست مقایسه خالی است</h3>
+            <p class="muted">برای مقایسه، از آیکن مقایسه روی کارت محصولات استفاده کنید. حداکثر ۴ محصول قابل مقایسه است.</p>
+            <a class="btn btn-primary" asp-page="/Products">مشاهده محصولات</a>
+        </div>
+        <div class="table-wrap card">
+            <table class="table compare-table" id="compareTable" hidden></table>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/assets/js/basket-pages.js" asp-append-version="true"></script>
+}

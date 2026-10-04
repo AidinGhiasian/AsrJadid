@@ -1,0 +1,74 @@
+@page
+@model AsrJadid.Pages.Admin.StonesModel
+@{
+    ViewData["Title"] = "مدیریت محصولات";
+    ViewData["Crumb"] = "افزودن، ویرایش و حذف محصولات سنگ";
+    ViewData["AdminActive"] = "/Admin/Stones";
+}
+
+<div class="adm-page-head">
+    <div class="adm-page-title"><h2>فهرست محصولات (@Model.Stones.Count.ToPersianNumber() مورد)</h2><p>جستجو بر اساس نام، کد یا رنگ محصول</p></div>
+    <div class="adm-page-actions">
+        <a class="btn btn-primary btn-sm" asp-page="/Admin/StoneForm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg> محصول جدید</a>
+    </div>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="notice-bar notice-ok"><p>@Model.SuccessMessage</p></div>
+}
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="notice-bar"><p>@Model.ErrorMessage</p></div>
+}
+
+<form class="adm-card" method="get" style="padding:16px">
+    <div class="adm-form-grid">
+        <div class="field"><label>جستجو</label><input type="search" name="q" value="@Model.Query" placeholder="نام محصول، رنگ یا کد"></div>
+        <div class="field"><label>دسته‌بندی</label>
+            <select name="cat">
+                <option value="0">همه دسته‌بندی‌ها</option>
+@foreach (var cat in Model.Categories)
+{
+    <option value="@cat.Id" selected="@(Model.CategoryId == cat.Id)">@cat.Name</option>
+}
+            </select>
+        </div>
+    </div>
+    <div class="adm-inline-actions">
+        <button class="btn btn-primary" type="submit">اعمال فیلتر</button>
+        <a class="btn btn-ghost" asp-page="/Admin/Stones">حذف فیلترها</a>
+    </div>
+</form>
+
+<div class="adm-card">
+    <div class="table-wrap">
+      <table class="adm-table">
+        <thead><tr><th>تصویر</th><th>نام محصول</th><th>دسته‌بندی</th><th>قیمت (تومان)</th><th>موجودی</th><th>رنگ</th><th></th></tr></thead>
+        <tbody>
+@if (Model.Stones.Count == 0)
+{
+    <tr><td colspan="7" class="adm-crumb-sub">محصولی با این مشخصات یافت نشد.</td></tr>
+}
+@foreach (var stone in Model.Stones)
+{
+    <tr>
+        <td><img src="@stone.Picture.ImageUrl()" alt="@stone.StoneName" style="width:56px;height:44px;object-fit:cover;border-radius:8px"></td>
+        <td>@stone.StoneName</td>
+        <td>@stone.CategoryName</td>
+        <td>@stone.Price.ToMoney().ToPersianNumber()</td>
+        <td>@(stone.Stock > 0 ? stone.Stock.ToPersianNumber() : "ناموجود")</td>
+        <td>@stone.Color</td>
+        <td>
+            <a class="btn btn-outline btn-sm" asp-page="/Admin/StoneForm" asp-route-id="@stone.Id">ویرایش</a>
+            <a class="btn btn-ghost btn-sm" asp-page="/Product" asp-route-id="@stone.Id">مشاهده</a>
+            <form method="post" asp-page-handler="Delete" asp-route-id="@stone.Id" style="display:inline" onsubmit="return confirm('این محصول حذف شود؟');">
+                <button class="btn btn-ghost btn-sm" type="submit">حذف</button>
+            </form>
+        </td>
+    </tr>
+}
+        </tbody>
+    </table>
+    </div>
+</div>

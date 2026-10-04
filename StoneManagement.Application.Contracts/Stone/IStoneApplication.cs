@@ -8,8 +8,9 @@ namespace StoneManagement.Application.Contracts.Stone
         public OperationResult Edit(EditViewModel model);
         public OperationResult Delete(long id);
         public List<StoneViewModel> GetList();
+        public List<StoneViewModel> GetByCategory(long categoryId);
         public List<SearchViewModel> Search(string search);
-        public EditViewModel GetDetails(long id);
-        public StoneViewModel GetInfo(long id);
+        public EditViewModel? GetDetails(long id);
+        public StoneViewModel? GetInfo(long id);
     }
 }

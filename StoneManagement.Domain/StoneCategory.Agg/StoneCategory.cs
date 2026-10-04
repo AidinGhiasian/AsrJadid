@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Services.Models;
+﻿using Services.Models;
 using StoneManagement.Domain.Stone.Agg;
 
 namespace StoneManagement.Domain.StoneCategory.Agg
@@ -7,12 +6,12 @@ namespace StoneManagement.Domain.StoneCategory.Agg
     public class StoneCategory : EntityBase
     {
         public string Picture { get; set; }
-        public string Name { get;private set; }
-        public string Slug { get;private set; }
-        public string Description { get;private set; }
-        public List<Stones>? Stones { get;private set; }
+        public string Name { get; private set; }
+        public string Slug { get; private set; }
+        public string Description { get; private set; }
+        public List<Stones>? Stones { get; private set; } = new();
 
-        public StoneCategory(string name,string description,string picture) 
+        public StoneCategory(string name, string description, string picture)
         {
             Name = name;
             Slug = Slugify(name);
@@ -20,17 +19,26 @@ namespace StoneManagement.Domain.StoneCategory.Agg
             Picture = picture;
         }
 
-        public void Edit(string name,string description,string picture)
+        public void Edit(string name, string description, string picture)
         {
             Name = name;
             Slug = Slugify(name);
             Description = description;
-            Picture = picture;
+
+            if (!string.IsNullOrWhiteSpace(picture))
+            {
+                Picture = picture;
+            }
         }
 
-        private string Slugify(string text)
+        public static string Slugify(string text)
         {
-            return text.Trim().ToLower().Replace(" ", "_");
+            if (string.IsNullOrWhiteSpace(text)) return string.Empty;
+
+            var slug = text.Trim().ToLower();
+            slug = System.Text.RegularExpressions.Regex.Replace(slug, @"\s+", "-");
+            slug = System.Text.RegularExpressions.Regex.Replace(slug, @"[^\w\u0600-\u06FF\-]", string.Empty);
+            return slug.Trim('-');
         }
     }
 }

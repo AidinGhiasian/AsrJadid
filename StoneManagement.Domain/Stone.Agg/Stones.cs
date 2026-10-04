@@ -15,8 +15,9 @@ namespace StoneManagement.Domain.Stone.Agg
         public string Color { get; private set; }
         public long CategoryId { get; private set; }//دسته بندی
         public string Description { get; private set; }
-        public List<Pictures> Pictures { get; set; }//تصاویر اضافی
-        public Stones(string picture, string stoneName, double length, double width, double weight, decimal price, int stock, string color, string description)
+        public List<Pictures> Pictures { get; set; } = new();//تصاویر اضافی
+
+        public Stones(string picture, string stoneName, double length, double width, double weight, decimal price, int stock, string color, string description, long categoryId = 0)
         {
             Picture = picture;
             StoneName = stoneName;
@@ -27,8 +28,10 @@ namespace StoneManagement.Domain.Stone.Agg
             Stock = stock;
             Color = color;
             Description = description;
+            CategoryId = categoryId;
         }
-        public void Edit(string picture, string stoneName, double length, double width, double weight, decimal price, int stock, string color, string description)
+
+        public void Edit(string picture, string stoneName, double length, double width, double weight, decimal price, int stock, string color, string description, long categoryId)
         {
             Picture = picture;
             StoneName = stoneName;
@@ -39,6 +42,20 @@ namespace StoneManagement.Domain.Stone.Agg
             Stock = stock;
             Color = color;
             Description = description;
+            CategoryId = categoryId;
+        }
+
+        public void Edit(string stoneName, double length, double width, double weight, decimal price, int stock, string color, string description, long categoryId)
+        {
+            StoneName = stoneName;
+            Length = length;
+            Width = width;
+            Weight = weight;
+            Price = price;
+            Stock = stock;
+            Color = color;
+            Description = description;
+            CategoryId = categoryId;
         }
     }
 }

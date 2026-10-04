@@ -1,10 +1,4 @@
-﻿using AccountManagment.Domain.Domain.Roles.Agg;
-using Services.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Services.Models;
 
 namespace AccountManagment.Domain.Domain.Account.Agg
 {
@@ -16,6 +10,7 @@ namespace AccountManagment.Domain.Domain.Account.Agg
         public string PhoneNumber { get; private set; }
         public string? Email { get; private set; }
         public string? Address { get; private set; }
+        public DateTime? BirthDate { get; private set; }
         public string Password { get; private set; }
         public bool IsActive { get; private set; }
         public long RoleId { get; private set; }
@@ -25,7 +20,7 @@ namespace AccountManagment.Domain.Domain.Account.Agg
 
         //
 
-        public Accounts(string picture, string name, string family, string phoneNumber, string address, string password)
+        public Accounts(string picture, string name, string family, string phoneNumber, string address, string password, string? email = null)
         {
             Picture = picture;
             Name = name;
@@ -33,8 +28,9 @@ namespace AccountManagment.Domain.Domain.Account.Agg
             PhoneNumber = phoneNumber;
             Address = address;
             Password = password;
+            Email = email;
             IsActive = true;
-            RoleId = 1;//user
+            RoleId = long.Parse(RolesCode.SystemUser); // کاربر عادی
         }
         public void Edit(string name, string family, string phoneNumber, string email, DateTime birthDate, string address, string picture)
         {
@@ -46,6 +42,17 @@ namespace AccountManagment.Domain.Domain.Account.Agg
             Family = family;
             PhoneNumber = phoneNumber;
             Address = address;
+
+            if (!string.IsNullOrWhiteSpace(email))
+            {
+                Email = email;
+            }
+
+            if (birthDate != default)
+            {
+                BirthDate = birthDate;
+            }
+
             IsActive = true;
         }
 
@@ -63,4 +70,5 @@ namespace AccountManagment.Domain.Domain.Account.Agg
         {
             IsActive = isActive;
         }
-}}
+    }
+}

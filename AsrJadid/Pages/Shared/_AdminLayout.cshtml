@@ -1,0 +1,52 @@
+@using Services.Application
+@inject IAuthHelper AuthHelper
+@inject IAccountApplication AccountApplication
+@{
+    var adminId = AuthHelper.CurrentAccountId();
+    var adminAccount = adminId > 0 ? AccountApplication.GetById(adminId) : null;
+    var adminName = ((adminAccount?.Name ?? string.Empty) + " " + (adminAccount?.Family ?? string.Empty)).Trim();
+    if (string.IsNullOrWhiteSpace(adminName))
+    {
+        adminName = "مدیر سیستم";
+    }
+    var initials = new string(adminName.Split(' ', StringSplitOptions.RemoveEmptyEntries).Select(x => x[0]).Take(2).ToArray());
+}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] | پنل مدیریت عصرجدید</title>
+    <meta name="description" content="@(ViewData["Description"] ?? "پنل مدیریت فروشگاه عصرجدید")">
+    <link rel="icon" type="image/svg+xml" href="~/assets/images/favicon.svg">
+    <link rel="stylesheet" href="~/assets/css/admin.css">
+</head>
+<body class="admin admin-theme-2">
+    <partial name="_AdminSprite" />
+    <div class="adm-shell">
+        <partial name="_AdminSide" />
+        <div class="adm-main">
+            <header class="adm-top">
+                <button class="adm-top-btn js-adm-side" type="button" aria-label="منو"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18" /></svg></button>
+                <div class="adm-crumb">
+                    <h1>@ViewData["Title"]</h1>
+                    <span class="adm-crumb-sub">@(ViewData["Crumb"] ?? "پنل مدیریت عصرجدید")</span>
+                </div>
+                <div class="adm-top-actions">
+                    <a class="btn btn-outline btn-sm" asp-page="/Index"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 3l9 8" /><path d="M5 10v11h14V10" /></svg> مشاهده سایت</a>
+                    <a class="adm-user" asp-page="/Admin/Profile">
+                        <span class="avatar">@initials</span>
+                        <span class="adm-user-text"><strong>@adminName</strong><small>مدیر سیستم</small></span>
+                    </a>
+                </div>
+            </header>
+            <div class="adm-content">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+    <div class="toast-wrap" id="toastWrap"></div>
+    <script src="~/assets/js/admin.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

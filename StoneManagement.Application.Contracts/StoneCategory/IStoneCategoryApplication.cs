@@ -1,9 +1,4 @@
 ﻿using Services.Application;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StoneManagement.Application.Contracts.StoneCategory
 {
@@ -13,5 +8,8 @@ namespace StoneManagement.Application.Contracts.StoneCategory
         public OperationResult Edit(EditViewModel command);
         public OperationResult Delete(long id);
         public List<StoneCategoryViewModel> GetAll();
+        public EditViewModel? GetDetails(long id);
+        public StoneCategoryViewModel? GetInfo(long id);
+        public StoneCategoryViewModel? GetBySlug(string slug);
     }
 }

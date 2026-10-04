@@ -1,0 +1,45 @@
+@page "{code?}"
+@model OrderModel
+@{
+    ViewData["Title"] = "جزئیات سفارش";
+}
+
+<section class="page-hero">
+    <div class="container">
+        <div class="ph-inner">
+            <h1 class="ph-title">جزئیات سفارش</h1>
+            <p class="ph-sub">@(string.IsNullOrWhiteSpace(Model.Code) ? "آخرین سفارش ثبت‌شده" : "کد سفارش: " + Model.Code)</p>
+        </div>
+    </div>
+</section>
+<nav class="breadcrumb-wrap" aria-label="مسیر صفحه">
+    <div class="container">
+        <ol class="breadcrumb"><li><a asp-page="/Index">صفحه اصلی</a></li><li><a asp-page="/Dashboard">پنل کاربری</a></li><li><a asp-page="/Orders">سفارش‌های من</a></li><li aria-current="page">جزئیات سفارش</li></ol>
+    </div>
+</nav>
+<section class="section">
+    <div class="container">
+        <div class="panel-layout">
+            <partial name="_AccountSidebar" />
+            <div class="panel-main">
+                @if (TempData["OrderMessage"] != null)
+                {
+                    <div class="notice-bar notice-ok">
+                        <p>@TempData["OrderMessage"]</p>
+                        @if (TempData["OrderTotal"] != null)
+                        {
+                            <p>مبلغ سفارش: <strong>@TempData["OrderTotal"] تومان</strong></p>
+                        }
+                    </div>
+                }
+                <div id="orderBox" data-code="@Model.Code">
+                    <div class="empty-state"><p class="muted">در حال بارگذاری اطلاعات سفارش…</p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/assets/js/basket-pages.js" asp-append-version="true"></script>
+}

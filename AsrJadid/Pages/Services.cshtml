@@ -1,0 +1,206 @@
+@page
+@model ServicesModel
+@{
+    ViewData["Title"] = "خدمات";
+    ViewData["Active"] = "services";
+}
+
+<section class="page-hero" style="--ph-img:url(/assets/images/cat-3.jpg)">
+  <div class="container">
+    <div class="ph-inner">
+      <h1 class="ph-title">خدمات عصرجدید</h1>
+      <p class="ph-sub">از مشاوره و اندازه‌گیری رایگان تا اجرا و خدمات پس از فروش</p>
+    </div>
+  </div>
+</section>
+<nav class="breadcrumb-wrap" aria-label="مسیر صفحه">
+  <div class="container">
+    <ol class="breadcrumb"><li><a asp-page="/Index">صفحه اصلی</a></li><li aria-current="page">خدمات</li></ol>
+  </div>
+</nav>
+<section class="section">
+  <div class="container">
+    
+<div class="section-head align-center">
+  <div class="sec-text">
+    <span class="eyebrow">خدمات فنی و اجرایی</span>
+    <h2 class="sec-title">شش خدمت تخصصی عصرجدید</h2>
+    <p class="sec-sub">هر خدمت توسط تیم داخلی عصرجدید و با چک‌لیست استاندارد اجرا می‌شود.</p>
+  </div>
+  
+</div>
+    <div class="grid grid-3"><article class="card service-card">
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-5.5A8 8 0 1 1 21 12Z"/></svg></span>
+      <h3 class="card-title"><a asp-page="/Service">مشاوره تخصصی انتخاب محصول</a></h3>
+      <p class="card-text">انتخاب درست محصول، نیمی از موفقیت پروژه است.</p>
+      <ul class="svc-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> بررسی نقشه و شرایط پروژه</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> پیشنهاد سه گزینه متناسب با بودجه</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> ارائه نمونه رنگ به‌صورت فیزیکی</li></ul>
+      <a class="link-more" asp-page="/Service">جزئیات خدمت <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a>
+    </article><article class="card service-card">
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15 15 3l6 6L9 21z"/><path d="m7 11 2 2M10 8l2 2M13 5l2 2"/></svg></span>
+      <h3 class="card-title"><a asp-page="/Service">اندازه‌گیری و بازدید رایگان</a></h3>
+      <p class="card-text">سفارش را با اندازه دقیق ثبت کنید.</p>
+      <ul class="svc-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> بازدید رایگان در تهران و کرج</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> محاسبه دقیق هدر و برش</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> تهیه نقشه اجرایی برش</li></ul>
+      <a class="link-more" asp-page="/Service">جزئیات خدمت <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a>
+    </article><article class="card service-card">
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6a4 4 0 0 0 5.4 5.4L21 13l-8 8-2-2-4-4-2-2 8-8 1 1.6Z"/><path d="M6 6l3 3"/></svg></span>
+      <h3 class="card-title"><a asp-page="/Service">اجرای تخصصی و نصب</a></h3>
+      <p class="card-text">اجرا با تیم فنی آموزش‌دیده عصرجدید.</p>
+      <ul class="svc-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> تیم اجرایی با قرارداد رسمی</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> استفاده از چسب و بند مخصوص</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> پوشش و محافظت از سطوح همجوار</li></ul>
+      <a class="link-more" asp-page="/Service">جزئیات خدمت <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a>
+    </article><article class="card service-card">
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M20 4 8.5 15.5M8.5 8.5 20 20"/></svg></span>
+      <h3 class="card-title"><a asp-page="/Service">برش CNC و فرم‌دهی</a></h3>
+      <p class="card-text">برش دقیق طبق نقشه، بدون هدر.</p>
+      <ul class="svc-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> برش CNC با تلرانس ±۰٫۵ میلی‌متر</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> فرم‌دهی حرارتی کورین</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> لبه‌زنی و پولیش لبه</li></ul>
+      <a class="link-more" asp-page="/Service">جزئیات خدمت <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a>
+    </article><article class="card service-card">
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+      <h3 class="card-title"><a asp-page="/Service">ضمانت و خدمات پس از فروش</a></h3>
+      <p class="card-text">۱۸ ماه ضمانت با پشتیبانی فنی.</p>
+      <ul class="svc-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> ضمانت‌نامه کتبی ۱۸ ماهه</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> ضمانت سطح کوارتز ۱۰ ساله</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> سرویس ترمیم و پولیش</li></ul>
+      <a class="link-more" asp-page="/Service">جزئیات خدمت <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a>
+    </article><article class="card service-card">
+      <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5v-9Z"/><path d="m3 7.5 9 4.5 9-4.5M12 12v9"/></svg></span>
+      <h3 class="card-title"><a asp-page="/Service">نمونه‌گیری و ارسال نمونه</a></h3>
+      <p class="card-text">قبل از سفارش، نمونه را ببینید.</p>
+      <ul class="svc-list"><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> ارسال بسته نمونه رایگان</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> ۱۲ طرح پرکاربرد در هر بسته</li><li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg> انتخاب رنگ در محل پروژه</li></ul>
+      <a class="link-more" asp-page="/Service">جزئیات خدمت <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a>
+    </article></div>
+  </div>
+</section>
+<section class="feature-strip"><div class="container feature-grid"><div class="feature"><span class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 4h11v11H1zM12 8h5l3 3.5V15h-8z"/><circle cx="5.5" cy="17.5" r="2"/><circle cx="16.5" cy="17.5" r="2"/></svg></span><span class="feat-body"><strong>ارسال به سراسر کشور</strong><small>ارسال بار با باربری تخصصی و بیمه کامل محموله</small></span></div><div class="feature"><span class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><span class="feat-body"><strong>ضمانت اصالت کالا</strong><small>۱۸ ماه ضمانت‌نامه کتبی برای همه محصولات تولیدی</small></span></div><div class="feature"><span class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15 15 3l6 6L9 21z"/><path d="m7 11 2 2M10 8l2 2M13 5l2 2"/></svg></span><span class="feat-body"><strong>مشاوره و اندازه‌گیری</strong><small>کارشناسان ما به‌صورت رایگان بازدید و متراژ می‌گیرند</small></span></div><div class="feature"><span class="feat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></svg></span><span class="feat-body"><strong>تنوع رنگ و طرح</strong><small>بیش از ۹۰ طرح و رنگ در ۶ گروه محصولی مختلف</small></span></div></div></section>
+<section class="section section-soft">
+  <div class="container">
+    
+<div class="section-head align-center">
+  <div class="sec-text">
+    <span class="eyebrow">فرآیند همکاری</span>
+    <h2 class="sec-title">از تماس اولیه تا تحویل پروژه</h2>
+    <p class="sec-sub">مراحل شفاف همکاری، بدون هزینه پنهان.</p>
+  </div>
+  
+</div>
+    <ol class="process">
+      <li><span class="pr-num">۱</span><h3>تماس و ثبت درخواست</h3><p>درخواست شما از طریق سایت، تلفن یا واتس‌اپ ثبت می‌شود و کارشناس مربوطه در کمتر از ۲ ساعت کاری تماس می‌گیرد.</p></li>
+      <li><span class="pr-num">۲</span><h3>مشاوره و پیشنهاد محصول</h3><p>با بررسی کاربری، اقلیم و بودجه، سه گزینه پیشنهادی همراه با نمونه رنگ فیزیکی ارائه می‌شود.</p></li>
+      <li><span class="pr-num">۳</span><h3>بازدید و متره دقیق</h3><p>تیم فنی بازدید می‌کند، متراژ نهایی محاسبه و نقشه برش تهیه می‌گردد.</p></li>
+      <li><span class="pr-num">۴</span><h3>پیش‌فاکتور و تأمین بار</h3><p>پیش‌فاکتور شفاف با هزینه حمل صادر می‌شود و پس از تسویه، تولید یا ارسال بار آغاز می‌گردد.</p></li>
+      <li><span class="pr-num">۵</span><h3>اجرا و تحویل</h3><p>تیم اجرایی با چک‌لیست استاندارد کار را انجام می‌دهد و ضمانت‌نامه کتبی تحویل می‌شود.</p></li>
+    </ol>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="grid grid-2">
+      <div class="card info-card">
+        <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15 15 3l6 6L9 21z"/><path d="m7 11 2 2M10 8l2 2M13 5l2 2"/></svg></span><h3 class="card-title">پرتال محاسبه متراژ و هزینه</h3>
+        <p class="card-text">متراژ دیوار یا کف را وارد کنید تا برآورد اولیه هزینه همراه با در نظر گرفتن هدر برش نمایش داده شود.</p>
+        <form class="form js-calc js-form" novalidate>
+          <div class="form-grid">
+            <div class="field"><label>طول (متر)</label><input type="number" min="1" value="12" class="js-calc-len"></div>
+            <div class="field"><label>ارتفاع (متر)</label><input type="number" min="1" value="6" class="js-calc-hei"></div>
+            <div class="field"><label>گروه محصول</label><select class="js-calc-prod">
+              <option value="680000">نانوسنگ نما (۶۸۰٬۰۰۰ تومان)</option>
+              <option value="450000">پنل سه‌بعدی (۴۵۰٬۰۰۰ تومان)</option>
+              <option value="320000">آجرنما تراکوتا (۳۲۰٬۰۰۰ تومان)</option>
+              <option value="2850000">صفحه کوارتز (۲٬۸۵۰٬۰۰۰ تومان)</option>
+            </select></div>
+            <div class="field"><label>هدیه هدر برش</label><select class="js-calc-waste"><option value="5">۵٪ (طرح ساده)</option><option value="10">۱۰٪ (طرح رگه‌ای)</option><option value="15">۱۵٪ (چیدمان پیچیده)</option></select></div>
+          </div>
+          <div class="calc-result">
+            <div><span>متراژ مفید</span><strong class="js-calc-area">۷۲ مترمربع</strong></div>
+            <div><span>متراژ با هدر</span><strong class="js-calc-area-w">۷۶ مترمربع</strong></div>
+          </div>
+          <div class="calc-total">برآورد اولیه: <strong class="js-calc-total">۵۱٬۶۸۰٬۰۰۰ تومان</strong></div>
+          <p class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 9v5m0 3h.01"/></svg> این عدد برآورد اولیه است؛ قیمت نهایی پس از بازدید فنی و تأیید متراژ اعلام می‌شود.</p>
+          <div class="form-actions"><button class="btn btn-primary" type="submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h11l3 3v15H5z"/><path d="M8 3v6h7V3M8 14h8v7H8z"/></svg> ثبت درخواست پیش‌فاکتور</button></div>
+        </form>
+      </div>
+      <div class="card info-card">
+        <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg></span><h3 class="card-title">تعهدات ما در قرارداد اجرا</h3>
+        <ul class="check-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> اجرا فقط با متریال و چسب تأییدشده عصرجدید</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> رعایت برنامه زمانی توافق‌شده در قرارداد</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> بیمه مسئولیت کارگاه در طول اجرا</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> پوشش و محافظت از سطوح و تجهیزات همجوار</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> تحویل فرم رضایت‌نامه و آموزش نگهداری به کارفرما</li>
+        </ul>
+        <div class="warranty-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg><div><strong>۱۸ ماه ضمانت‌نامه کتبی</strong>
+          <p>همه خدمات اجرایی عصرجدید دارای ضمانت کتبی و پشتیبانی فنی رایگان در طول دوره ضمانت هستند.</p></div></div>
+        <a class="btn btn-dark btn-block" asp-page="/Contact">درخواست قرارداد و پیش‌فاکتور</a>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div class="cta-text">
+      <span class="eyebrow eyebrow-light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg> عصرجدید</span>
+      <h2>مشاوره و استعلام قیمت رایگان</h2>
+      <p>کارشناسان عصرجدید آماده بررسی پروژه شما و ارائه پیش‌فاکتور دقیق هستند.</p>
+      <div class="cta-actions">
+      <a class="btn btn-primary btn-lg" asp-page="/Contact">درخواست مشاوره</a>
+      <a class="btn btn-outline btn-lg" asp-page="/PriceList">دریافت لیست قیمت</a>
+    </div>
+    </div>
+    <ul class="cta-points">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> بازدید و اندازه‌گیری رایگان در تهران و کرج</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> برش CNC طبق نقشه پروژه با تلرانس ±۰٫۵ میلی‌متر</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> ضمانت‌نامه کتبی ۱۸ ماهه و ضمانت سطح کوارتز ۱۰ ساله</li>
+    </ul>
+  </div>
+</section>
+<section class="section section-soft">
+  <div class="container">
+    
+<div class="section-head align-center">
+  <div class="sec-text">
+    <span class="eyebrow">پرسش‌های متداول خدمات</span>
+    <h2 class="sec-title">سوالات پرتکرار درباره خدمات اجرایی</h2>
+    
+  </div>
+  <a class="link-more" asp-page="/Faq">مشاهده همه <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a>
+</div>
+    <div class="accordion"><div class="acc-item open">
+      <button class="acc-head js-acc" type="button" aria-expanded="true">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> سنگ مصنوعی عصرجدید چه تفاوتی با سنگ طبیعی دارد؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>سنگ مصنوعی با ترکیب پودر سنگ، رزین و رنگدانه‌های معدنی تولید می‌شود؛ در نتیجه یکنواخت، سبک‌تر، ضدآب و ارزان‌تر از سنگ طبیعی است، اما بافت تصادفی سنگ طبیعی را ندارد. برای نما و کفپوش پروژه‌های نوساز، سنگ مصنوعی معمولاً اقتصادی‌ترین انتخاب است.</p></div>
+    </div><div class="acc-item">
+      <button class="acc-head js-acc" type="button" aria-expanded="false">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> ارسال بار به شهرستان چطور انجام می‌شود؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>ارسال به سراسر کشور با باربری‌های همکار و بسته‌بندی مخصوص انجام می‌شود. هزینه حمل پس از اعلام آدرس و متراژ محاسبه و در پیش‌فاکتور درج می‌گردد. بارها بیمه کامل هستند و بارنامه به نام خریدار صادر می‌شود.</p></div>
+    </div><div class="acc-item">
+      <button class="acc-head js-acc" type="button" aria-expanded="false">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> امکان سفارش طرح یا رنگ سفارشی وجود دارد؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>بله. برای سفارش‌های بالای ۵۰ مترمربع، امکان تولید رنگ سفارشی و برای سفارش‌های بالای ۲۰۰ مترمربع، امکان قالب اختصاصی طرح وجود دارد. زمان تولید سفارشی بین ۷ تا ۱۴ روز کاری است.</p></div>
+    </div><div class="acc-item">
+      <button class="acc-head js-acc" type="button" aria-expanded="false">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> ضمانت محصولات چقدر است و شامل چه مواردی می‌شود؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>همه محصولات دارای ضمانت‌نامه کتبی ۱۸ ماهه هستند. این ضمانت شامل ثبات رنگ، سلامت صفحه و جذب آب است. برای صفحات کوارتز، ضمانت سطح ۱۰ ساله نیز ارائه می‌شود. آسیب‌های ناشی از نصب اشتباه یا ضربه، از ضمانت خارج است.</p></div>
+    </div><div class="acc-item">
+      <button class="acc-head js-acc" type="button" aria-expanded="false">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> هزینه بازدید و اندازه‌گیری چگونه است؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>بازدید و اندازه‌گیری در تهران و کرج رایگان است و برای سایر شهرها از طریق ارسال نقشه و ویدیو کنفرانس انجام می‌شود. در صورت ثبت سفارش، هزینه بازدید شهرستان‌ها از مبلغ فاکتور کسر می‌شود.</p></div>
+    </div><div class="acc-item">
+      <button class="acc-head js-acc" type="button" aria-expanded="false">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> برش صفحات طبق نقشه پروژه انجام می‌دهید؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>بله، برش CNC با تلرانس ±۰٫۵ میلی‌متر و پولیش لبه در ۴۸ ساعت کاری انجام می‌شود. برای این کار، فایل نقشه (DWG یا PDF) را از طریق واتس‌اپ یا ایمیل دریافت می‌کنیم.</p></div>
+    </div><div class="acc-item">
+      <button class="acc-head js-acc" type="button" aria-expanded="false">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> حداقل مقدار سفارش چقدر است؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>حداقل سفارش برای خرید مستقیم ۱۰ مترمربع است. برای مقادیر کمتر، می‌توانید از نمایندگی‌های شهر خود یا فروشگاه اینترنتی (سفارش‌های خرد) استفاده کنید.</p></div>
+    </div><div class="acc-item">
+      <button class="acc-head js-acc" type="button" aria-expanded="false">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg> مدت زمان آماده‌سازی و تحویل سفارش چقدر است؟</span><i class="acc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></i>
+      </button>
+      <div class="acc-body"><p>محصولات موجود انبار در ۲۴ تا ۷۲ ساعت ارسال می‌شوند. محصولات تولیدی طبق سفارش، بین ۳ تا ۷ روز کاری و سفارش‌های سفارشی بین ۷ تا ۱۴ روز کاری آماده می‌شوند.</p></div>
+    </div></div>
+  </div>
+</section>

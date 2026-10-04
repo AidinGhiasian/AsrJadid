@@ -8,5 +8,10 @@ namespace Services.Models
     {
         public long Id { get; protected set; }
         public DateTime CreateDateTime { get; protected set; }
+
+        protected EntityBase()
+        {
+            CreateDateTime = DateTime.Now;
+        }
     }
 }

@@ -1,0 +1,198 @@
+@page "{id:long?}"
+@using Services.Application
+@model ProductModel
+@{
+    ViewData["Title"] = Model.Product?.StoneName ?? "جزئیات محصول";
+    ViewData["Active"] = "products";
+}
+
+<nav class="breadcrumb-wrap"><div class="container"><ol class="breadcrumb">
+  <li><a asp-page="/Index">صفحه اصلی</a></li><li><a asp-page="/Products">محصولات</a></li>
+  <li><a asp-page="/Category" asp-route-slug="@Model.Product?.CategorySlug">@(Model.Product?.CategoryName ?? "دسته‌بندی")</a></li><li aria-current="page">@(Model.Product?.StoneName ?? "محصول")</li></ol></div></nav>
+<section class="section">
+  <div class="container pd-layout">
+    <div class="pd-gallery">
+      <div class="pd-main"><img id="pdMain" src="@(Model.Product?.Picture.ImageUrl())" alt="@(Model.Product?.StoneName)">
+        <span class="badge badge-primary pd-badge">@(Model.Product?.CategoryName ?? "عصرجدید")</span></div>
+      <div class="pd-thumbs js-thumbs">
+@foreach (var img in Model.Gallery)
+{
+    <button class="pd-thumb @(img == Model.Gallery.FirstOrDefault() ? "active" : "") js-thumb" type="button" data-src="@img">
+        <img src="@img" alt="نمای محصول">
+    </button>
+}
+</div>
+      <div class="pd-share">
+        <span>اشتراک‌گذاری:</span>
+        <a href="#" class="icon-btn sm" data-share="telegram" title="اشتراک‌گذاری در تلگرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4 3 11l4 1.5 2 6 3-4 5 3z"/></svg></a>
+        <a href="#" class="icon-btn sm" data-share="whatsapp" title="اشتراک‌گذاری در واتس‌اپ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.6 7L4 20l1.2-4A8 8 0 1 1 20 12Z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5"/></svg></a>
+        <a href="#" class="icon-btn sm" data-share="linkedin" title="اشتراک‌گذاری در لینکدین"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 10v7M7 7h.01M11 17v-4a2 2 0 0 1 4 0v4"/></svg></a>
+        <button class="icon-btn sm js-wish" type="button" data-id="@Model.Product?.Id" aria-label="افزودن به علاقه‌مندی‌ها" title="افزودن به علاقه‌مندی‌ها"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.4-7-9.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 7 3.5C19 15.6 12 20 12 20Z"/></svg></button>
+        <button class="icon-btn sm js-print" type="button" aria-label="چاپ صفحه" title="چاپ مشخصات محصول"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8V4h10v4M7 18H4V9h16v9h-3"/><path d="M7 14h10v7H7z"/></svg></button>
+      </div>
+    </div>
+    <div class="pd-info">
+      <div class="pd-head">
+        <a class="cat-link" asp-page="/Category" asp-route-slug="@Model.Product?.CategorySlug">@(Model.Product?.CategoryName ?? "دسته‌بندی")</a>
+        <h1 class="pd-title">@Model.Product?.StoneName</h1>
+        <div class="pd-meta">
+          <span class="stars" aria-label="امتیاز"><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i></span><span class="rate-num">۴.۸</span>
+          <span class="muted">از ۱۲۶ دیدگاه</span>
+          <span class="divider"></span>
+          <span class="chip @(Model.InStock ? "chip-ok" : "chip-bad")">@(Model.InStock ? "موجود در انبار" : "ناموجود")</span>
+          <span class="muted">کد کالا: @Model.Product?.Id</span>
+        </div>
+        <p class="pd-lead">@Model.Product?.Description</p>
+      </div>
+      
+      <div class="pd-t2-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg> محصول دارای موجودی انبار است؛ سفارش‌های ثبت‌شده تا ساعت ۱۴، همان روز ارسال می‌شوند.</div>
+      <div class="pd-price-box">
+        <div class="price big"><span class="amount">@Model.Product?.Price.ToPersianNumber()</span><span class="cur">تومان / مترمربع</span></div>
+        <div class="pd-price-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 6 12 12"/><circle cx="7.5" cy="7.5" r="2"/><circle cx="16.5" cy="16.5" r="2"/></svg> خرید بالای ۵۰ مترمربع: تخفیف پلکانی تا ۸٪</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 4h11v11H1zM12 8h5l3 3.5V15h-8z"/><circle cx="5.5" cy="17.5" r="2"/><circle cx="16.5" cy="17.5" r="2"/></svg> ارسال با باربری تخصصی و بیمه کامل</span>
+        </div>
+      </div>
+      <ul class="pd-quick-specs">
+        <li><span>طول</span><strong>@Model.Product?.Length.ToPersianNumber() سانتی‌متر</strong></li>
+        <li><span>عرض</span><strong>@Model.Product?.Width.ToPersianNumber() سانتی‌متر</strong></li>
+        <li><span>وزن</span><strong>@Model.Product?.Weight.ToPersianNumber() کیلوگرم</strong></li>
+        <li><span>رنگ</span><strong>@Model.Product?.Color</strong></li>
+      </ul>
+      <div class="pd-variant">
+        <span class="variant-label">انتخاب طرح و رنگ:</span>
+        <div class="variant-list">
+@foreach (var color in Model.Colors)
+{
+    <button class="variant @(color == Model.Product?.Color ? "active" : "")" type="button"><span style="--c:#e2d3bd"></span>@color</button>
+}
+</div>
+      </div>
+      <div class="pd-buy">
+        <div class="qty qty-lg" data-qty>
+          <button type="button" class="qty-btn js-minus" aria-label="کاهش"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+          <input type="text" value="۱" inputmode="numeric" aria-label="تعداد">
+          <button type="button" class="qty-btn js-plus" aria-label="افزایش"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+        </div>
+        <button class="btn btn-primary btn-lg js-add" type="button" data-id="@Model.Product?.Id" data-name="@Model.Product?.StoneName" data-price="@Model.Product?.Price" data-image="@Model.Product?.Picture.ImageUrl()" @(Model.InStock ? "" : "disabled")><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h2.2l2.4 12.2a2 2 0 0 0 2 1.6h8.6a2 2 0 0 0 2-1.6L21 7H5"/></svg> افزودن به سبد خرید</button>
+        <a class="btn btn-dark btn-lg" asp-page="/Checkout"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg> خرید سریع</a>
+      </div>
+      <div class="pd-assure">
+        <div class="assure-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z"/><path d="m9 12 2 2 4-4"/></svg><div><strong>ضمانت اصالت</strong><small>۱۸ ماه ضمانت کتبی</small></div></div>
+        <div class="assure-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 15 15 3l6 6L9 21z"/><path d="m7 11 2 2M10 8l2 2M13 5l2 2"/></svg><div><strong>برش طبق نقشه</strong><small>تلرانس ±۰٫۵ میلی‌متر</small></div></div>
+        <div class="assure-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11A8 8 0 0 0 6 6L4 8M4 13a8 8 0 0 0 14 5l2-2"/><path d="M4 4v4h4M20 20v-4h-4"/></svg><div><strong>مرجوعی ۷ روزه</strong><small>در صورت نقص تولیدی</small></div></div>
+        <div class="assure-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg><div><strong>مشاوره فنی</strong><small>۷ روز هفته</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section section-soft">
+  <div class="container">
+    <div class="tabs js-tabs">
+      <div class="tabs-head">
+        <a class="tab-btn active" href="#tab-desc" data-tab="tab-desc">توضیحات محصول</a>
+        <a class="tab-btn" href="#tab-specs" data-tab="tab-specs">مشخصات فنی</a>
+        <a class="tab-btn" href="#tab-reviews" data-tab="tab-reviews">دیدگاه‌ها (۳)</a>
+        <a class="tab-btn" href="#tab-install" data-tab="tab-install">راهنمای نصب</a>
+      </div>
+      <div class="tabs-body">
+        <div class="tab-panel active" id="tab-desc">
+          <div class="prose">
+            <p>@Model.Product?.Description</p>
+            <h3>کاربردهای پیشنهادی</h3>
+            <ul>
+              <li>نما، کفپوش، دیوارپوش و سطوح داخلی</li>
+              <li>کانتر فروشگاهی، کافه و رستوران با ترافیک بالا</li>
+              <li>پروژه‌های مسکونی و تجاری با اجرای یکپارچه</li>
+            </ul>
+            <h3>نکات نگهداری</h3>
+            <p>شست‌وشوی روزانه با آب گرم و مایع بی‌اسید کافی است. از مواد ساینده پرهیز کنید و برای ظروف داغ از زیرقابلمه‌ای استفاده کنید.</p>
+          </div>
+        </div>
+        <div class="tab-panel" id="tab-specs">
+          <div class="table-wrap"><table class="table table-spec">
+            <tbody><tr><th>کد کالا</th><td>@Model.Product?.Id</td></tr><tr><th>دسته‌بندی</th><td>@(Model.Product?.CategoryName ?? "-")</td></tr><tr><th>رنگ</th><td>@Model.Product?.Color</td></tr><tr><th>طول</th><td>@Model.Product?.Length.ToPersianNumber() سانتی‌متر</td></tr><tr><th>عرض</th><td>@Model.Product?.Width.ToPersianNumber() سانتی‌متر</td></tr><tr><th>وزن</th><td>@Model.Product?.Weight.ToPersianNumber() کیلوگرم</td></tr><tr><th>موجودی</th><td>@Model.Product?.Stock.ToPersianNumber() مترمربع</td></tr></tbody>
+          </table></div>
+        </div>
+        <div class="tab-panel" id="tab-reviews">
+          <div class="reviews">
+            <div class="rev-summary">
+              <div class="rev-score"><strong>۴.۸</strong><span>از ۵</span><span class="stars" aria-label="امتیاز"><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i></span><small>بر اساس ۱۲۶ دیدگاه ثبت‌شده</small></div>
+              <div class="rev-bars">
+                <div class="rev-bar"><span>۵ ستاره</span><i><b style="width:78%"></b></i><small>۷۸٪</small></div>
+                <div class="rev-bar"><span>۴ ستاره</span><i><b style="width:16%"></b></i><small>۱۶٪</small></div>
+                <div class="rev-bar"><span>۳ ستاره</span><i><b style="width:4%"></b></i><small>۴٪</small></div>
+                <div class="rev-bar"><span>۲ ستاره</span><i><b style="width:1%"></b></i><small>۱٪</small></div>
+                <div class="rev-bar"><span>۱ ستاره</span><i><b style="width:1%"></b></i><small>۱٪</small></div>
+              </div>
+              <button class="btn btn-outline js-modal-btn" type="button" data-modal="review">ثبت دیدگاه جدید</button>
+            </div>
+            <div class="rev-list"><article class="review">
+      <div class="rev-head"><span class="avatar">م</span>
+        <div><strong>مهندس پویا رضایی</strong><span class="muted">۱۴۰۴/۰۶/۱۸</span></div><span class="stars" aria-label="امتیاز"><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i></span></div>
+      <p>کیفیت سطح و یکنواختی رنگ عالی بود. برش‌ها دقیقاً طبق نقشه انجام شد و بسته‌بندی هم بسیار حرفه‌ای بود.</p></article><article class="review">
+      <div class="rev-head"><span class="avatar">خ</span>
+        <div><strong>خانم الهام ن.</strong><span class="muted">۱۴۰۴/۰۵/۳۰</span></div><span class="stars" aria-label="امتیاز"><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i></span></div>
+      <p>محصول با قیمت مناسب و ارسال سریع. فقط زمان تحویل باربری یک روز بیشتر از اعلام اولیه طول کشید.</p></article><article class="review">
+      <div class="rev-head"><span class="avatar">ش</span>
+        <div><strong>شرکت سازه‌گستر</strong><span class="muted">۱۴۰۴/۰۵/۱۲</span></div><span class="stars" aria-label="امتیاز"><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i><i class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.7 6.3.9-4.6 4.4 1.1 6.2-5.5-3-5.5 3 1.1-6.2L3 9.6l6.3-.9L12 3Z"/></svg></i></span></div>
+      <p>برای پروژه ۳۰۰ متری سفارش دادیم؛ پشتیبانی فنی قبل از اجرا خیلی کمک کرد. حتماً دوباره همکاری می‌کنیم.</p></article></div>
+          </div>
+        </div>
+        <div class="tab-panel" id="tab-install">
+          <div class="prose">
+            <ol class="steps">
+              <li><strong>آماده‌سازی سطح:</strong> سطح باید تمیز، خشک و بدون گرد و غبار باشد. در دیوارهای گچی، پوشش تخته‌ای توصیه می‌شود.</li>
+              <li><strong>انتقال چیدمان:</strong> خط‌کشی و رگه‌بندی طبق نقشه اجرایی و با در نظر گرفتن جهت صفحه انجام می‌شود.</li>
+              <li><strong>چسب‌زنی:</strong> چسب مخصوص سنگ مصنوعی با شیارکش ۸ میلی‌متری روی دیوار و پشت صفحه اجرا می‌شود.</li>
+              <li><strong>نصب و تراز:</strong> صفحه با فاصله بند ۲ میلی‌متر نصب و تراز افقی کنترل می‌شود.</li>
+              <li><strong>بندکشی و پولیش:</strong> پس از ۲۴ ساعت بندکشی انجام و لبه‌ها پولیش می‌شوند.</li>
+            </ol>
+            <p class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 9v5m0 3h.01"/></svg> توصیه می‌شود نصب صفحات کوارتز و کورین فقط توسط تیم‌های آموزش‌دیده عصرجدید انجام شود تا ضمانت محصول معتبر باقی بماند.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="section-head align-center">
+      <div class="sec-text">
+        <span class="eyebrow">محصولات مرتبط</span>
+        <h2 class="sec-title">محصولات مشابه و مکمل</h2>
+        <p class="sec-sub">ترکیب این محصول با موارد زیر در پروژه‌های مشابه بیشترین انتخاب را داشته است.</p>
+      </div>
+      <a class="link-more" asp-page="/Products">مشاهده همه <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m7-7-7 7 7 7"/></svg></a>
+    </div>
+    <div class="grid grid-4">
+@foreach (var item in Model.Related)
+{
+    @await Html.PartialAsync("_ProductCard", item)
+}
+@if (Model.Related.Count == 0)
+{
+      <p class="muted">محصول مکملی برای این دسته ثبت نشده است. <a class="link" asp-page="/Products">همه محصولات</a> را ببینید.</p>
+}
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container cta-inner">
+    <div class="cta-text">
+      <span class="eyebrow eyebrow-light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v4m0 10v4M3 12h4m10 0h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/></svg> عصرجدید</span>
+      <h2>برای این محصول پیش‌فاکتور می‌خواهید؟</h2>
+      <p>متراژ و آدرس پروژه را ارسال کنید؛ کارشناس ما قیمت نهایی با حمل را اعلام می‌کند.</p>
+      <div class="cta-actions">
+      <a class="btn btn-primary btn-lg" asp-page="/Contact">درخواست مشاوره</a>
+      <a class="btn btn-outline btn-lg" asp-page="/PriceList">دریافت لیست قیمت</a>
+    </div>
+    </div>
+    <ul class="cta-points">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> بازدید و اندازه‌گیری رایگان در تهران و کرج</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> برش CNC طبق نقشه پروژه با تلرانس ±۰٫۵ میلی‌متر</li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> ضمانت‌نامه کتبی ۱۸ ماهه و ضمانت سطح کوارتز ۱۰ ساله</li>
+    </ul>
+  </div>
+</section>

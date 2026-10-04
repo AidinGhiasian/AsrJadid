@@ -1,0 +1,46 @@
+@page
+@model TermsModel
+@{
+    ViewData["Title"] = "قوانین و مقررات";
+    ViewData["Active"] = "about";
+}
+
+<section class="page-hero">
+  <div class="container">
+    <div class="ph-inner">
+      <h1 class="ph-title">قوانین و مقررات</h1>
+      <p class="ph-sub">شرایط خرید، ارسال، ضمانت و مرجوعی در فروشگاه عصرجدید</p>
+    </div>
+  </div>
+</section>
+<nav class="breadcrumb-wrap" aria-label="مسیر صفحه">
+  <div class="container">
+    <ol class="breadcrumb"><li><a asp-page="/Index">صفحه اصلی</a></li><li aria-current="page">قوانین و مقررات</li></ol>
+  </div>
+</nav>
+<section class="section">
+  <div class="container legal-layout">
+    <aside class="side-card">
+      <h3 class="side-title-static"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg> فهرست بندها</h3>
+      <ul class="side-nav"><li><a href="#b0">ثبت سفارش و تأیید فاکتور<span>۱</span></a></li><li><a href="#b1">قیمت‌ها و بروزرسانی<span>۲</span></a></li><li><a href="#b2">ارسال و حمل بار<span>۳</span></a></li><li><a href="#b3">گارانتی و مرجوعی<span>۴</span></a></li><li><a href="#b4">مسئولیت نصب<span>۵</span></a></li><li><a href="#b5">مالکیت معنوی<span>۶</span></a></li></ul>
+      <div class="side-help"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7M12 17h.01"/></svg><h3>پرسشی دارید؟</h3><p>واحد پشتیبانی پاسخ‌گوی شماست.</p>
+        <a class="btn btn-primary btn-block" asp-page="/Contact">تماس با پشتیبانی</a></div>
+    </aside>
+    <div class="legal-main">
+      <div class="notice-bar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3Z"/><path d="M12 9v5m0 3h.01"/></svg><p>آخرین به‌روزرسانی این سند: <strong>۱۴۰۴/۰۶/۰۱</strong> — استفاده از فروشگاه به معنای پذیرش این شرایط است.</p></div>
+      <div class="prose"><div class="legal-block">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> ثبت سفارش و تأیید فاکتور</h2><p>سفارش‌های ثبت‌شده در سایت، پس از تأیید کارشناس فروش و دریافت پیش‌پرداخت (۳۰٪ مبلغ) قطعی تلقی می‌شوند. سفارش‌های زیر ۱۰ مترمربع تنها در صورت موجودی انبار قابل تأیید است.</p></div><div class="legal-block">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> قیمت‌ها و بروزرسانی</h2><p>قیمت‌های درج‌شده در سایت به تومان و بدون احتساب مالیات بر ارزش افزوده و هزینه حمل است. قیمت محصولات وابسته به نرخ مواد اولیه است و تا ۴۸ ساعت پس از پیش‌فاکتور اعتبار دارد.</p></div><div class="legal-block">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> ارسال و حمل بار</h2><p>زمان تحویل برای محصولات موجود ۲۴ تا ۷۲ ساعت کاری، برای محصولات تولیدی ۳ تا ۷ روز کاری و برای سفارش‌های سفارشی ۷ تا ۱۴ روز کاری است. بیمه محموله بر عهده عصرجدید است.</p></div><div class="legal-block">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> گارانتی و مرجوعی</h2><p>همه محصولات دارای ضمانت کتبی ۱۸ ماهه هستند. مرجوعی فقط برای محصولات دارای نقص تولیدی و حداکثر تا ۷ روز پس از تحویل پذیرفته می‌شود؛ صفحه‌های برش‌خورده طبق نقشه اختصاصی مشتری قابل مرجوع نیستند.</p></div><div class="legal-block">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> مسئولیت نصب</h2><p>در صورتی که نصب توسط تیم عصرجدید انجام نشود، مسئولیت آسیب‌های ناشی از اجرای اشتباه (ترک، پوسته‌شدگی و لکه‌های چسب) بر عهده خریدار است. توصیه می‌شود اجرا فقط به تیم‌های آموزش‌دیده سپرده شود.</p></div><div class="legal-block">
+      <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg> مالکیت معنوی</h2><p>تمام تصاویر، متن‌ها، نقشه‌های برش و طرح‌های اختصاصی محصولات متعلق به عصرجدید است و استفاده تجاری از آن‌ها بدون اجازه کتبی ممنوع است.</p></div></div>
+      <div class="card info-card">
+        <span class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7v18h10V6l-3-3Z"/><path d="M14 3v3h3M9 13h6M9 17h6"/></svg></span>
+        <h3 class="card-title">دریافت نسخه PDF قرارداد فروش</h3>
+        <p class="card-text">برای پروژه‌های سازمانی، نسخه رسمی قرارداد تأمین کالا با شرایط اختصاصی قابل تنظیم است.</p>
+        <a class="btn btn-outline" asp-page="/Contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4M4 20h16"/></svg> درخواست نسخه رسمی</a>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,50 @@
+@page
+@model AsrJadid.Pages.Admin.ProfileModel
+@{
+    ViewData["Title"] = "پروفایل مدیر";
+    ViewData["Crumb"] = "اطلاعات حساب مدیریتی";
+    ViewData["AdminActive"] = "/Admin/Profile";
+}
+
+<div class="adm-page-head">
+    <div class="adm-page-title"><h2>اطلاعات حساب مدیریتی</h2><p>ویرایش مشخصات و تغییر رمز عبور مدیر</p></div>
+</div>
+
+@if (!string.IsNullOrWhiteSpace(Model.SuccessMessage))
+{
+    <div class="notice-bar notice-ok"><p>@Model.SuccessMessage</p></div>
+}
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="notice-bar"><p>@Model.ErrorMessage</p></div>
+}
+
+<div class="adm-grid-2">
+    <div class="adm-card">
+        <h3 class="adm-card-title">مشخصات مدیر</h3>
+        <form class="adm-form" method="post" enctype="multipart/form-data">
+            <div class="adm-form-grid">
+                <div class="field"><label>نام</label><input asp-for="Input.Name" required></div>
+                <div class="field"><label>نام خانوادگی</label><input asp-for="Input.Family" required></div>
+                <div class="field"><label>شماره همراه</label><input asp-for="Input.PhoneNumber" required></div>
+                <div class="field"><label>ایمیل</label><input asp-for="Input.Email" type="email"></div>
+                <div class="field full"><label>نشانی</label><textarea asp-for="Input.Address" rows="2"></textarea></div>
+                <div class="field"><label>تصویر پروفایل</label><input asp-for="Input.PictureFile" type="file" accept="image/*"></div>
+            </div>
+            <div class="adm-inline-actions">
+                <button class="btn btn-primary" type="submit">ذخیره تغییرات</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="adm-card">
+        <h3 class="adm-card-title">تغییر رمز عبور</h3>
+        <form class="adm-form" method="post" asp-page-handler="Password">
+            <div class="field"><label>رمز عبور جدید</label><input asp-for="PasswordInput.Password" type="password" required autocomplete="new-password"></div>
+            <div class="field"><label>تکرار رمز عبور جدید</label><input asp-for="PasswordInput.RePassword" type="password" required autocomplete="new-password"></div>
+            <div class="adm-inline-actions">
+                <button class="btn btn-primary" type="submit">تغییر رمز عبور</button>
+            </div>
+        </form>
+    </div>
+</div>

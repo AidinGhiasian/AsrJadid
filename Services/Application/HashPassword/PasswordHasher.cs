@@ -17,15 +17,19 @@ namespace Services.Application.HashPassword
 
         public string Hash(string password)
         {
-            using var algorithm = new Rfc2898DeriveBytes(password, SaltSize, Options.Iterations, HashAlgorithmName.SHA256);
-            var key = Convert.ToBase64String(algorithm.GetBytes(KeySize));
-            var salt = Convert.ToBase64String(algorithm.Salt);
+            var salt = RandomNumberGenerator.GetBytes(SaltSize);
+            var key = Rfc2898DeriveBytes.Pbkdf2(password, salt, Options.Iterations, HashAlgorithmName.SHA256, KeySize);
 
-            return $"{Options.Iterations}.{salt}.{key}";
+            return $"{Options.Iterations}.{Convert.ToBase64String(salt)}.{Convert.ToBase64String(key)}";
         }
 
         public (bool Verified, bool NeedsUpgrade) Check(string hash, string password)
         {
+            if (string.IsNullOrWhiteSpace(hash))
+            {
+                return (false, false);
+            }
+
             var parts = hash.Split('.', 3);
 
             if (parts.Length != 3)
@@ -39,10 +43,9 @@ namespace Services.Application.HashPassword
 
             var needsUpgrade = iterations != Options.Iterations;
 
-            using var algorithm = new Rfc2898DeriveBytes(password, salt, iterations, HashAlgorithmName.SHA256);
-            var keyToCheck = algorithm.GetBytes(KeySize);
+            var keyToCheck = Rfc2898DeriveBytes.Pbkdf2(password, salt, iterations, HashAlgorithmName.SHA256, KeySize);
 
-            var verified = keyToCheck.SequenceEqual(key);
+            var verified = CryptographicOperations.FixedTimeEquals(keyToCheck, key);
 
             return (verified, needsUpgrade);
         }

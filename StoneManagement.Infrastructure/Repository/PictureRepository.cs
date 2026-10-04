@@ -2,7 +2,7 @@
 using Services.Application;
 using StoneManagement.Domain.PicturesAgg;
 
-namespace StoneManagement.Infrastructure.EFCore.Repository
+namespace StoneManagement.Infrastructure.Repository
 {
     public class PictureRepository : RepositoryBase<Pictures>, IPictureRepository
     {

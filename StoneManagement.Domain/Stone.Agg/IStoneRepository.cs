@@ -1,9 +1,4 @@
 ﻿using Services.Application;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StoneManagement.Domain.Stone.Agg
 {
@@ -11,5 +6,6 @@ namespace StoneManagement.Domain.Stone.Agg
     {
         public OperationResult Delete(long id);
         public List<Stones> Search(string search);
+        public List<Stones> GetByCategory(long categoryId);
     }
 }

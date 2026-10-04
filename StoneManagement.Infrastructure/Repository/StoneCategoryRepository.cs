@@ -2,7 +2,7 @@
 using Services.Application;
 using StoneManagement.Domain.StoneCategory.Agg;
 
-namespace StoneManagement.Infrastructure.EFCore.Repository
+namespace StoneManagement.Infrastructure.Repository
 {
     public class StoneCategoryRepository : RepositoryBase<StoneCategory>, IStoneCategoryRepository
     {
@@ -11,7 +11,6 @@ namespace StoneManagement.Infrastructure.EFCore.Repository
         {
             _dbcontext = dbcontext;
         }
-
 
         public OperationResult Delete(long id)
         {
@@ -22,8 +21,22 @@ namespace StoneManagement.Infrastructure.EFCore.Repository
                 return result.Failed(ApplicationMessage.NotFound);
             }
             _dbcontext.Categories.Remove(categ);
+            _dbcontext.SaveChanges();
             return result.IsSuccess();
+        }
 
+        public StoneCategory? GetBySlug(string slug)
+        {
+            if (string.IsNullOrWhiteSpace(slug))
+                return null;
+
+            var normalized = slug.Trim().ToLower();
+            return _dbcontext.Categories.FirstOrDefault(x => x.Slug == normalized);
+        }
+
+        public override List<StoneCategory> GetAll()
+        {
+            return _dbcontext.Categories.Include(x => x.Stones).ToList();
         }
     }
 }

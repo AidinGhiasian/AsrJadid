@@ -1,7 +1,7 @@
 ﻿using AccountManagment.Domain.Domain.Roles.Agg;
 using Services.Application;
 
-namespace AccountManagment.Infrastructure.EFCore.Repository
+namespace AccountManagment.Infrastructure.Repository
 {
     public class RoleRepository : RepositoryBase<Roles>, IRoleRepository
     {

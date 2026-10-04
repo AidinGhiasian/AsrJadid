@@ -1,0 +1,30 @@
+@page
+@model WishlistModel
+@{
+    ViewData["Title"] = "علاقه‌مندی‌ها";
+}
+
+<section class="page-hero">
+    <div class="container">
+        <div class="ph-inner">
+            <h1 class="ph-title">علاقه‌مندی‌ها</h1>
+            <p class="ph-sub" id="wishCount">در حال بارگذاری لیست علاقه‌مندی‌ها…</p>
+        </div>
+    </div>
+</section>
+<nav class="breadcrumb-wrap" aria-label="مسیر صفحه">
+    <div class="container">
+        <ol class="breadcrumb"><li><a asp-page="/Index">صفحه اصلی</a></li><li aria-current="page">علاقه‌مندی‌ها</li></ol>
+    </div>
+</nav>
+<section class="section">
+    <div class="container">
+        <div class="grid grid-3 js-products" id="wishGrid">
+            <div class="empty-state"><p class="muted">در حال بارگذاری…</p></div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/assets/js/basket-pages.js" asp-append-version="true"></script>
+}
