@@ -436,7 +436,7 @@ def header_t2(active=""):
     </nav>
     <div class="header-actions">
       <button class="icon-btn js-search-open" type="button" title="جستجو">{icon("search")}</button>
-      <a class="icon-btn" href="compare.html" title="مقایسه">{icon("sort")}</a>
+      <a class="icon-btn hide-xs" href="compare.html" title="مقایسه">{icon("sort")}</a>
       <a class="icon-btn" href="cart.html" title="سبد خرید">{icon("cart")}<span class="dot-count js-cart-count">۰</span></a>
       <a class="btn btn-dark header-cta" href="contact.html">{icon("chat")} استعلام قیمت</a>
       <button class="icon-btn nav-toggle js-nav-toggle" type="button" aria-label="منو">{icon("menu")}</button>

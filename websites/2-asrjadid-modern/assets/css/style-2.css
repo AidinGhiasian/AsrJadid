@@ -545,7 +545,7 @@ svg{width:20px;height:20px;flex:none}
 .pd-main{position:relative;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--c-line);background:var(--c-soft)}
 .pd-main img{width:100%;aspect-ratio:4/3;object-fit:cover}
 .pd-badge{top:16px;inset-inline-start:16px}
-.pd-thumbs{display:flex;gap:10px;margin-top:12px}
+.pd-thumbs{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
 .pd-thumb{width:84px;height:68px;border-radius:var(--r-sm);overflow:hidden;border:2px solid var(--c-line);padding:0;background:none}
 .pd-thumb.active{border-color:var(--c-brand)}
 .pd-thumb img{width:100%;height:100%;object-fit:cover}
@@ -1010,16 +1010,17 @@ svg{width:20px;height:20px;flex:none}
   .hs-media{min-height:360px;margin-top:20px}
 }
 @media (max-width:960px){
-  .nav-main{position:fixed;inset:0 0 0 auto;width:min(340px,86vw);background:var(--c-card);padding:22px;z-index:90;
-    transform:translateX(-100%);transition:transform .3s ease;overflow-y:auto;box-shadow:var(--sh-3);display:flex;flex-direction:column}
-  html[dir="rtl"] .nav-main{inset-inline-start:0;transform:translateX(-100%)}
+  .nav-main{position:fixed;top:0;bottom:0;inset-inline-start:0;inset-inline-end:auto;width:min(340px,86vw);background:var(--c-card);padding:22px;z-index:90;
+    transform:translateX(100%);transition:transform .3s ease;overflow-y:auto;box-shadow:var(--sh-3);display:flex;flex-direction:column}
+  html[dir="rtl"] .nav-main{transform:translateX(100%)}
+  html[dir="ltr"] .nav-main{transform:translateX(-100%)}
   .nav-main.open{transform:none}
   .nav-list{flex-direction:column;align-items:stretch;gap:2px}
   .nav-link{justify-content:space-between;padding:13px 12px;font-size:.98rem}
   .nav-toggle{display:inline-flex}
   .nav-mobile-extra{display:flex}
   .mega{position:static;transform:none;opacity:1;visibility:visible;width:100%;box-shadow:none;border:0;padding:6px 0 0;display:none}
-  .has-mega:hover .mega{display:block;transform:none}
+  .has-mega:hover .mega,.has-mega.mega-open .mega{display:block;transform:none}
   .header-cta{display:none}
   .grid-3,.grid-1-2,.grid-2-1{grid-template-columns:repeat(2,1fr)}
   .shop-layout,.blog-layout,.art-layout,.faq-layout,.legal-layout,.search-layout,.job-layout,.cart-layout,.checkout-layout,
@@ -1068,76 +1069,6 @@ svg{width:20px;height:20px;flex:none}
 @media print{
   .site-header,.site-footer,.topbar,.float-tools,.breadcrumb-wrap,.cta-band,.feature-strip,.t2-ticker{display:none!important}
   body{background:#fff}
-}
-
-
-/* ==========================================================================
-   اصلاحات واکنش‌گرایی و فاصله‌ها — عصرجدید (بازبینی نهایی)
-   این بلوک عمداً در پایان فایل است تا پدینگ‌های clamp پوسته ۲ را
-   روی نمایشگرهای کوچک بازنویسی کند (چون بلوک پوسته ۲ بعد از
-   مدیا‌کوئری‌های اصلی قرار گرفته بود و آن‌ها را بی‌اثر می‌کرد).
-   ========================================================================== */
-.table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.fb-copy{display:flex;flex-direction:column;gap:4px;align-items:center;text-align:center}
-.fb-credit{font-size:.82rem;color:rgba(255,255,255,.62)}
-.side-note{margin:0;font-size:.86rem;line-height:1.9;color:var(--c-muted)}
-.side-note strong{color:var(--c-ink-2)}
-
-@media (max-width:1100px){
-  .theme-2 .section{padding:clamp(30px,4.4vw,58px) 0}
-  .theme-2 .page-hero{padding:clamp(26px,4.4vw,50px) 0}
-}
-@media (max-width:960px){
-  .theme-2 .section{padding:34px 0}
-  .theme-2 .page-hero{padding:30px 0}
-  .section-head{margin-bottom:24px}
-  .footer-grid{gap:24px}
-  .trust-grid{padding:16px}
-}
-@media (max-width:720px){
-  .container{padding:0 16px}
-  .theme-2 .section{padding:28px 0}
-  .theme-2 .page-hero{padding:24px 0}
-  .page-hero{padding:26px 0}
-  .theme-2 .header-inner{min-height:auto;padding-block:12px}
-  .section-head{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:20px}
-  .section-head.align-center{align-items:center;text-align:center}
-  .grid-2,.grid-3,.grid-4,.feature-grid{gap:14px}
-  .card-body{padding:16px}
-  .summary,.info-card,.testi-card,.side-card,.value-card,.team-card,.job-card,.sitemap-col,.service-card{padding:16px}
-  .card-foot{gap:10px}
-  .js-products.view-list .product-card{flex-direction:column}
-  .js-products.view-list .card-media{width:100%;flex:auto;aspect-ratio:4/3}
-  .js-products.view-list .card-body{flex-direction:column;align-items:flex-start;gap:8px}
-  .table-wrap > .table:not(.cart-table):not(.compare-table){min-width:560px}
-  .table th,.table td{padding:11px 12px}
-  .pd-buy{gap:8px}
-  .pd-buy .btn{flex:1 1 100%}
-  .cta-band::after,.theme-2 .cta-band::after{display:none}
-  .map-ph{aspect-ratio:auto;min-height:230px}
-  .toast-wrap{inset-inline:14px;bottom:14px}
-  .toast{max-width:100%}
-  .hero-split{padding-block:34px}
-  .newsletter{gap:16px}
-}
-@media (max-width:480px){
-  .container{padding:0 14px}
-  .theme-2 .section{padding:24px 0}
-  .theme-2 .page-hero{padding:20px 0}
-  .theme-2 .sec-title,.sec-title{font-size:1.32rem}
-  .theme-2 .sec-sub,.sec-sub{font-size:.9rem}
-  .card-body{padding:14px}
-  .btn{padding:10px 15px;font-size:.88rem}
-  .btn-lg{padding:12px 17px;font-size:.95rem}
-  .chip-btn{padding:6px 11px;font-size:.8rem}
-  .page-link{min-width:36px;height:36px}
-  .stat{padding:14px}
-  .grid-2,.grid-3,.grid-4,.feature-grid,.stats-row{gap:12px}
-  .table th,.table td{padding:10px 11px;font-size:.83rem}
-  .fb-credit{font-size:.78rem}
-  .footer-bottom{padding:14px 0}
-  .trust-grid{gap:12px;padding:14px}
-  .modal-card{padding:16px}
 }
 
 /* ==========================================================================
@@ -1264,3 +1195,98 @@ body.theme-2{color:var(--c-ink)}
 .theme-2 .g-overlay i{background:rgba(15,118,110,.75)}
 .theme-2 .hero-split .hs-points svg{color:var(--c-brand)}
 .theme-2 .btn-ghost-dark:hover{background:var(--c-ink);color:#fff;border-color:var(--c-ink)}
+
+/* ==========================================================================
+   اصلاحات واکنش‌گرایی و فاصله‌ها — عصرجدید (بازبینی نهایی)
+   این بلوک عمداً بعد از بلوک پوسته قرار می‌گیرد تا پدینگ‌های clamp پوسته ۲ را
+   روی نمایشگرهای کوچک بازنویسی کند (چون بلوک پوسته بعد از مدیا‌کوئری‌های
+   اصلی قرار گرفته و آن‌ها را بی‌اثر می‌کرد).
+   ========================================================================== */
+.table-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.fb-copy{display:flex;flex-direction:column;gap:4px;align-items:center;text-align:center}
+.fb-credit{font-size:.82rem;color:rgba(255,255,255,.62)}
+.side-note{margin:0;font-size:.86rem;line-height:1.9;color:var(--c-muted)}
+.side-note strong{color:var(--c-ink-2)}
+
+@media (max-width:1100px){
+  .theme-2 .section{padding:clamp(30px,4.4vw,58px) 0}
+  .theme-2 .page-hero{padding:clamp(26px,4.4vw,50px) 0}
+}
+@media (max-width:960px){
+  .theme-2 .section{padding:34px 0}
+  .theme-2 .page-hero{padding:30px 0}
+  .section-head{margin-bottom:24px}
+  .footer-grid{gap:24px}
+  .trust-grid{padding:16px}
+}
+@media (max-width:720px){
+  .container{padding:0 16px}
+  .theme-2 .section{padding:28px 0}
+  .theme-2 .page-hero{padding:24px 0}
+  .page-hero{padding:26px 0}
+  .theme-2 .header-inner{min-height:auto;padding-block:12px}
+  .section-head{flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:20px}
+  .section-head.align-center{align-items:center;text-align:center}
+  .grid-2,.grid-3,.grid-4,.feature-grid{gap:14px}
+  .card-body{padding:16px}
+  .summary,.info-card,.testi-card,.side-card,.value-card,.team-card,.job-card,.sitemap-col,.service-card{padding:16px}
+  .card-foot{gap:10px}
+  .js-products.view-list .product-card{flex-direction:column}
+  .js-products.view-list .card-media{width:100%;flex:auto;aspect-ratio:4/3}
+  .js-products.view-list .card-body{flex-direction:column;align-items:flex-start;gap:8px}
+  .table-wrap > .table:not(.cart-table):not(.compare-table){min-width:560px}
+  .table th,.table td{padding:11px 12px}
+  .pd-buy{gap:8px}
+  .pd-buy .btn{flex:1 1 100%}
+  .cta-band::after,.theme-2 .cta-band::after{display:none}
+  .map-ph{aspect-ratio:auto;min-height:230px}
+  .toast-wrap{inset-inline:14px;bottom:14px}
+  .toast{max-width:100%}
+  .hero-split{padding-block:34px}
+  .newsletter{gap:16px}
+  .grid-1-2,.grid-2-1{grid-template-columns:1fr}
+  .pj-gallery{grid-template-columns:repeat(2,1fr)}
+  .table-wrap > .compare-table{min-width:560px}
+  .header-inner{gap:12px}
+  .header-actions{gap:6px}
+  .pd-thumbs{gap:8px}
+  input,select,textarea{font-size:16px}
+}
+@media (max-width:480px){
+  .container{padding:0 14px}
+  .theme-2 .section{padding:24px 0}
+  .theme-2 .page-hero{padding:20px 0}
+  .theme-2 .sec-title,.sec-title{font-size:1.32rem}
+  .theme-2 .sec-sub,.sec-sub{font-size:.9rem}
+  .card-body{padding:14px}
+  .btn{padding:10px 15px;font-size:.88rem}
+  .btn-lg{padding:12px 17px;font-size:.95rem}
+  .chip-btn{padding:6px 11px;font-size:.8rem}
+  .page-link{min-width:36px;height:36px}
+  .stat{padding:14px}
+  .grid-2,.grid-3,.grid-4,.feature-grid,.stats-row{gap:12px}
+  .table th,.table td{padding:10px 11px;font-size:.83rem}
+  .fb-credit{font-size:.78rem}
+  .footer-bottom{padding:14px 0}
+  .trust-grid{gap:12px;padding:14px}
+  .modal-card{padding:16px}
+  .brand{gap:8px}
+  .brand-mark{width:40px;height:40px}
+  .brand-text strong{font-size:1.05rem}
+  .brand-text small{display:none}
+  .icon-btn{width:36px;height:36px}
+  .ticker-tag{display:none}
+  .calc-result{grid-template-columns:1fr}
+  .auth-social{grid-template-columns:1fr}
+  .mega-grid{grid-template-columns:1fr}
+  .modal{padding:14px}
+  .modal-body{padding:16px}
+  .search-box{padding:18px}
+  .toolbar{padding:10px 12px}
+}
+@media (max-width:420px){
+  .hide-xs{display:none}
+}
+
+/* جلوگیری از اسکرول افقی به‌خاطر متن‌ها/لینک‌های بلند */
+.article-body,.card-body,.table td,.table th,.summary li{overflow-wrap:break-word}

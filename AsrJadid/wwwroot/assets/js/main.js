@@ -53,7 +53,10 @@
   onScroll();
 
   const nav = $('#mainNav');
-  function closeNav() { if (nav) nav.classList.remove('open'); }
+  function closeNav() {
+    if (nav) nav.classList.remove('open');
+    $$('.has-mega').forEach((i) => i.classList.remove('mega-open'));
+  }
   $$('.js-nav-toggle').forEach((b) =>
     b.addEventListener('click', () => {
       if (!nav) return;
@@ -68,6 +71,17 @@
       closeNav();
       document.body.style.overflow = '';
     }
+  });
+
+  /* منوی «گروه محصولات» در موبایل: لمس اول زیرمنو را باز می‌کند، لمس دوم وارد صفحه می‌شود */
+  $$('.has-mega > .nav-link').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const item = link.parentElement;
+      if (window.matchMedia('(max-width:960px)').matches && !item.classList.contains('mega-open')) {
+        e.preventDefault();
+        item.classList.add('mega-open');
+      }
+    });
   });
 
   /* search overlay */
