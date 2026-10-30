@@ -352,8 +352,9 @@ body.admin.dark .toast{background:#26304a}
 }
 @media (max-width:960px){
   .adm-shell{grid-template-columns:1fr}
-  .adm-side{position:fixed;inset-block:0;inset-inline-end:0;width:min(280px,86vw);transform:translateX(100%);
+  .adm-side{position:fixed;top:0;bottom:0;inset-inline-start:0;inset-inline-end:auto;width:min(280px,86vw);transform:translateX(100%);
     transition:transform .25s ease;z-index:100;box-shadow:-20px 0 50px -30px rgba(0,0,0,.4)}
+  html[dir="ltr"] .adm-side{transform:translateX(-100%)}
   .adm-side.open{transform:none}
   .adm-side-close{display:inline-flex}
   .adm-user-text{display:none}
@@ -367,4 +368,56 @@ body.admin.dark .toast{background:#26304a}
   .report-tiles{grid-template-columns:1fr}
   .upload-grid{grid-template-columns:1fr 1fr}
   .donut-simple{justify-content:center}
+}
+/* --- افزوده‌های پروژه: پیام موفقیت و حالت خالی --- */
+.notice-bar.notice-ok{border-color:#86efac;background:#f0fdf4;color:#166534}
+.notice-bar.notice-ok p{color:#166534}
+.adm-quiet{padding:26px 18px;text-align:center;color:#64748b;border:1px dashed #cbd5e1;border-radius:14px;background:#f8fafc}
+.kv-list{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none}
+.kv-list li{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px dashed #e2e8f0;padding-bottom:8px}
+.kv-list li:last-child{border-bottom:0}
+.kv-list strong{font-weight:700}
+@media (max-width:720px){.adm-table{min-width:640px}.table-wrap{overflow-x:auto}}
+
+.adm-card-title{font-size:1rem;font-weight:700;margin:0 0 14px}
+
+
+/* ==========================================================================
+   اصلاحات واکنش‌گرایی پنل مدیریت — فاصله‌ها و جدول‌ها روی نمایشگر کوچک
+   ========================================================================== */
+@media (max-width:960px){
+  .adm-content{gap:16px}
+  .adm-card{padding:18px}
+}
+@media (max-width:720px){
+  .adm-content{padding:14px;gap:14px}
+  .adm-card{padding:14px;border-radius:var(--r)}
+  .kpi{padding:14px}
+  .adm-page-head{flex-direction:column;align-items:flex-start;gap:10px}
+  .adm-page-actions{width:100%}
+  .adm-page-actions .btn{flex:1}
+  .adm-filters{gap:8px}
+  .adm-select{min-width:0;flex:1 1 46%}
+  .adm-tools,.table-tools{padding:12px}
+  .table-wrap > .adm-table{min-width:560px}
+  .modal{padding:12px}
+  .modal-body{padding:16px}
+  .adm-login-page{padding:16px}
+  .adm-quiet{padding:18px 12px}
+  .adm-login-foot{font-size:.78rem}
+}
+@media (max-width:480px){
+  .adm-card{padding:12px}
+  .adm-table td{padding:10px 9px;font-size:.8rem}
+  .adm-table thead th{font-size:.74rem}
+  .tabs-head{gap:4px;padding-bottom:8px}
+  .tab-btn{padding:7px 11px;font-size:.8rem}
+  .upload-grid{grid-template-columns:1fr}
+  .adm-top{gap:8px;padding:0 12px}
+  .adm-crumb{min-width:0}
+  .adm-crumb h1{font-size:.92rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .adm-crumb-sub{display:none}
+  .adm-top-actions{gap:6px}
+  .adm-top-actions .btn{padding:7px 10px;font-size:.8rem}
+  .adm-user{gap:6px}
 }
