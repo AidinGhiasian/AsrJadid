@@ -100,8 +100,11 @@ def copy_assets(dest, t):
 
     shared = read_src("theme", "shared.css")
     theme = read_src("theme", f"theme{t}.css")
+    responsive = read_src("theme", "responsive.css")
+    # ترتیب مهم است: بلوک اصلاحات واکنش‌گرایی باید بعد از بلوک پوسته بیاید
+    # تا بازنویسی‌های آن (به‌ویژه برای پوسته ۲) اثر کنند.
     write(os.path.join(dest, "assets", "css", f"style-{t}.css"),
-          f"/* عصرجدید — پوسته {t} | فایل کامل و مستقل */\n" + shared + "\n" + theme)
+          f"/* عصرجدید — پوسته {t} | فایل کامل و مستقل */\n" + shared + "\n" + theme + "\n" + responsive)
 
     write(os.path.join(dest, "assets", "js", "main.js"), read_src("theme", "main.js"))
     write(os.path.join(dest, "assets", "js", "admin.js"), read_src("theme", "admin.js"))

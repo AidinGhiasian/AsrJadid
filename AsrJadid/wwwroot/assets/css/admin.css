@@ -352,8 +352,9 @@ body.admin.dark .toast{background:#26304a}
 }
 @media (max-width:960px){
   .adm-shell{grid-template-columns:1fr}
-  .adm-side{position:fixed;inset-block:0;inset-inline-end:0;width:min(280px,86vw);transform:translateX(100%);
+  .adm-side{position:fixed;top:0;bottom:0;inset-inline-start:0;inset-inline-end:auto;width:min(280px,86vw);transform:translateX(100%);
     transition:transform .25s ease;z-index:100;box-shadow:-20px 0 50px -30px rgba(0,0,0,.4)}
+  html[dir="ltr"] .adm-side{transform:translateX(-100%)}
   .adm-side.open{transform:none}
   .adm-side-close{display:inline-flex}
   .adm-user-text{display:none}
@@ -412,4 +413,11 @@ body.admin.dark .toast{background:#26304a}
   .tabs-head{gap:4px;padding-bottom:8px}
   .tab-btn{padding:7px 11px;font-size:.8rem}
   .upload-grid{grid-template-columns:1fr}
+  .adm-top{gap:8px;padding:0 12px}
+  .adm-crumb{min-width:0}
+  .adm-crumb h1{font-size:.92rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .adm-crumb-sub{display:none}
+  .adm-top-actions{gap:6px}
+  .adm-top-actions .btn{padding:7px 10px;font-size:.8rem}
+  .adm-user{gap:6px}
 }
